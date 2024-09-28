@@ -12,15 +12,15 @@
 
 # theme                  : "minimal-mistakes-jekyll"
 # remote_theme           : "mmistakes/minimal-mistakes"
-minimal_mistakes_skin    : "default" # "air", "aqua", "contrast", "dark", "dirt", "neon", "mint", "plum", "sunrise"
+minimal_mistakes_skin    : "contrast" # "air", "aqua", "contrast", "dark", "dirt", "neon", "mint", "plum", "sunrise"
 
 # Site Settings
 locale                   : "en-US"
-title                    : "GitHub Pages 따라하기- devinlife.github.io"
+title                    : "em-1001.github.io"
 title_separator          : "-"
 subtitle                 : # site tagline that appears below site title in masthead
-name                     : "취미코딩하는 개발자"
-description              : "회사에서는 월급 받고 집에서는 취미로 코딩하는 개발자의 블로그"
+name                     : "h01y_w4t3r"
+description              : "probability and statistics"
 url                      : "https://em-1001.github.io"
 baseurl                  : # 서브 경로가 있는 경우 기재
 repository               : # GitHub username/repo-name e.g. "mmistakes/minimal-mistakes"
@@ -92,18 +92,18 @@ analytics:
 
 # Site Author
 author:
-  name             : "취미코딩하는 개발자"
-  avatar           : "/assets/images/bio-photo-keyboard.jpg"
-  bio              : "회사에서는 월급 받고 집에서는 취미로 코딩하는 개발자"
+  name             : "h01y_w4t3r"
+  avatar           : "/assets/images/cat.jpg"
+  bio              : "probability and statistics"
   location         : "South Korea"
   email            :
   links:
     - label: "Email"
       icon: "fas fa-fw fa-envelope-square"
-      url: mailto:devinlifeidea@gmail.com
+      url: mailto:sj2129tommy@gmail.com
     - label: "Website"
       icon: "fas fa-fw fa-link"
-      url: "https://devinlife.com"
+      url: "https://velog.io/@h01y_w4t3r/"
     - label: "Twitter"
       icon: "fab fa-fw fa-twitter-square"
       # url: "https://twitter.com/"
@@ -112,7 +112,7 @@ author:
       # url: "https://facebook.com/"
     - label: "GitHub"
       icon: "fab fa-fw fa-github"
-      url: "https://github.com/devinlife"
+      url: "https://github.com/em-1001"
     - label: "Instagram"
       icon: "fab fa-fw fa-instagram"
       # url: "https://instagram.com/"
@@ -128,7 +128,7 @@ footer:
       # url:
     - label: "GitHub"
       icon: "fab fa-fw fa-github"
-      url: "https://github.com/devinlife"
+      url: "https://github.com/em-1001"
     - label: "GitLab"
       icon: "fab fa-fw fa-gitlab"
       # url:
@@ -137,7 +137,7 @@ footer:
       # url:
     - label: "Instagram"
       icon: "fab fa-fw fa-instagram"
-      # url:
+      url: "https://www.instagram.com/em_11002/"
 
 
 # Reading Files
