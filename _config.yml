@@ -21,7 +21,7 @@ title_separator          : "-"
 subtitle                 : # site tagline that appears below site title in masthead
 name                     : "취미코딩하는 개발자"
 description              : "회사에서는 월급 받고 집에서는 취미로 코딩하는 개발자의 블로그"
-url                      : "https://devinlife.github.io"
+url                      : "https://em-1001.github.io"
 baseurl                  : # 서브 경로가 있는 경우 기재
 repository               : # GitHub username/repo-name e.g. "mmistakes/minimal-mistakes"
 teaser                   : "/assets/images/bio-photo-keyboard.jpg"
