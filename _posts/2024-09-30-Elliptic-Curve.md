@@ -11,8 +11,13 @@ tags:
 last_modified_at: 2024-09-30T08:06:00-05:00
 ---
 
-
 ## Elliptic Curve
+
+An elliptic curve is a graph of a curve showing a set of $x$ and $y$ that satisfy the equation below.
+
+<p align="center"><img width="30%" height="30%" src="/assets/images/elliptic/1.png"><p/>   
+
+$$\lbrace (x, y) ∈ ℝ^2 \vert y^2 = x^3 + ax + b, 4a^3 + 27b^2 \neq 0 \rbrace ∪ \lbrace0\rbrace$$  
 
 The shape of the above elliptic curve is called the **Weierstrass elliptic curve**, and there are other types of elliptic curves such as **Montgomery, Edwards, Jacobi, and Hessian**.     
   
@@ -29,7 +34,7 @@ The shape of the above elliptic curve is called the **Weierstrass elliptic curve
   
 $P + Q + R = 0, P + Q = -R$
    
-<img width="35%" height="35%" src="/assets/images/elliptic/2.png" />
+<img width="35%" height="35%" src="/assets/images/elliptic/2.png">
 
 
 ### case  
@@ -80,7 +85,7 @@ It exists in infinitely finite places in x, y and coordinate systems, using Modu
 
 $E : y^2 = x^3 + x$ $over$ $Z_{23}$
 
-<img width="50%" height="50%" src="/assets/images/elliptic/3.png" />
+<img width="50%" height="50%" src="/assets/images/elliptic/3.png">
 
 
 The figure above shows all the coordinates that exist on the GF when p is 23.  
@@ -107,7 +112,7 @@ In the $Q = xG$ formula, it is easy to obtain $Q$ using $x$ and $G$, but it is d
 
 This is called the **Elliptic Curve Discrete Logarithm Problem (ECDLP)**, and because of this property, it is used as a public key cryptography technology.
 
-<p align="center"> <img width="40%" height="40%" src="/assets/images/elliptic/4.png" /> <p/>
+<p align="center"><img width="40%" height="40%" src="/assets/images/elliptic/4.png"></p>
 
 The figure above is a geometric schematic of the computational process of $xG$.
 
@@ -364,7 +369,7 @@ function publicKeyToAddress(pubKey: Buffer): Buffer {
 
 ## Edwards curve
 
-<p align="center"><img width="50%" height="50%" src="/assets/images/elliptic/5.png" /> <p/>
+<p align="center"><img width="50%" height="50%" src="/assets/images/elliptic/5.png"></p>
 
 
 The equation of an Edwards curve over a field K which does not have characteristic 2 is: 
@@ -383,7 +388,7 @@ One of the attractive feature of the Edwards Addition law is that it is strongly
 
 ### An analogue on the circle
 
-<p align="center"><img width="35%" height="35%" src="/assets/images/elliptic/6.png" /> <p/>
+<p align="center"><img width="35%" height="35%" src="/assets/images/elliptic/6.png"></p>
 
 To understand better the concept of "addition" of points on a curve, a nice example is given by the classical circle group:  
 take the circle of radius 1
