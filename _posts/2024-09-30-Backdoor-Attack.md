@@ -3,7 +3,7 @@ title:  "Backdoor Attack"
 excerpt: "Backdoor Attack paper review"
 
 categories:
-  - Paper
+  - Computer Vision
 tags:
   - AI
   - Computer Vision
