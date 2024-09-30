@@ -1,7 +1,19 @@
-## Elliptic Curve
+---
+title:  "Elliptic Curve"
+excerpt: "Elliptic Curve"
+
+categories:
+  - Cryptography
+tags:
+  - cryptography
+  - security
+last_modified_at: 2024-09-29T08:06:00-05:00
+---
+
+# Elliptic Curve
 An elliptic curve is a graph of a curve showing a set of $x$ and $y$ that satisfy the equation below.
 
-<p align="center"><img width="30%" height="30%" src="https://user-images.githubusercontent.com/80628552/228326497-7b193cc0-37a2-4864-8d51-ac03d203db25.png" /> <p/>
+<p align="center"><img width="30%" height="30%" src="/assets/images/elliptic/1.png" /> <p/>
 
 $$ \lbrace (x, y) ∈ ℝ^2 | y^2 = x^3 + ax + b, 4a^3 + 27b^2 ≠ 0 \rbrace ∪ \lbrace0\rbrace$$
 
@@ -17,7 +29,7 @@ The shape of the above elliptic curve is called the **Weierstrass elliptic curve
 ## Geometric Addition 
 $P + Q + R = 0, P + Q = -R$
 
-<img width="35%" height="35%" src="https://user-images.githubusercontent.com/80628552/228331188-105ecf9c-d525-4cac-97dd-209a7df1bfa2.png" />
+<img width="35%" height="35%" src="/assets/images/elliptic/2.png" />
 
 ### case
 1. $P = 0$ $or$ $Q = 0$  
@@ -43,7 +55,7 @@ $P + Q + R = 0, P + Q = -R$
  $f(x)^2 - x^3 - ax - b = 0$  
  $2f(x)f'(x) -3x^2 -a = 0$    
  
- $$λ = \frac{3x^2 + a} {2y}$$
+ $λ = \frac{3x^2 + a} {2y}$
 
  
  $y - y_P = λ(x - x_P)$   
@@ -64,7 +76,7 @@ It exists in infinitely finite places in x, y and coordinate systems, using Modu
 
 $E : y^2 = x^3 + x$ $over$ $Z_{23}$
 
-<img width="35%" height="35%" src="https://user-images.githubusercontent.com/80628552/228831913-90a76774-8347-4d1f-9be0-b8e3045ef605.png" />
+<img width="50%" height="50%" src="/assets/images/elliptic/3.png" />
 
 
 The figure above shows all the coordinates that exist on the GF when p is 23.  
@@ -90,7 +102,7 @@ In the $Q = xG$ formula, it is easy to obtain $Q$ using $x$ and $G$, but it is d
 
 This is called the **Elliptic Curve Discrete Logarithm Problem (ECDLP)**, and because of this property, it is used as a public key cryptography technology.
 
-<p align="center"> <img width="40%" height="40%" src="https://user-images.githubusercontent.com/80628552/228346156-a829097a-09eb-4bce-b9e9-33a4bc579c95.png" /> <p/>
+<p align="center"> <img width="40%" height="40%" src="/assets/images/elliptic/4.png" /> <p/>
 
 The figure above is a geometric schematic of the computational process of $xG$.
 
@@ -337,7 +349,7 @@ function publicKeyToAddress(pubKey: Buffer): Buffer {
 
 ## Edwards curve
 
-<p align="center"><img width="50%" height="50%" src="https://user-images.githubusercontent.com/80628552/232719661-df013bd4-7632-4169-a7de-5ae193a96603.png" /> <p/>
+<p align="center"><img width="50%" height="50%" src="/assets/images/elliptic/5.png" /> <p/>
 
 
 The equation of an Edwards curve over a field K which does not have characteristic 2 is: 
@@ -354,7 +366,7 @@ The opposite of any point $(x, y)$ is $(-x, y)$. The point $(0, -1)$ has order 2
 One of the attractive feature of the Edwards Addition law is that it is strongly unified i.e. it can also be used to double a point, simplifying protection against side-channel attack. The addition formula above is faster than other unified formulas and has the strong property of completeness
 
 ### An analogue on the circle
-<p align="center"><img width="35%" height="35%" src="https://user-images.githubusercontent.com/80628552/232714495-194069a9-052c-41b8-8fae-e0a821c4c5c8.png" /> <p/>
+<p align="center"><img width="35%" height="35%" src="/assets/images/elliptic/6.png" /> <p/>
 
 To understand better the concept of "addition" of points on a curve, a nice example is given by the classical circle group:  
 take the circle of radius 1
