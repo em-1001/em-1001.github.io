@@ -7,11 +7,12 @@ categories:
 tags:
   - cryptography
   - security
+  - 
 last_modified_at: 2024-09-29T08:06:00-05:00
 ---
 
 
-# Elliptic Curve
+## Elliptic Curve
 An elliptic curve is a graph of a curve showing a set of $x$ and $y$ that satisfy the equation below.
 
 <p align="center"><img width="30%" height="30%" src="/assets/images/elliptic/1.png" /> <p/>
