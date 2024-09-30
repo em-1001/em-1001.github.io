@@ -15,7 +15,7 @@ last_modified_at: 2024-09-30T08:06:00-05:00
 
 An elliptic curve is a graph of a curve showing a set of $x$ and $y$ that satisfy the equation below.
 
-<p align="center"><img width="30%" height="30%" src="/assets/images/elliptic/1.png"><p/>   
+<p align="center"><img width="30%" height="30%" src="/assets/images/elliptic/1.png"></p> 
 
 $$\lbrace (x, y) ∈ ℝ^2 \vert y^2 = x^3 + ax + b, 4a^3 + 27b^2 \neq 0 \rbrace ∪ \lbrace0\rbrace$$  
 
