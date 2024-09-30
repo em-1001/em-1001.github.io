@@ -10,64 +10,67 @@ tags:
 last_modified_at: 2024-09-29T08:06:00-05:00
 ---
 
+
 # Elliptic Curve
 An elliptic curve is a graph of a curve showing a set of $x$ and $y$ that satisfy the equation below.
 
 <p align="center"><img width="30%" height="30%" src="/assets/images/elliptic/1.png" /> <p/>
 
-$$ \lbrace (x, y) ∈ ℝ^2 | y^2 = x^3 + ax + b, 4a^3 + 27b^2 ≠ 0 \rbrace ∪ \lbrace0\rbrace$$
+$$\lbrace (x, y) ∈ ℝ^2 \vert y^2 = x^3 + ax + b, 4a^3 + 27b^2 ≠ 0 \rbrace ∪ \lbrace0\rbrace$$
 
-The shape of the above elliptic curve is called the **Weierstrass elliptic curve**, and there are other types of elliptic curves such as **Montgomery, Edwards, Jacobi, and Hessian**.
+The shape of the above elliptic curve is called the **Weierstrass elliptic curve**, and there are other types of elliptic curves such as **Montgomery, Edwards, Jacobi, and Hessian**.     
+ 
 
-## Elliptic Curve over Group
-1. Elements : Points of an curve
-2. Identity element : Point at infinity or ideal point -> 0
-3. Inverse element : Point symmentric about $x$ - axis
-4. Addition : Given aligned three points $P$, $Q$, $R$ -> $P + Q + R = 0$ (abelian group) 
+## Elliptic Curve over Group  
+1. Elements : Points of an curve    
+2. Identity element : Point at infinity or ideal point -> 0  
+3. Inverse element : Point symmentric about $x$ - axis  
+4. Addition : Given aligned three points $P$, $Q$, $R$ -> $P + Q + R = 0$ (abelian group)     
 
 
-## Geometric Addition 
+## Geometric Addition   
 $P + Q + R = 0, P + Q = -R$
 
 <img width="35%" height="35%" src="/assets/images/elliptic/2.png" />
 
-### case
-1. $P = 0$ $or$ $Q = 0$  
--> Identity element  
--> $P + 0 = P$ $or$ $0 + Q = Q$
 
-2. $P = -Q$  
--> Inverse element   
--> $-Q + Q = 0$  
+### case  
+1. $P = 0$ $or$ $Q = 0$    
+-> Identity element    
+-> $P + 0 = P$ $or$ $0 + Q = Q$  
 
-3. $P = Q$ $or$ $P≠Q$ $but$ $no$ $R$  
--> Tangency  
+2. $P = -Q$    
+-> Inverse element     
+-> $-Q + Q = 0$    
+
+3. $P = Q$ $or$ $P≠Q$ $but$ $no$ $R$    
+-> Tangency    
 
 
 ## Algebraic Addition 
-1. $P + 0 = P$, $-Q + Q = 0$  
-2. Points $P$, $Q$, $R$
+1. $P + 0 = P$, $-Q + Q = 0$    
+2. Points $P$, $Q$, $R$  
+ 
+ $$λ = \frac{y_p - y_q} {x_p - x_q}$$    
+ $if(P == Q)$ -> $tangency$    
+ $y^2 = x^3 + ax + b$      
+ $f(x)^2 = x^3 + ax + b$    
+ $f(x)^2 - x^3 - ax - b = 0$    
+ $2f(x)f'(x) -3x^2 -a = 0$      
+ 
+ $λ = \frac{3x^2 + a} {2y}$  
 
- $$λ = \frac{y_p - y_q} {x_p - x_q}$$  
- $if(P == Q)$ -> $tangency$  
+ 
+ $y - y_P = λ(x - x_P)$     
+ ∴ $y_R = y_P + λ(x_R - x_P)$  
+ 
  $y^2 = x^3 + ax + b$    
- $f(x)^2 = x^3 + ax + b$  
- $f(x)^2 - x^3 - ax - b = 0$  
- $2f(x)f'(x) -3x^2 -a = 0$    
- 
- $λ = \frac{3x^2 + a} {2y}$
-
- 
- $y - y_P = λ(x - x_P)$   
- ∴ $y_R = y_P + λ(x_R - x_P)$
- 
- $y^2 = x^3 + ax + b$  
- $y = λ(x - x_P) + y_P$  
- $x^3 + ax + b = \lbrace y_P + λ(x - x_P) \rbrace^2$  
- $x^3 -λ^2x^2 ... + b = 0$  
- $using$ $Viète’s$ $theorem$ $on$ $cubic$ $equation$  
- $x_P + x_Q + x_R = λ^2$  
- ∴ $x_R = λ^2 - x_P - x_Q$
+ $y = λ(x - x_P) + y_P$    
+ $x^3 + ax + b = \lbrace y_P + λ(x - x_P) \rbrace^2$    
+ $x^3 -λ^2x^2 ... + b = 0$    
+ $using$ $Viète’s$ $theorem$ $on$ $cubic$ $equation$    
+ $x_P + x_Q + x_R = λ^2$    
+ ∴ $x_R = λ^2 - x_P - x_Q$  
  
 
 ## Elliptic Curves Over Galois Field
