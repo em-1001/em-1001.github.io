@@ -211,11 +211,13 @@ This mapping is a group homomorphism from $E(Q_p)$ to $E(F_p)$, and let $E_1(Q_p
 
 4. **P-adic Elliptic Logarithm**  
 The P-adic Elliptic Logarithm $\psi_p$ provides a isomorphism from $E_1(Q_p) to $pℤ_p$.   
-For a point $S ∈ E_1(Q_p)$ we compute  
+For a point $S ∈ E_1(Q_p)$ we compute
+ 
 $$\psi_p(S) = - \frac{x(S)}{y(S)}$$  
+
 By reducing the problem of finding 𝑘 where $Q = kP$ to $pℤ_p$, we can directly compute $k$ as we see in the description of the attack itself.
 
-5. **Attack**  
+6. **Attack**  
 to find $k$, Our first step is to lift these points to $E(Q_p)$ to get two new points $P', Q'$. We do this by setting the $x$ component of $P'$
 equal to the x component of $P$. We then use Hensel's Lemma described above to compute $y$ in $Q_p$ by using the curve equation with $x$ fixed. 
 We know that $Q = kP$ in $E(F_p)$ so thus the value $Q' - kP'$ in $E(Q_p)$ goes to the point at infinity by the Reduction Modulo P map and is thus in the kernel of that homomorphism.  
