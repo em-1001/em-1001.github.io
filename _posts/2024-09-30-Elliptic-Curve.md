@@ -14,12 +14,6 @@ last_modified_at: 2024-09-30T08:06:00-05:00
 
 ## Elliptic Curve
 
-An elliptic curve is a graph of a curve showing a set of $x$ and $y$ that satisfy the equation below.
-
-<p align="center"><img width="30%" height="30%" src="/assets/images/elliptic/1.png" /><p/>   
-
-
-
 The shape of the above elliptic curve is called the **Weierstrass elliptic curve**, and there are other types of elliptic curves such as **Montgomery, Edwards, Jacobi, and Hessian**.     
   
    
