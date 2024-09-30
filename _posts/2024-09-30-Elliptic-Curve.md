@@ -8,7 +8,7 @@ tags:
   - cryptography
   - security
   - 
-last_modified_at: 2024-09-29T08:06:00-05:00
+last_modified_at: 2024-09-30T08:06:00-05:00
 ---
 
 
@@ -16,25 +16,25 @@ last_modified_at: 2024-09-29T08:06:00-05:00
 
 An elliptic curve is a graph of a curve showing a set of $x$ and $y$ that satisfy the equation below.
 
-<p align="center"><img width="30%" height="30%" src="/assets/images/elliptic/1.png" /> <p/>
+<p align="center"><img width="30%" height="30%" src="/assets/images/elliptic/1.png" /><p/>   
 
-$$\lbrace (x, y) ∈ ℝ^2 \vert y^2 = x^3 + ax + b, 4a^3 + 27b^2 \neq 0 \rbrace ∪ \lbrace0\rbrace$$
+$$\lbrace (x, y) ∈ ℝ^2 \vert y^2 = x^3 + ax + b, 4a^3 + 27b^2 \neq 0 \rbrace ∪ \lbrace0\rbrace$$  
 
 The shape of the above elliptic curve is called the **Weierstrass elliptic curve**, and there are other types of elliptic curves such as **Montgomery, Edwards, Jacobi, and Hessian**.     
- 
-
+  
+   
 ## Elliptic Curve over Group  
-
+     
 1. Elements : Points of an curve      
 2. Identity element : Point at infinity or ideal point -> 0    
 3. Inverse element : Point symmentric about $x$ - axis    
 4. Addition : Given aligned three points $P$, $Q$, $R$ -> $P + Q + R = 0$ (abelian group)       
-
-
+  
+  
 ## Geometric Addition   
-
+  
 $P + Q + R = 0, P + Q = -R$
-
+   
 <img width="35%" height="35%" src="/assets/images/elliptic/2.png" />
 
 
