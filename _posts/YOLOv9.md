@@ -1,0 +1,57 @@
+---
+title:  "YOLOv9"
+excerpt: "YOLOv9 paper"
+
+categories:
+  - Computer Vision
+tags:
+  - AI
+  - Computer Vision
+  - Paper
+last_modified_at: 2024-09-29T08:06:00-05:00
+---
+
+# YOLOv9
+
+많은 input data가 feedforward process에서 상당량의 정보손실을 겪고 이러한 현상은 편향된 gradient flows를 일으킬 수 있다.
+이러한 현상을 information bottleneck이라 하며 아래 사진에서 확인할 수 있다. 
+
+![image](https://github.com/user-attachments/assets/7a55496a-bdeb-4902-8ca5-cd89aeb8a572)
+
+본 논문은 위와 같은 현상을 해결하기 위해  **programmable gradient information(PGI)** 를 제안한다. 
+이는 auxiliary reversible branch를 통해 신뢰할 만한 gradients를 생성하는 것이다. 
+gradient information propagation 각기 다른 semantic levels에서 프로그래밍하여 최고의 training 결과를 내도록 한다. 
+또한 이 PGI는 auxiliary branch에서 만들어 지기 때문에 추가적인 비용이 없이 자유롭게 target task에 맞는 loss function를 선택할 수 있다. 
+
+본 논문은 또한 기존 ELAN에 기반한 **generalized ELAN(GELAN)** 을 제안한다. 기존 ELAN과의 차이점은 임의로 적절한 computational blocks를
+선택할 수 있게하여 상황에 맞는 inference가 가능하게 한다. 
+
+## Information Bottleneck Principle
+
+$$I(X, X) \ge I(X, f_{\theta}(X)) \ge I(X, g_{\phi}(f_{\theta}(X)))$$ 
+
+information bottleneck은 위 수식처럼 변환 과정을 거치면서 data loss가 발생한다. $I$는 mutual information, $f$, $g$는 변환 함수,
+$\theta$, $\phi$는 각 함수의 파라미터이다. $f_{\theta}(\cdot)$와 $g_{\phi}(\cdot)$는 DNN에서 연이은 layer 연산을 의미한다. 
+위 식에서 알 수 있듯이 네트워크가 깊어질수록 본래 데이터가 소실된다. 
+
+이러한 문제를 해결할 방법중 하나는 직접적으로 모델의 크기를 키워서 모델의 파라미터 수를 늘리는 것이다. 하지만 이렇게 해서 target에
+사용될 충분한 양의 정보를 확보할 수는 있겠지만, 근본적으로 신뢰할 수 없는 gradients문제를 해결하지는 못한다. 
+
+이러한 문제를 해결하기 위해 reversible functions(가역함수)가 사용된다. 
+
+$$X = v_{\zeta}(r_{\psi}(X))$$
+
+위 처럼 함수 $r$이 역함수 $v$를 가질 때, 이 함수를 reversible function이라 한다. $\psi$와 $\zeta$는 각 함수의 파라미터이다. 
+
+$$I(X, X) = I(X, r_{\psi}(X)) = I(X, v_{\zeta}(r_{\psi}(X)))$$ 
+
+reversible function을 사용해서 위 식처럼 정보 손실 없이도 네트워크를 통과할 수 있다. 
+따라서 reversible function이 network transformation에 쓰인다면, 더 신뢰할 수 있는 gradients가 모델을 업데이트하는데 사용될 수 있다. 
+
+오늘날 대부분의 유명한 deep learning method들은 아래와 같이 reversible property를 따르는 아키텍쳐를 사용한다. 
+
+$$X^{l+1} = X^l + f_{\theta}^{l+1}(X^l)$$
+
+$l$은 PreAct ResNet의 $l$-th layer를 뜻하고 $f$는 $l$-th layer의 transformation function을 뜻한다. 
+
+
