@@ -122,7 +122,7 @@ footer:
   links:
     - label: "Dreamhack"
       icon: "fab fa-fw fa-link"
-      url: "https://dreamhack.io/users/20100/"
+      # url: "https://dreamhack.io/users/20100/"
     - label: "Facebook"
       icon: "fab fa-fw fa-facebook-square"
       # url:
