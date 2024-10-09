@@ -101,7 +101,7 @@ author:
     - label: "Email"
       icon: "fas fa-fw fa-envelope-square"
       url: mailto:sj2129tommy@gmail.com
-    - label: "Website"
+    - label: "Dreamhack"
       icon: "fas fa-fw fa-link"
       url: "https://dreamhack.io/users/20100/"
     - label: "Twitter"
@@ -120,9 +120,9 @@ author:
 # Site Footer
 footer:
   links:
-    - label: "Twitter"
-      icon: "fab fa-fw fa-twitter-square"
-      # url:
+    - label: "Dreamhack"
+      icon: "fab fa-fw fa-link"
+      url: "https://dreamhack.io/users/20100/"
     - label: "Facebook"
       icon: "fab fa-fw fa-facebook-square"
       # url:
