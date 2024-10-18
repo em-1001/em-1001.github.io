@@ -1,3 +1,15 @@
+---
+title:  "[CS231n] 1.Image Classification"
+excerpt: "CS231n Lecture Note"
+
+categories:
+  - Computer Vision
+tags:
+  - CS231n
+  - Computer Vision
+last_modified_at: 2024-10-18T08:06:00-05:00
+---
+
 # Image Classification
 <p align="center"><img src="https://github.com/em-1001/AI/assets/80628552/91f4223f-aa86-41fc-99d8-6544ca77198f"></p>
 
