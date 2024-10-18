@@ -1,3 +1,15 @@
+---
+title:  "[CS231n] 2.Loss Functions and Optimization"
+excerpt: "CS231n Lecture Note"
+
+categories:
+  - Computer Vision
+tags:
+  - CS231n
+  - Computer Vision
+last_modified_at: 2023-10-19T08:06:00-05:00
+---
+
 # Loss function
 ### Multiclass SVM loss
 손실함수에도 여러종류가 있으나, 기본적이고 이미지분류에도 성능이 좋은 Multiclass SVM loss부터 살펴보자. 식은 다음과 같다. 
