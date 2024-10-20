@@ -6,7 +6,6 @@ categories:
   - Computer Vision
 tags:
   - CS231n
-  - Computer Vision
 last_modified_at: 2023-10-18T08:06:00-05:00
 ---
 
