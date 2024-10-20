@@ -1,3 +1,14 @@
+---
+title:  "[CS231n] 4.Training Neural Networks"
+excerpt: "CS231n Lecture Note"
+
+categories:
+  - Computer Vision
+tags:
+  - CS231n
+last_modified_at: 2023-10-21T08:06:00-05:00
+---
+
 # Activation Functions
 앞선 강의에서도 언급했던 것처럼, input이 들어오면 가중치와 곱해지고, 비선형 함수인 활성함수를 거쳐 해당 데이터의 활성화여부를 결정해준다고 배웠다. 
 활성화 함수에는 여러가지가 있고, 각 활성함수의 문제점과 이를 어떻게 개선해나갔는지에 대해 알아볼 것이다. 
