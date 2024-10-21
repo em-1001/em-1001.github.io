@@ -1,3 +1,14 @@
+---
+title:  "[CS231n] 5.Training Neural Networks2"
+excerpt: "CS231n Lecture Note"
+
+categories:
+  - Computer Vision
+tags:
+  - CS231n
+last_modified_at: 2023-10-22T08:06:00-05:00
+---
+
 # Optimization
 Optimizer는 loss를 줄이기 위해 weight와 learning rate와 같은 neural network 속성을 변경하는데 사용하는 Algorithm이다. 
 Optimization algorithms의 전략은 loss를 줄이고 정확한 결과를 제공하는 역할을한다. 
