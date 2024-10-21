@@ -23,7 +23,7 @@ while True:
 ```
 우리가 관심을 가질 부분은 코드의 마지막 줄이다. 위 코드에서는 단순 경사 하강이지만 이러한 update 방법에는 여러가지가 있다. 
 
-<p align="center"><img src="https://github.com/em-1001/Information-Security/assets/80628552/5bbe1f39-c69c-456b-b9f8-7aa215d7f889" width="60%" height="60%" /></p>
+<p align="center"><img src="https://github.com/user-attachments/assets/249c9b4f-238d-4ed4-872e-e2d741f5a234" /></p>
 
 ### Stochastic Gradient Descent (SGD)
 SGD같은 경우 매우 느려서 실제 사용하기가 쉽지 않다.
