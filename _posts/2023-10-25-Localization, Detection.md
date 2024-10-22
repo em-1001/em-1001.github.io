@@ -1,3 +1,14 @@
+---
+title:  "[CS231n] 8.Localization, Detection"
+excerpt: "CS231n Lecture Note"
+
+categories:
+  - Computer Vision
+tags:
+  - CS231n
+last_modified_at: 2023-10-25T08:06:00-05:00
+---
+
 # Computer Vision Tasks
 
 <p align="center"><img src="https://github.com/em-1001/AI/assets/80628552/30b6bccc-633a-4d16-b70b-01da3ad1ddc2" height="80%" width="80%"></p>
