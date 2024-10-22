@@ -1,3 +1,14 @@
+---
+title:  "[CS231n] 7.CNN Architectures"
+excerpt: "CS231n Lecture Note"
+
+categories:
+  - Computer Vision
+tags:
+  - CS231n
+last_modified_at: 2023-10-24T08:06:00-05:00
+---
+
 # LeNet-5
 
 <p align="center"><img src="https://github.com/em-1001/AI/assets/80628552/e812544a-0904-4e8c-b46d-bed8bee9d361" height="80%" width="80%"></p>
