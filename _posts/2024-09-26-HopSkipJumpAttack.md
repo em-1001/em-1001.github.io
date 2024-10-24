@@ -1,3 +1,15 @@
+---
+title:  "HopSkipJumpAttack"
+excerpt: "HopSkipJumpAttack Paper Review"
+
+categories:
+  - Computer Vision
+tags:
+  - Adversarial Attack
+  - Paper
+last_modified_at: 2024-09-26T08:06:00-05:00
+---
+
 # Background
 ## p - norm
 원래의 이미지에 perturbation을 넣어서 Adversarial example을 만들게 되는데 이러한 perturbation의 크기에 대한 지표로 p-norm이 쓰인다. 
@@ -50,8 +62,7 @@ Constraint of perturbation : $||\delta||_{\infty} = \max_i|\delta_i| \le \epsilo
 
 이때 $L$(Loss)값은 일반적으로 cross entropy loss를 사용한다. 그러면 $\triangledown_x L(\theta, x, y)$는 특정한 모델의 cross entropy loss에 대해 $x$의 gradient를 구하게 된다. 그리고 이러한 loss를 증가시키는 방향으로 update를 시키게 된다. 그렇기 때문에 식에서도 $+$방향으로 update가 진행되는 것이다. 또한 식에 $sign$이 있는 이유는 PGD Attack이 $L_{\infty}$ Attack이기 때문이다. 즉 각각의 픽셀마다 $\alpha$만큼 update가 수행될 수 있도록 만드는 것이다. 다만 $L_{\infty}$ norm 상에서 크기를 입실론만큼 제한했다고 하면 입실론 범위 안에 들어와야 하기 때문에 매step마다 projection($\prod$)을 시켜서 입실론 범위안에 들어올 수 있도록 만드는 것이다.
 
-<p align="center"><img src="https://github.com/em-1001/AI/assets/80628552/2d21aa97-7199-4a3d-988d-e5025bfdb607" height="35%" width="35%"></p>
-
+<p align="center"><img src="https://github.com/user-attachments/assets/c982b537-a638-48a1-9d65-9a34f47d9cf4" height="35%" width="35%"></p>
 
 위 사진과 같이 2차원 상의 데이터 분류 모델이 있다고 가정하고 주황색 X의 Loss를 증가시키는 것이 목적이라고 하자. 현재 주황색 X는 class 0으로 분류가 되어 있다. $L_{\infty}$ Attack을 한다고 하면 각각의 축 마다 최대 
 $\epsilon$크기만큼 바뀔 수 있기 때문에 위 사진과 같은 범위 안에 데이터가 존재할 수 있다. 
