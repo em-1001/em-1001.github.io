@@ -144,7 +144,7 @@ $$
 \theta^* = arg \underset{\theta}\min g(\theta) 　\ where 　 g(\theta) = arg \underset{\lambda > 0}\min(f(x_0 + \lambda \frac{\theta}{||\theta||}) \neq y_0)
 $$
 
-식을 보면 $\frac{\theta}{||\theta||}$로 $\theta$를 norm값으로 나누어서 단위 방향 벡터로 만들어주고 해당 방향으로 이동했을 때 원본 class($y_0$)가 아닌 다른 class가 나오는 최소한의 거리 $\lambda$를 찾고 그 거리값이 함수 $g$의 값이 될 수 있도록 하고 그러한 함수 $g$의 값이 최소화 되도록 하는 $\theta$를 찾는 문제가 된다. 
+식을 보면 $\frac{\theta}{\lvert \theta \rvert}$로 $\theta$를 norm값으로 나누어서 단위 방향 벡터로 만들어주고 해당 방향으로 이동했을 때 원본 class($y_0$)가 아닌 다른 class가 나오는 최소한의 거리 $\lambda$를 찾고 그 거리값이 함수 $g$의 값이 될 수 있도록 하고 그러한 함수 $g$의 값이 최소화 되도록 하는 $\theta$를 찾는 문제가 된다. 
 
 즉, 어떤 방향으로 이동했을 때 가장 짧은 거리로 적대적 예제를 만들 수 있는지를 찾는 것이다. 
 이러한 Opt Attack은 원래 문제를 직접적으로 해결하기 보다는 더 해결하기 쉬운 문제로 변형하여 최적화 문제를 해결한다. 
