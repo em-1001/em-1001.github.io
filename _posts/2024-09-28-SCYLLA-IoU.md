@@ -1,5 +1,5 @@
 ---
-title:  "SCYLLA-IoU"
+title:  "SCYLLA IoU"
 excerpt: "SIoU BBox Loss"
 
 categories:
