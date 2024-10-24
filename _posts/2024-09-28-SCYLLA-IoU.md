@@ -7,7 +7,7 @@ categories:
 tags:
   - Object Detection
   - Paper
-last_modified_at: 2024-09-29T08:06:00-05:00
+last_modified_at: 2024-09-28T08:06:00-05:00
 ---
 
 # **SCYLLA-IoU(SIoU)**
