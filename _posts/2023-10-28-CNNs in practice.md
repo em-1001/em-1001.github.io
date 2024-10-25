@@ -1,3 +1,14 @@
+---
+title:  "[CS231n] 11.CNNs in practice"
+excerpt: "CS231n Lecture Note"
+
+categories:
+  - Computer Vision
+tags:
+  - CS231n
+last_modified_at: 2023-10-28T08:06:00-05:00
+---
+
 # Data Augmentation 
 
 <p align="center"><img src="https://github.com/em-1001/AI/assets/80628552/805152c9-90be-4060-97f0-9745c4be4530" height="80%" width="80%"></p>
