@@ -1,3 +1,14 @@
+---
+title:  "[CS231n] 12.Segmentation"
+excerpt: "CS231n Lecture Note"
+
+categories:
+  - Computer Vision
+tags:
+  - CS231n
+last_modified_at: 2023-10-29T08:06:00-05:00
+---
+
 # Segmentation
 
 <p align="center"><img src="https://github.com/em-1001/AI/assets/80628552/96044369-69ae-4bb0-a3ef-b22e2a79005b" height="80%" width="80%"></p>
