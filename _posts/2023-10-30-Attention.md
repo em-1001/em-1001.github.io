@@ -1,3 +1,14 @@
+---
+title:  "[CS231n] 13.Attention"
+excerpt: "CS231n Lecture Note"
+
+categories:
+  - Computer Vision
+tags:
+  - CS231n
+last_modified_at: 2023-10-30T08:06:00-05:00
+---
+
 # Attention Model
 Attention설명에 앞서 이전에 공부한 Image Captioning이 어떻게 동작하는지 다시 생각해보면 input image를 CNN에 넣어줘서 마지막 단에 있는 FC로 부터 single feature vector를 추출하고 이를 통해 RNN의 첫 Hidden state vector를 초기화 해준다. 그 다음 RNN에 first word가 들어가고 기본의 Hidden state와 first word가 들어가서 결과를 추출한다. 이러한 과정을 반복하게 된는데 이러한 모델의 한계점은 RNN이 전체 이미지를 한 번만 보게 된다는 것이다.   
 
