@@ -1,3 +1,15 @@
+---
+title:  "Shadow Attack"
+excerpt: "Shadow Attack paper review"
+
+categories:
+  - Computer Vision
+tags:
+  - Adversarial Attack
+  - Paper
+last_modified_at: 2024-09-26T08:06:00-05:00
+---
+
 ## Shadow attack
 이 논문은 뉴럴 네트워크를 공격하는 새로운 공격 유형으로 Shadow attack(그림자 공격)을 제안한다. 
 Shadow attack의 특징은 다음과 같다. 
