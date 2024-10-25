@@ -1,3 +1,14 @@
+---
+title:  "[CS231n] 9.Visualizations, Adversarial examples"
+excerpt: "CS231n Lecture Note"
+
+categories:
+  - Computer Vision
+tags:
+  - CS231n
+last_modified_at: 2023-10-26T08:06:00-05:00
+---
+
 # Visualizations
 CNN이 어떻게 좋은 성능을 내는지 확인하기 위해 Visualizations을 이용하여 들여다 본다. 
 CNN이 좋은 성능을 내는 것은 알고 있는데 이게 어떻게 이런 성능을 내는지는 여전히 blackbox인 경우가 많다. 
