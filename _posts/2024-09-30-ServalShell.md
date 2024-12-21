@@ -41,7 +41,9 @@ ServalShell:~$ ▯
 
 # Paper: Attention Is All You Need
 
+https://www.youtube.com/watch?v=bCz4OMemCcA
 
+https://www.youtube.com/watch?v=AA621UofTUA&t=2s
 
 # Project: NL to Bash translation AI with Transformer
 ## Model Test
