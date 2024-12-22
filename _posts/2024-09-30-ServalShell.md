@@ -152,7 +152,7 @@ SS{S3rv4ll_Sh3ll!!}
 **sentence:** copies "file.txt" to "null.txt"    
 **translation:** mv File File  
 
-<img src="https://github.com/user-attachments/assets/edd50e16-985c-4a5d-b355-3802c2e073c1" height="70%" width="70%">
+<img src="https://github.com/user-attachments/assets/edd50e16-985c-4a5d-b355-3802c2e073c1" height="85%" width="85%">
 
 
 
