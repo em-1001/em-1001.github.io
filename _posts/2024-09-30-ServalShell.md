@@ -53,12 +53,19 @@ $$\alpha_{i,j} = \frac{\exp({e_{ij}})}{\sum^{T_ x}_ {k=1} \exp({e_ {ik}})}$$
 
 여기서 $s$는 디코더가 이전에 출력한 단어를 만들기 위해 사용했던 hidden state이고, $h$는 인코더에서 가져온 각각의 hidden state이다. 이렇게 구해진 energy 값에 softmax를 취해 각각의 $s$가 $h$에 대해 확률적으로 얼마나 연관이 있는지를 구하고, 이 가중치 값을 $h$와 곱하여 가중치가 반영된 인코더의 출력 결과를 활용하게 된다. 
 
+논문에서 제안하는 Transformer 모델은 RNN, CNN을 사용하지 않고 Attention 기법만을 활용한 자연어 처리 모델이다. 
 
-## Encoder
-### Embedding, Positional Encoding
+## Embedding, Positional Encoding
 
-어떠한 단어 정보를 네트워크에 넣기 위해 우선 임베딩 과정을 거친다.  
+어떠한 단어 정보를 네트워크에 넣기 위해 실수 값으로 이루어진 벡터로 임베딩 과정을 거친다. 임베딩 과정으로 통해 input embedding matrix가 만들어 지는데, 이 행렬의 행은 단어의 갯수 만큼, 열은 임베딩 차원값(embed_dim)과 동일한 값으로 만들어져 각각의 단어에 대한 임베딩 값을 저장하게 된다. 
 
+Transformer는 RNN을 사용하지 않기 때문에 입력으로 넣는 단어들에 대한 순서정보를 추가로 넣어줘야 하는데, 이를 Positional Encoding이라 한다. Positional Encoding은 input embedding matrix와 동일한 임베딩 차원을 가지면서 위치에 대한 encoding 정보를 갖고 있어 input embedding matrix와 element wise 합으로 위치 정보를 심어준다. 
+
+## Multi-Head Attention
+
+<p align="center"><img src="https://github.com/user-attachments/assets/b589dd53-7d2f-4e15-8b68-32c7d3d65e82"></p>
+
+Attention 기법은 어떤 단어들이 또 다른 단어들과 어떠한 연관성을 갖는지를 알아내기 위한 기밥이다. 이 Attnetion 값을 계산하기 위해서 Query, Key, Value라는 3가지 정보가 필요한데 Query는 각 단어들에 대한 연관성에 대한 값을 알아내기 위해 넣는 값이고, 연관성을 계산하는데 쓰인느 단어들이 Key이다. 이렇게 Query와 Key로 Attention 가중치를 구하면 여기에 실제 Value값을 곱해서 최종 값을 산출한다. 
 
 
 
