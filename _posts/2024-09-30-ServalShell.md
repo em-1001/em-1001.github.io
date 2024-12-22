@@ -32,10 +32,6 @@ Bashlint grammar set up (124 utilities)
       `*-*   `*-*  `*-*'
 
 
-ServalShell:~$ print current user name
-translated bash: whoami
-root
-
 ServalShell:~$ ▯ 
 ```
 
