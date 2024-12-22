@@ -153,7 +153,7 @@ SS{S3rv4ll_Sh3ll!!}
 
 ## Attention Score 
 
-<p align="center"><img src="https://github.com/user-attachments/assets/edd50e16-985c-4a5d-b355-3802c2e073c1" height="70%" width="70%"></p>
+<img src="https://github.com/user-attachments/assets/edd50e16-985c-4a5d-b355-3802c2e073c1" height="70%" width="70%">
 
 
 
