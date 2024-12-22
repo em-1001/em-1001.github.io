@@ -145,8 +145,8 @@ SS{S3rv4ll_Sh3ll!!}
 
 ## Attention Score 
 
-**sentence:** copies "file.txt" to "null.txt"    
-**translation:** mv File File  
+**sentence:** moves "file.txt" to "./bin"   
+**translation:** mv "file.txt" "./bin"
 
 <img src="https://github.com/user-attachments/assets/edd50e16-985c-4a5d-b355-3802c2e073c1" height="85%" width="85%">
 
