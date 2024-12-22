@@ -10,31 +10,6 @@ tags:
 last_modified_at: 2024-09-29T08:06:00-05:00
 ---
 
-
-```
-/content# ./servalshell.sh
-Bashlint grammar set up (124 utilities)
-
-                            
-       \`*-.                    
-        )  _`-.                 
-       .  : `. .                
-       : _   '  \               
-       ; *` _.   `*-._          
-       `-.-'          `-.       
-         ;       `       `.     
-         :.       .        \    
-         . \  .   :   .-'   .   
-         '  `+.;  ;  '      :   
-         :  '  |    ;       ;-. 
-         ; '   : :`-:     _.`* ;
-      .*' /  .*' ; .*`- +'  `*' 
-      `*-*   `*-*  `*-*'
-
-
-ServalShell:~$ ▯ 
-```
-
 # Paper: Attention Is All You Need
 
 <p align="center"><img src="https://github.com/user-attachments/assets/addaed68-d49a-4bf7-9c83-00e025250365" height="40%" width="40%"></p>
@@ -71,7 +46,28 @@ https://www.youtube.com/watch?v=AA621UofTUA&t=2s
 
 # Project: NL to Bash translation AI with Transformer
 ## Model Test
+
 ```
+/content# ./servalshell.sh
+Bashlint grammar set up (124 utilities)
+
+                            
+       \`*-.                    
+        )  _`-.                 
+       .  : `. .                
+       : _   '  \               
+       ; *` _.   `*-._          
+       `-.-'          `-.       
+         ;       `       `.     
+         :.       .        \    
+         . \  .   :   .-'   .   
+         '  `+.;  ;  '      :   
+         :  '  |    ;       ;-. 
+         ; '   : :`-:     _.`* ;
+      .*' /  .*' ; .*`- +'  `*' 
+      `*-*   `*-*  `*-*'
+
+
 ServalShell:~$ -h
 If you enter a command in natural language, the program automatically translates it into a bash command and executes it.
 If execution fails because the bash command translated by the model is incorrect, It will recommend several command structures.
