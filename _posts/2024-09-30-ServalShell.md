@@ -36,7 +36,13 @@ Transformer는 RNN을 사용하지 않기 때문에 입력으로 넣는 단어�
 
 <p align="center"><img src="https://github.com/user-attachments/assets/b589dd53-7d2f-4e15-8b68-32c7d3d65e82"></p>
 
-Attention 기법은 어떤 단어들이 또 다른 단어들과 어떠한 연관성을 갖는지를 알아내기 위한 기밥이다. 이 Attnetion 값을 계산하기 위해서 Query, Key, Value라는 3가지 정보가 필요한데 Query는 각 단어들에 대한 연관성에 대한 값을 알아내기 위해 넣는 값이고, 연관성을 계산하는데 쓰인느 단어들이 Key이다. 이렇게 Query와 Key로 Attention 가중치를 구하면 여기에 실제 Value값을 곱해서 최종 값을 산출한다. 
+Attention 기법은 어떤 단어들이 또 다른 단어들과 어떠한 연관성을 갖는지를 알아내기 위한 기밥이다. 이 Attnetion 값을 계산하기 위해서 Query, Key, Value라는 3가지 정보가 필요한데 Query는 각 단어들에 대한 연관성에 대한 값을 알아내기 위해 넣는 값이고, 연관성을 계산하는데 쓰인느 단어들이 Key이다. 이렇게 Query와 Key로 Attention 가중치를 구하면 여기에 실제 Value값을 곱해서 최종 값을 산출한다. 이 과정이 Scaled Dot-Product Attention이고, 실제 모델에 학습시킬 때는 h개의 head로 구분하여 Multi-Head Attention을 수행한다. 이렇게 h개의 서로다른 Query, Key, Value를 만듦으로써 다양한 Attention값을 얻어낼 수 있다. 
+
+Multi-Head Attention은 다음과 같이 계산된다. 
+
+$$Attention(Q, K, V) = softmax \left( \fracQK^T
+
+
 
 
 
@@ -47,7 +53,7 @@ https://www.youtube.com/watch?v=AA621UofTUA&t=2s
 # Project: NL to Bash translation AI with Transformer
 ## Model Test
 
-```
+```sh
 /content# ./servalshell.sh
 Bashlint grammar set up (124 utilities)
 
@@ -150,7 +156,27 @@ SS{S3rv4ll_Sh3ll!!}
 
 <img src="https://github.com/user-attachments/assets/edd50e16-985c-4a5d-b355-3802c2e073c1" height="85%" width="85%">
 
+## BLEU Score
 
+```ini
+# config
+batch_size: 8
+num_epochs: 20
+learning_rate: 1e-4
+seq_len: 100
+d_model: 512
+
+# BLEU Score
+Total BLEU Score = 40.36
+Individual BLEU1 score = 61.51
+Individual BLEU2 score = 47.06
+Individual BLEU3 score = 33.74
+Individual BLEU4 score = 27.18
+Cumulative BLEU1 score = 61.51
+Cumulative BLEU2 score = 53.80
+Cumulative BLEU3 score = 46.05
+Cumulative BLEU4 score = 40.36
+```
 
 ## Github Repository
 [ServalShell](https://github.com/em-1001/ServalShell)
