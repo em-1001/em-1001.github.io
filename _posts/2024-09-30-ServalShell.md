@@ -40,9 +40,11 @@ Attention 기법은 어떤 단어들이 또 다른 단어들과 어떠한 연관
 
 Multi-Head Attention은 다음과 같이 계산된다. 
 
-$$Attention(Q, K, V) = softmax \left( \fracQK^T
+$$Attention(Q, K, V) = softmax \left( \frac{QK^T}{\sqrt{d_k}} \right)V$$
 
+$$head_i = Attention(QW_i^Q, KW_i^K, VW_i^V)$$
 
+$$MultiHead(Q, K, V) = Concat(head_1, \cdot, head_h)W^O$$
 
 
 
