@@ -146,7 +146,7 @@ translated bash: cd "my_folder"
 
 ServalShell:~$ displays the content of "flag.txt"
 translated bash: cat "flag.txt"
-SS{S3rv4ll_Sh3ll!!}
+SS{S3rv4ll_Sh3ll}
 ```
 
 ## Attention Score 
