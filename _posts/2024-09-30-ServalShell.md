@@ -44,7 +44,7 @@ $$Attention(Q, K, V) = softmax \left( \frac{QK^T}{\sqrt{d_k}} \right)V$$
 
 $$head_i = Attention(QW_i^Q, KW_i^K, VW_i^V)$$
 
-$$MultiHead(Q, K, V) = Concat(head_1, \cdot, head_h)W^O$$
+$$MultiHead(Q, K, V) = Concat(head_1, \cdots, head_h)W^O$$
 
 
 
