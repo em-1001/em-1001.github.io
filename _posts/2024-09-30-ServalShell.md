@@ -52,7 +52,7 @@ https://www.youtube.com/watch?v=bCz4OMemCcA
 
 https://www.youtube.com/watch?v=AA621UofTUA&t=2s
 
-# Project: NL to Bash translation AI with Transformer
+# Project: NL to Bash translation with Transformer
 ## Model Test
 
 ```sh
