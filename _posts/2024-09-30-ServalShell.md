@@ -85,7 +85,7 @@ Additionally, the following options are available.
 -h,  --help                            Describes usage and options
 -q,  --quit                            Quit Servalshell
 
-ServalShell:~$
+ServalShell:~$ ▯
 ```
 
 ## Attention Score 
