@@ -54,7 +54,7 @@ https://www.youtube.com/watch?v=AA621UofTUA&t=2s
 
 # Project: NL to Bash translation with Transformer
 
-```ini
+```sh
 /content# ./servalshell.sh
 Bashlint grammar set up (124 utilities)
 
