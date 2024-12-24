@@ -46,6 +46,10 @@ $$head_i = Attention(QW_i^Q, KW_i^K, VW_i^V)$$
 
 $$MultiHead(Q, K, V) = Concat(head_1, \cdots, head_h)W^O$$
 
+![image](https://github.com/user-attachments/assets/c4b4b4b9-f395-4875-bada-c21b40d308bb)
+
+위는 단어 갯수(seq)가 6개, model dimension이 512라 가정했을 때 softmax를 구하는 과정이다. Query와 Key에 대해 각각의 단어에 대한 embedding 값들을 곱해주어 Attention matrix를 얻게 된다. 이때 나눠주는 $\sqrt{d_k}$ 는 model dimension인 512와 같은 값으로 softmax를 구할 때, 0주변에서 떨어진 값으로 인해 gradient vanishing 문제가 발생하는 것을 방지한다.  
+
 
 
 https://www.youtube.com/watch?v=bCz4OMemCcA
