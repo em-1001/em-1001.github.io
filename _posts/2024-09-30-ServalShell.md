@@ -36,7 +36,7 @@ Transformer는 RNN을 사용하지 않기 때문에 입력으로 넣는 단어�
 
 <p align="center"><img src="https://github.com/user-attachments/assets/b589dd53-7d2f-4e15-8b68-32c7d3d65e82"></p>
 
-Attention 기법은 어떤 단어들이 또 다른 단어들과 어떠한 연관성을 갖는지를 알아내기 위한 기밥이다. 이 Attnetion 값을 계산하기 위해서 Query, Key, Value라는 3가지 정보가 필요한데 Query는 각 단어들에 대한 연관성에 대한 값을 알아내기 위해 넣는 값이고, 연관성을 계산하는데 쓰인느 단어들이 Key이다. 이렇게 Query와 Key로 Attention 가중치를 구하면 여기에 실제 Value값을 곱해서 최종 값을 산출한다. 이 과정이 Scaled Dot-Product Attention이고, 실제 모델에 학습시킬 때는 h개의 head로 구분하여 Multi-Head Attention을 수행한다. 이렇게 h개의 서로다른 Query, Key, Value를 만듦으로써 다양한 Attention값을 얻어낼 수 있다. 
+Attention 기법은 어떤 단어들이 또 다른 단어들과 어떠한 연관성을 갖는지를 알아내기 위한 기법이다. 이 Attnetion 값을 계산하기 위해서 Query, Key, Value라는 3가지 정보가 필요한데 Query는 각 단어들에 대한 연관성에 대한 값을 알아내기 위해 넣는 값이고, 연관성을 계산하는데 쓰인느 단어들이 Key이다. 이렇게 Query와 Key로 Attention 가중치를 구하면 여기에 실제 Value값을 곱해서 최종 값을 산출한다. 이 과정이 Scaled Dot-Product Attention이고, 실제 모델에 학습시킬 때는 h개의 head로 구분하여 Multi-Head Attention을 수행한다. 이렇게 h개의 서로다른 Query, Key, Value를 만듦으로써 다양한 Attention값을 얻어낼 수 있다. 
 
 Multi-Head Attention은 다음과 같이 계산된다. 
 
@@ -48,7 +48,7 @@ $$MultiHead(Q, K, V) = Concat(head_1, \cdots, head_h)W^O$$
 
 ![image](https://github.com/user-attachments/assets/c4b4b4b9-f395-4875-bada-c21b40d308bb)
 
-위는 단어 갯수(seq)가 6개, model dimension이 512라 가정했을 때 softmax를 구하는 과정이다. Query와 Key에 대해 각각의 단어에 대한 embedding 값들을 곱해주어 Attention matrix를 얻게 된다. 이때 나눠주는 $\sqrt{d_k}$ 는 model dimension인 512와 같은 값으로 softmax를 구할 때, 0주변에서 떨어진 값으로 인해 gradient vanishing 문제가 발생하는 것을 방지한다.  
+위는 단어 갯수(seq)가 6개, model dimension이 512라 가정했을 때 softmax를 구하는 과정이다. Query와 Key에 대해 각각의 단어에 대한 embedding 값들을 곱해주어 Attention matrix를 얻게 된다. 이때 나눠주는 $\sqrt{d_k}$ 는 model dimension인 512와 같은 값으로 softmax를 구할 때, 0주변에서 떨어진 값으로 인해 gradient vanishing 문제가 발생하는 것을 방지한다. 이렇게 얻어진 Attention matrix는 Query의 각 단어가 Key의 각 단어와 얼마나 연관성을 갖는지를 나타낸 값으로 이 가중치에 value값을 곱하여 실제 Attention 값을 구할 수 있다. 
 
 
 
