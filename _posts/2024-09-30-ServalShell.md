@@ -68,6 +68,8 @@ Encoder과정에서 self-attention에 쓰이는 mask는 보통 의미없는 padd
 전체 과정은 위와 같다. 최종 결과를 보면 MultiHead Attention을 수행한 뒤에도 입력 차원과 동일하게 차원이 유지되는 것을 확인할 수 있다. 앞서 transformer의 모델 diagram을 다시 살펴보면 encoder부분에서 사용되는 self-attention은 각각의 단어가 서로에게 어떤 연관성을 갖는지를 계산하여 전체 문장에 대한 representation을 학습할 수 있도록 한다. decoder부분에서 사용되는 self-attention은 뒤에 해당하는 단어들은 masked되어 앞에 등장했던 단어들만 참고하여 attention을 계산하게 한다. 이는 모델이 단어를 만들어낼 때 뒤에 등장할 단어를 이미 참조해버리면 학습이 의미 없어지게 되기 때문이다. 마지막으로 decoder부분에서 사용되는 cross-attention은 Query는 decoder에서 입력받고 Key, Value는 encoder에서 받아온다. 번역의 경우 번역할 단어들에 대한 정보를 Key, Value로 가져와 각 단어와의 연관성을 계산하고 번역을 수행한다. 
 
 
+positional embedding 어떻게 구해지는지 추가하고, 크로스 어텐션에서 encoder에 가져온 값들이 정확히 어떻게 반영되어 decoder값과 계산되는지 정리하기 + How a Transformer works at inference vs training time
+
 https://www.youtube.com/watch?v=bCz4OMemCcA
 
 https://www.youtube.com/watch?v=AA621UofTUA&t=2s
