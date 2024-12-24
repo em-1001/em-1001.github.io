@@ -60,8 +60,10 @@ $$Mask =
 ? & ? & ? & ? & \cdots & ?
 \end{pmatrix}$$
 
-Attention Energy를 구할 때 위와 같이 Mask matrix를 이용해 특정 단어를 무시하게 할 수 있다. Mask matrix는 Attention Energy에 element wise로 더해 구해지며, mask 값으로 $-\inf$ 값을 넣어주어 $softmax$의 출력이 0%에 가깝도록 할 수 있다.   
-Encoder과정에서 self-attention에 쓰이는 mask는 보통 의미없는 padding token을 무시하는 용도로 사용되고, Decoder과정에서 self-attention과 cross-attention에 쓰이는 mask는 보통 모델이 학습할 때나 번역할 때, 현재 만들고 있는 token 이후의 token을 참조하지 못하게 하는 용도로 사용된다. (미래 token을 모델이 참조하게 되면 학습이 의미없어지게 되기 때문인것 같다.)
+Attention Energy를 구할 때 위와 같이 Mask matrix를 이용해 특정 단어를 무시하게 할 수 있다. Mask matrix는 Attention Energy에 element wise로 더해 구해지며, mask 값으로 $-\infty$ 값을 넣어주어 $softmax$의 출력이 0%에 가깝도록 할 수 있다.   
+Encoder과정에서 self-attention에 쓰이는 mask는 보통 의미없는 padding token을 무시하는 용도로 사용되고, Decoder과정에서 self-attention과 cross-attention에 쓰이는 mask는 보통 모델이 학습할 때나 번역할 때, 현재 만들고 있는 token 이후의 token을 참조하지 못하게 하는 용도로 사용된다. 
+
+
 
 
 https://www.youtube.com/watch?v=bCz4OMemCcA
