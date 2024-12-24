@@ -48,8 +48,20 @@ $$MultiHead(Q, K, V) = Concat(head_1, \cdots, head_h)W^O$$
 
 ![image](https://github.com/user-attachments/assets/c4b4b4b9-f395-4875-bada-c21b40d308bb)
 
-위는 단어 갯수(seq)가 6개, model dimension이 512라 가정했을 때 softmax를 구하는 과정이다. Query와 Key에 대해 각각의 단어에 대한 embedding 값들을 곱해주어 Attention matrix를 얻게 된다. 이때 나눠주는 $\sqrt{d_k}$ 는 model dimension인 512와 같은 값으로 softmax를 구할 때, 0주변에서 떨어진 값으로 인해 gradient vanishing 문제가 발생하는 것을 방지한다. 이렇게 얻어진 Attention matrix는 Query의 각 단어가 Key의 각 단어와 얼마나 연관성을 갖는지를 나타낸 값으로 이 가중치에 value값을 곱하여 실제 Attention 값을 구할 수 있다. 
+위는 단어 갯수(seq)가 6개, model dimension이 512라 가정했을 때 softmax를 구하는 과정이다. Query와 Key에 대해 각각의 단어에 대한 embedding 값들을 곱해주어 Attention Energy를 얻게 된다. 이때 나눠주는 $\sqrt{d_k}$ 는 model dimension인 512와 같은 값으로 softmax를 구할 때, 0주변에서 떨어진 값으로 인해 gradient vanishing 문제가 발생하는 것을 방지한다. 이렇게 얻어진 Attention 
+Energy는 Query의 각 단어가 Key의 각 단어와 얼마나 연관성을 갖는지를 나타낸 값으로 이 가중치에 value값을 곱하여 실제 Attention 값을 구할 수 있다. 
 
+$$Mask = 
+\begin{pmatrix}
+? & 0 & 0 & 0 & \cdots & 0 \\
+? & ? & 0 & 0 & \cdots & 0 \\ 
+? & ? & ? & 0 & \cdots & 0 \\
+\vdots & \vdots & \vdots & \vdots & \ddots & \vdots \\   
+? & ? & ? & ? & \cdots & ?
+\end{pmatrix}$$
+
+Attention Energy를 구할 때 위와 같이 Mask matrix를 이용해 특정 단어를 무시하게 할 수 있다. Mask matrix는 Attention Energy에 element wise로 더해 구해지며, mask 값으로 $-\inf$ 값을 넣어주어 $softmax$의 출력이 0%에 가깝도록 할 수 있다.   
+Encoder과정에서 self-attention에 쓰이는 mask는 보통 의미없는 padding token을 무시하는 용도로 사용되고, Decoder과정에서 self-attention과 cross-attention에 쓰이는 mask는 보통 모델이 학습할 때나 번역할 때, 현재 만들고 있는 token 이후의 token을 참조하지 못하게 하는 용도로 사용된다. (미래 token을 모델이 참조하게 되면 학습이 의미없어지게 되기 때문인것 같다.)
 
 
 https://www.youtube.com/watch?v=bCz4OMemCcA
