@@ -79,7 +79,20 @@ Encoder과정에서 self-attention에 쓰이는 mask는 보통 의미없는 padd
 전체 과정은 위와 같다. 최종 결과를 보면 MultiHead Attention을 수행한 뒤에도 입력 차원과 동일하게 차원이 유지되는 것을 확인할 수 있다. 앞서 transformer의 모델 diagram을 다시 살펴보면 encoder부분에서 사용되는 self-attention은 각각의 단어가 서로에게 어떤 연관성을 갖는지를 계산하여 전체 문장에 대한 representation을 학습할 수 있도록 한다. decoder부분에서 사용되는 self-attention은 뒤에 해당하는 단어들은 masked되어 앞에 등장했던 단어들만 참고하여 attention을 계산하게 한다. 이는 모델이 단어를 만들어낼 때 뒤에 등장할 단어를 이미 참조해버리면 학습이 의미 없어지게 되기 때문이다. 마지막으로 decoder부분에서 사용되는 cross-attention은 Query는 decoder에서 입력받고 Key, Value는 encoder에서 받아온다. 번역의 경우 번역할 단어들에 대한 정보를 Key, Value로 가져와 각 단어와의 연관성을 계산하고 번역을 수행한다. 
 
 
-positional embedding 어떻게 구해지는지 추가하고, 크로스 어텐션에서 encoder에 가져온 값들이 정확히 어떻게 반영되어 decoder값과 계산되는지 정리하기 + How a Transformer works at inference vs training time
+## How a Transformer works at inference vs training time
+Transformer는 train할 때와 inference를 할 때 동작 방식에 약간 차이가 있다. 
+
+#### inference time
+
+inference time에서는 우선 Decoder input으로 <SOS> 토큰이 들어간다. 이후 <SOS> 토큰 다음으로 나올 것이라 예측되는 단어들 중 가장 확률이 높은 단어가 Decoder output으로 나오고, <SOS> 토큰과 Decoder output으로 나온 단어를 이어 붙인 값을 다시 Decoder input으로 넣는다. 이렇게 하면 결과로 2번째 단어를 예측하게 되고, 이를 <EOS>가 나올 때 가지 반복하여 결과들을 이어 붙이면 최종 번역 결과가 나오게 된다. 
+
+#### train time
+
+반면 train time에서는 Decoder input으로 번역 결과인 target label들 앞에 <SOS> 토큰을 붙인 값을 넣는다. 이렇게 값을 넣으면 모델이 각 위치에 대해 softmax 확률값을 결과로 도출하고 이 값들은 각각 해당 위치의 ground truth에 해당하는 label 값과 cross entropy를 계산하게 된다. 이렇게 각 단어의 위치에 따라 구해진 cross entropy loss값들의 평균이 최종 loss가 되어 모델의 학습에 반영된다.  이를 위해 train time에서는 encoder, decoder input에 길이가 일정하도록 padding token을 붙이고, label id에도 해당 길이가 되도록 -100을 넣어주는데, -100은 해당값을 가지고 있는 index에 대해선 cross entropy loss를 구하지 않겠다는 것을 의미한다. 따라서 paddding 부분을 제외한 모델이 예측한 값들에 대한 loss가 산출되어 모델이 학습하게 된다. 
+
+## Greedy Search & Beam Search
+
+
 
 https://www.youtube.com/watch?v=bCz4OMemCcA
 
