@@ -84,7 +84,7 @@ Transformer는 train할 때와 inference를 할 때 동작 방식에 약간 차�
 
 #### inference time
 
-inference time에서는 우선 Decoder input으로 <SOS> 토큰이 들어간다. 이후 <SOS> 토큰 다음으로 나올 것이라 예측되는 단어들 중 가장 확률이 높은 단어가 Decoder output으로 나오고, <SOS> 토큰과 Decoder output으로 나온 단어를 이어 붙인 값을 다시 Decoder input으로 넣는다. 이렇게 하면 결과로 2번째 단어를 예측하게 되고, 이를 <EOS>가 나올 때 가지 반복하여 결과들을 이어 붙이면 최종 번역 결과가 나오게 된다. 
+inference time에서는 우선 Decoder input으로 <SOS> 토큰이 들어간다. 이후 <SOS> 토큰 다음으로 나올 것이라 예측되는 단어들 중 확률이 높은 단어가 Decoder output으로 나오고, <SOS> 토큰과 Decoder output으로 나온 단어를 이어 붙인 값을 다시 Decoder input으로 넣는다. 이렇게 하면 결과로 2번째 단어를 예측하게 되고, 이를 <EOS>가 나올 때 가지 반복하여 결과들을 이어 붙이면 최종 번역 결과가 나오게 된다. 
 
 #### train time
 
@@ -92,6 +92,19 @@ inference time에서는 우선 Decoder input으로 <SOS> 토큰이 들어간다.
 
 ## Greedy Search & Beam Search
 
+앞서 Transformer의 inference time에 Decoder가 예측한 확률 값 중 가장 높은 단어가 output으로 나온다고 했다. 이때 확률이 높은 값을 선정하는 방법에 따라 Greedy Search를 적용할 수도 있고, Beam Search 적용할 수도 있다. 
+
+Greedy Search는 매우 간단하다. output으로 단어를 선택할 때 현 시점에서 가장 확률이 높은 단어를 가져온다. 이는 시간복잡도 면에서는 좋지만, 다양한 경우의 수를 고려하지 못해 최종적인 정확도 면에서 좋지 않을 수 있다. 반면 Beam Search는 이를 보완하기 위해 매 순간 고려할 빔의 수를 정하고 해당 경우의 수 만큼 누적확률을 계산해 나간다. 
+
+<img src="https://github.com/user-attachments/assets/beb19a9a-82a6-4675-bc82-194a8dbce44a" height="55%" width="55%">
+
+위는 빔의 수를 2로 설정했을 때이다. 빔의 수를 k라 가정하면, 우선 현 시점에서 확률이 가장 높은 k를 뽑는다. 그 다음 이전에 선택한 k개의 경우에 대해 각각 다시 확률이 가장 높은 경우 k개를 고른다. 이런 식으로 누적 확률을 계산하다가 특정 빔이 <EOS> 토큰을 만나면 해당 빔은 후보에 오른다. 그리고 후보에 오른 빔의 자리를 대신해서 이전에 k+1번째로 확률이 높았던 빔이 활성화 되어 k개의 빔을 유지한다. 이렇게 이어 가다 후보 빔의 수가 k개가 되면 서치를 종료하고 최종 k개의 후보 중 누적 확률이 가장 높은 빔을 선택하게 된다. 
+
+하지만 이렇게 하면 매 빔마다 누적확률을 계산하기 때문에 빔의 길이가 긴 후보가 확률이 낮을 수 밖에 없다. 이러한 문제를 해소하기 위해 Length Penalty를 구해 확률값에 나누어 주며 아래와 같이 구해진다. 
+
+$$lp(Y) = \frac{(5 + |Y|)^{\alpha}}{(5 + 1)^{\alpha}}$$
+
+알파는 보통 1.2를 사용하고, minimum length인 5도 변경 가능한 하이퍼 파라미터이다. 
 
 
 https://www.youtube.com/watch?v=bCz4OMemCcA
