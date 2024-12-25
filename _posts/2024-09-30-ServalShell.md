@@ -32,6 +32,16 @@ $$\alpha_{i,j} = \frac{\exp({e_{ij}})}{\sum^{T_ x}_ {k=1} \exp({e_ {ik}})}$$
 
 Transformer는 RNN을 사용하지 않기 때문에 입력으로 넣는 단어들에 대한 순서정보를 추가로 넣어줘야 하는데, 이를 Positional Encoding이라 한다. Positional Encoding은 input embedding matrix와 동일한 임베딩 차원을 가지면서 위치에 대한 encoding 정보를 갖고 있어 input embedding matrix와 element wise 합으로 위치 정보를 심어준다. 
 
+Positional Encoding은 다음과 같이 주기 함수를 활용하여 구해진다. 
+
+$$PE_{(pos, 2i)} = \sin(pos/10000^{2i/d_{model}})$$   
+
+$$PE_{(pos, 2i+1)} = \cos(pos/10000^{2i/d_{model}})$$   
+
+$pos$는 각각의 단어 번호, $i$는 각 단어의 embedding 값 위치를 의미한다. 
+
+Positional Encoding은 네트워크가 각 단어의 상대적 위치를 파악할 수 있게만 하면 되므로 위 처럼 $\sin, \cos$ 으로 정해진 함수를 이용할 수도 있지만, 위치에 대한 embedding 값을 따로 학습하도록 하여 네트워크에 넣을 수도 있고 성능상의 차이는 거의 없다. 
+
 ## Multi-Head Attention
 
 <p align="center"><img src="https://github.com/user-attachments/assets/b589dd53-7d2f-4e15-8b68-32c7d3d65e82"></p>
