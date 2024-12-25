@@ -96,7 +96,7 @@ inference time에서는 우선 Decoder input으로 <SOS> 토큰이 들어간다.
 
 Greedy Search는 매우 간단하다. output으로 단어를 선택할 때 현 시점에서 가장 확률이 높은 단어를 가져온다. 이는 시간복잡도 면에서는 좋지만, 다양한 경우의 수를 고려하지 못해 최종적인 정확도 면에서 좋지 않을 수 있다. 반면 Beam Search는 이를 보완하기 위해 매 순간 고려할 빔의 수를 정하고 해당 경우의 수 만큼 누적확률을 계산해 나간다. 
 
-<img src="https://github.com/user-attachments/assets/beb19a9a-82a6-4675-bc82-194a8dbce44a" height="55%" width="55%">
+<p align="center"><img src="https://github.com/user-attachments/assets/beb19a9a-82a6-4675-bc82-194a8dbce44a" height="55%" width="55%"></p>
 
 위는 빔의 수를 2로 설정했을 때이다. 빔의 수를 k라 가정하면, 우선 현 시점에서 확률이 가장 높은 k를 뽑는다. 그 다음 이전에 선택한 k개의 경우에 대해 각각 다시 확률이 가장 높은 경우 k개를 고른다. 이런 식으로 누적 확률을 계산하다가 특정 빔이 <EOS> 토큰을 만나면 해당 빔은 후보에 오른다. 그리고 후보에 오른 빔의 자리를 대신해서 이전에 k+1번째로 확률이 높았던 빔이 활성화 되어 k개의 빔을 유지한다. 이렇게 이어 가다 후보 빔의 수가 k개가 되면 서치를 종료하고 최종 k개의 후보 중 누적 확률이 가장 높은 빔을 선택하게 된다. 
 
