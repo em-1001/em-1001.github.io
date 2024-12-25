@@ -49,7 +49,7 @@ $$MultiHead(Q, K, V) = Concat(head_1, \cdots, head_h)W^O$$
 <p align="center"><img src="https://github.com/user-attachments/assets/3873d29a-cd2d-4c3b-9a28-1b1d9a60427f"></p>
 
 
-위는 단어 갯수(seq)가 6개, model dimension이 512라 가정했을 때 softmax를 구하는 과정이다. Query와 Key에 대해 각각의 단어에 대한 embedding 값들을 곱해주어 Attention Energy를 얻게 된다. 이때 나눠주는 $\sqrt{d_k}$ 는 model dimension인 512와 같은 값으로 softmax를 구할 때, 0주변에서 떨어진 값으로 인해 gradient vanishing 문제가 발생하는 것을 방지한다. 이렇게 얻어진 Attention 
+위는 단어 갯수(seq)가 6개, model dimension이 512라 가정했을 때 softmax를 구하는 과정이다. Query와 Key에 대해 각각의 단어에 대한 embedding 값들을 곱해주어 Attention Energy를 얻게 된다. 이때 나눠주는 $\sqrt{d_k}$ softmax를 구할 때, 0주변에서 떨어진 값으로 인해 gradient vanishing 문제가 발생하는 것을 방지한다. 이렇게 얻어진 Attention 
 Energy는 Query의 각 단어가 Key의 각 단어와 얼마나 연관성을 갖는지를 나타낸 값으로 이 가중치에 value값을 곱하여 실제 Attention 값을 구할 수 있다. 
 
 $$Mask = 
@@ -64,7 +64,7 @@ $$Mask =
 Attention Energy를 구할 때 위와 같이 Mask matrix를 이용해 특정 단어를 무시하게 할 수 있다. Mask matrix는 Attention Energy에 element wise로 더해 구해지며, mask 값으로 $-\infty$ 값을 넣어주어 $softmax$의 출력이 0%에 가깝도록 할 수 있다.   
 Encoder과정에서 self-attention에 쓰이는 mask는 보통 의미없는 padding token을 무시하는 용도로 사용되고, Decoder과정에서 self-attention과 cross-attention에 쓰이는 mask는 보통 모델이 학습할 때나 번역할 때, 현재 만들고 있는 token 이후의 token을 참조하지 못하게 하는 용도로 사용된다. 
 
-<p align="center"><img src="https://github.com/user-attachments/assets/85248b2a-0c5d-4c0f-ab07-81290a385c88"></p>
+<img src="https://github.com/user-attachments/assets/f64f4a37-c567-45ff-b865-f08d58dabf55">
 
 전체 과정은 위와 같다. 최종 결과를 보면 MultiHead Attention을 수행한 뒤에도 입력 차원과 동일하게 차원이 유지되는 것을 확인할 수 있다. 앞서 transformer의 모델 diagram을 다시 살펴보면 encoder부분에서 사용되는 self-attention은 각각의 단어가 서로에게 어떤 연관성을 갖는지를 계산하여 전체 문장에 대한 representation을 학습할 수 있도록 한다. decoder부분에서 사용되는 self-attention은 뒤에 해당하는 단어들은 masked되어 앞에 등장했던 단어들만 참고하여 attention을 계산하게 한다. 이는 모델이 단어를 만들어낼 때 뒤에 등장할 단어를 이미 참조해버리면 학습이 의미 없어지게 되기 때문이다. 마지막으로 decoder부분에서 사용되는 cross-attention은 Query는 decoder에서 입력받고 Key, Value는 encoder에서 받아온다. 번역의 경우 번역할 단어들에 대한 정보를 Key, Value로 가져와 각 단어와의 연관성을 계산하고 번역을 수행한다. 
 
