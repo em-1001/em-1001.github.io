@@ -147,6 +147,13 @@ Additionally, the following options are available.
 ServalShell:~$ ▯
 ```
 
+## Pre-Process & Post-Process
+
+프로젝트를 진행하던 중 문제가 발생했다. Transformer 모델을 완성한 후 테스트 겸 영어를 이탈리아어로 번역하도록 학습시켰더니 괜찮은 결과가 나왔다. 하지만 본래 목표였던 영어를 bash 명령어로 바꾸도록 학습시켰을 때는 학습 데이터에 있던 파일명이나 경로가 아닌 새로운 파일명, 경로 등을 넣었을 때 모델이 아에 엉뚱한 답을 내놓았다. 단순 특정 언어를 다른 언어로 번역하는 작업이 아니라 bash 명령어로 번역해야 했기에 이러한 값들에 대해서도 잘 동작할 수 있도록 해당 값들을 일반화하여 학습시킬 필요가 있엇다.
+조사를 해보니 **L2CMD: An Updated Workflow for Natural Language to Bash Commands Translation** 논문에서는 학습 데이터에 있는 파일명, 경로, 변수 등을 **Generic Forms** 으로 바꾸어 전처리 하였다고 했다. 예를 들면 아래와 같다. 
+
+<p align="center"><img src="https://github.com/user-attachments/assets/bb8997ba-9786-4b18-a12b-a420a0aec45a"></p>
+
 ## Attention Score 
 
 **sentence:** moves "file.txt" to "./bin"   
