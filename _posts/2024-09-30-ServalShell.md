@@ -154,6 +154,10 @@ ServalShell:~$ ▯
 
 <p align="center"><img src="https://github.com/user-attachments/assets/bb8997ba-9786-4b18-a12b-a420a0aec45a"></p>
 
+**Tellina Tool**을 이용해서 Dataset의 Sorce 문장과 Target 문장 모두 위와 같은 전처리를 해 주었다. 이렇게 학습시켜본 결과 bash 명령어의 형태를 잘 유지하면서 파일명, 경로, 변수 등이 있을 자리에는 각각에 해당하는 **Generic Forms**으로 출력할 수 있게 되었다. 
+마지막으로 해당 **Generic Forms**을 원래 기존 파일명, 경로, 변수 등으로 바꾸는 후처리 작업만 해주면 되었고, 이는 Tellina의 Slot filling 함수를 사용하여 구현하였다. 실제 모델이 출력한 결과를 subprocess를 이용해 실행해본 결과 실행이 되는 코드들이 어느정도 나왔다. 
+
+
 ## Attention Score 
 
 **sentence:** moves "file.txt" to "./bin"   
