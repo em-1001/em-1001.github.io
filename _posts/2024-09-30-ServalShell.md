@@ -192,6 +192,6 @@ Transformer : https://www.youtube.com/watch?v=bCz4OMemCcA
 　　　　　　https://www.youtube.com/watch?v=AA621UofTUA&t=2s   
 
 ## Paper
-Transformer : https://arxiv.org/pdf/1706.03762  
+Attention Is All You Need : https://arxiv.org/pdf/1706.03762  
 NL2CMD : https://arxiv.org/pdf/2302.07845  
 
