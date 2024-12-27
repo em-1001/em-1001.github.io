@@ -106,11 +106,6 @@ $$lp(Y) = \frac{(5 + |Y|)^{\alpha}}{(5 + 1)^{\alpha}}$$
 
 알파는 보통 1.2를 사용하고, minimum length인 5도 변경 가능한 하이퍼 파라미터이다. 
 
-
-https://www.youtube.com/watch?v=bCz4OMemCcA
-
-https://www.youtube.com/watch?v=AA621UofTUA&t=2s
-
 # Project: NL to Bash translation with Transformer
 
 ```sh
@@ -189,3 +184,14 @@ Cumulative BLEU4 score = 40.36
 
 ## Github Repository
 [ServalShell](https://github.com/em-1001/ServalShell)
+
+# Reference 
+
+## Web Link
+Transformer : https://www.youtube.com/watch?v=bCz4OMemCcA  
+　　　　　　https://www.youtube.com/watch?v=AA621UofTUA&t=2s   
+
+## Paper
+Transformer : https://arxiv.org/pdf/1706.03762  
+NL2CMD : https://arxiv.org/pdf/2302.07845  
+
