@@ -279,6 +279,7 @@ defaults:
       share: true
       related: true
       toc_ads: true
+      toc: true
       toc_sticky: true
 
   # _pages
