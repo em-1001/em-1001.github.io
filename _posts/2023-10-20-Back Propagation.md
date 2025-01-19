@@ -6,6 +6,8 @@ categories:
   - Computer Vision
 tags:
   - CS231n
+toc: true
+toc_sticky: true
 last_modified_at: 2023-10-20T08:06:00-05:00
 ---
 
