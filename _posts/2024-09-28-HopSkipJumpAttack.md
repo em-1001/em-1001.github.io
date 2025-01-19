@@ -7,6 +7,8 @@ categories:
 tags:
   - Adversarial Attack
   - Paper
+toc: true
+toc_sticky: true
 last_modified_at: 2024-09-28T08:06:00-05:00
 ---
 
