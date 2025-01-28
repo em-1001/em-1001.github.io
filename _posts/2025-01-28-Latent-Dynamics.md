@@ -49,7 +49,7 @@ P_{ca} & P_{cb} & P_{cc} \\
 어떤 변수가 1시점 이전의 변수로부터만 영향을 받고, 확률적으로 변화하는 성질을 가질 때, Markov Property를 갖는다고 가정한다. 
 Markov Property는 다음과 같은 식이 성립한다. 
 
-$$P(s_{t+1} \vert s_t, s_{t-1}, \codts, s_1) = P(s_{t+1} \vert s_{1:t}) = P(s_{t+1} \vert s_t)$$
+$$P(s_{t+1} \vert s_t, s_{t-1}, \cdots, s_1) = P(s_{t+1} \vert s_{1:t}) = P(s_{t+1} \vert s_t)$$
 
 
 
