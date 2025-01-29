@@ -59,7 +59,7 @@ Markov Decision Process(MDP)는 MRP에 행동(actions)이 더해진 것이다.
 
 **A Markov Decision Process is a tuple** $<\mathcal{S}, \mathcal{A}, \mathcal{P}, \mathcal{R}, \gamma>$  
 - $\mathcal{S}$ is a (finite) set of states
-- \mathcal{A} is a finite set of actions  
+- $\mathcal{A}$ is a finite set of actions  
 - $\mathcal{P}$ is a state transition probability matrix,
   $\mathcal{P}_{ss^{\prime}}^a = P\left[s _{t+1} = s^{\prime} \vert S_t = s, A_t = a \right]$  
 - $mathcal{R}$ is a reward function, $\mathcal{R}_s^a = \mathbb{E}[R _{t+1} \vert S_t = s, A_t = a]$
