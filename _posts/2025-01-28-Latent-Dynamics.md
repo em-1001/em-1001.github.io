@@ -35,6 +35,8 @@ P_{11} & \cdots & P_{1n} \\
 P_{n1} & \cdots & P_{nn} \\ 
 \end{pmatrix}$$
 
+Markov process에서 sampling된 시퀀스를 에피소드(episode)라 한다. 
+
 ## Markov reward process(MRP) 
 
 Markov Reward Process(MRP)는 Markov chain에 reward가 더해진 것이다. 임의의 state들의 시퀀스를 상태 변환 확률에 따라 지나가면서 각 상태에 도착할 때마다 보상을 얼마나 받는지도 시퀀스로서 파악하는 것이다. 
@@ -105,10 +107,34 @@ partially observable Markov decision process(POMDP)에서는 현 상태에 대�
 
 MDP와 POMDP의 차이를 정리하면 MDP는 $s_t = o_t$이지만 POMDP는 $s_t \neq o_t$라 할 수 있다. 
 
+POMDP의 history $H_t$는 actions, observations and rewards의 시퀀스로 다음과 같이 표현된다. 
+
+$$H_t = A_0, O_1, R_1, \cdots, A_{t-1}, O_t, R_t$
+
+belief state $b(h)$는 history $H$에 따른 state의 확률분포로 다음과 같이 표현된다. 
+
+$$b(h) = (P[S_t = s^1 \vert H_t = h], \cdots, P[S_t = s^n \vert H_t = h])$$
+
+
+# Latent Dynamics
+
+본 논문은 planning을 위한 dynamics model로 Deep Planning Network (PlaNet)를 제안한다. 모델의 Key contributions은 다음과 같다. 
+
+1. Planning in latent spaces   
+PlaNet은 dynamics model을 학습시키고, latent space로부터 planning하여 DeepMind의 다양한 task(Cartpole, Reacher, Cheetah, Finger, Cup, Walker...)를 수행한다. 
+
+2. Recurrent state space model
+Deterministic Process은 어떤 상태 $s$에서 행동 $a$를 선택할 때 결과가 한 가지로 정해진 시스템이다. 반면 Stochastic System 같은 $s$와 $a$를 취해도 확률적으로 다른 결과가 나올 수 있는 시스템이다. 본 논문은 latent dynamics model에 deterministic과  stochastic components를 모두 사용한다.
+
+3. Latent overshooting
+
+## Latent Space Planning
 
 
 # Reference 
 POMDP : https://www.davidsilver.uk/teaching/        
 https://ralasun.github.io/reinforcement%20learning/2020/07/12/mdp/  
+https://benban.tistory.com/63  
+
 
 https://planetrl.github.io/  
