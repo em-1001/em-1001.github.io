@@ -10,35 +10,31 @@ tags:
 last_modified_at: 2025-01-19T08:06:00-05:00
 ---
 
-# Background
+# POMDP
 
-## State transition probability
-어떠한 상태에서 다음 단계의 상태로 전이(transition)하는 것에 대한 확률을 상태전이확률(State transition probability)라 한다. 
-상태전이확률은 아래와 같은 수식으로 나타낸다. 
+## Markov Process 
 
-$$a_{ij} = P(o_t = v_j \vert o_{t-1} = v_i)$$
+어떤 변수가 1시점 이전의 변수로부터만 영향을 받고, 확률적으로 변화하는 성질을 가질 때, Markov Property를 갖는다고 가정한다. 
+Markov Property는 다음과 같은 식이 성립한다. 
 
-$$a_{ij} > 0 \ and \ \sum_{j=1}^m a_{ij} = 1$$
+$$P(s_{t+1} \vert s_t, s_{t-1}, \cdots, s_1) = P(s_{t+1} \vert s_{1:t}) = P(s_{t+1} \vert s_t)$$
 
-위 식은 상태 $v_i$에서 $v_j$로 이동할 확률에 대해 나타낸다. 
+Markov Process(Markov chain)은 마코브 성질을 가지는 랜덤 상태 $S_1, S_2, \cdots$ 들의 시퀀스이다. Finite Markov Process인 경우 상태들의 집합은 유한개로 구성된다. 
 
-상태 A, B, C가 있고 각각의 상태 전이 확률이 정의되어 있다고 가정할 때, 상태 전이도(State transition diagram)은 다음과 같다. 
+A Markov Process (or Markov Chain) is a tuple $<\mathcal{S}, \mathcal{P}>$  
+- $\mathcal{S}$ is a (finite) set of states
+- $\mathcal{P}$ is a state transition probability matrix,
+  $\mathcal{P}_{ss^'} = P\left[s _{t+1} = s^' \vert S_t = s \right]$
 
-<p align="center"><img src="https://github.com/user-attachments/assets/754d2f27-bc3a-48e0-a4ef-a12086ab5e52"></p>
-
-위 상태 전이도에 대한 전이확률은 다음과 같다. 
+상태들간의 변환 확률 행렬(state transition matrix)은 현재 상태에서 다른 상태로 갈 확률을 모든 상태에 대해 행렬 형태로 나타낸 것이다. 상태 변환 확률 행렬 $P$는 아래와 같으며, 각 행의 합은 1이 된다. 
 
 $$P = 
 \begin{pmatrix}
-P_{aa} & P_{ab} & P_{ac} \\  
-P_{ba} & P_{bb} & P_{bc} \\  
-P_{ca} & P_{cb} & P_{cc} \\  
-\end{pmatrix} = 
-\begin{pmatrix}
-0 & 0.8 & 0.2 \\  
-0.5 & 0.1 & 0.4 \\  
-0.5 & 0 & 0.5 \\  
+P_{11} & \cdots & P_{1n} \\ 
+\vdots & \ddots & \vdots \\
+P_{n1} & \cdots & P_{nn} \\ 
 \end{pmatrix}$$
+
 
 
 ## Markov decision process(MDP)
@@ -60,6 +56,9 @@ Graphical Model을 사용하면 시간방향 전이 외에도 다양한 변수 �
 <p align="center"><img src="https://github.com/user-attachments/assets/a4861c03-6e52-4707-82a6-5cfeb04ef7f0"></p>
 
 이처럼 행동 $a_t$에도 의존하여 상태 $s_{t+1}$가 결정되는 확률적 시스템 $P(s_{t+1} \vert s_t, a_t)$ 을 마르코프 결정 프로세스(Markov Decision Process, MDP)라 한다. 
+
+## partially observable Markov decision process(POMDP)
+
 
 
 
