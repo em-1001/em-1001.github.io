@@ -21,7 +21,7 @@ $$P(s_{t+1} \vert s_t, s_{t-1}, \cdots, s_1) = P(s_{t+1} \vert s_{1:t}) = P(s_{t
 
 Markov Process(Markov chain)은 마코브 성질을 가지는 랜덤 상태 $S_1, S_2, \cdots$ 들의 시퀀스이다. Finite Markov Process인 경우 상태들의 집합은 유한개로 구성된다. 
 
-A Markov Process (or Markov Chain) is a tuple $<\mathcal{S}, \mathcal{P}>$  
+**A Markov Process (or Markov Chain) is a tuple** $<\mathcal{S}, \mathcal{P}>$  
 - $\mathcal{S}$ is a (finite) set of states
 - $\mathcal{P}$ is a state transition probability matrix,
   $\mathcal{P}_{ss^{\prime}} = P\left[s _{t+1} = s^{\prime} \vert S_t = s \right]$
@@ -34,6 +34,21 @@ P_{11} & \cdots & P_{1n} \\
 \vdots & \ddots & \vdots \\
 P_{n1} & \cdots & P_{nn} \\ 
 \end{pmatrix}$$
+
+## Markov Reward Process 
+
+Markov Reward Process(MRP)는 Markov chain에 reward가 더해진 것이다. 임의의 state들의 시퀀스를 상태 변환 확률에 따라 지나가면서 각 상태에 도착할 때마다 보상을 얼마나 받는지도 시퀀스로서 파악하는 것이다. 
+
+**A Markov Reward Process is a tuple** $<\mathcal{S}, \mathcal{P}, \mathcal{R}, \gamma>$  
+- $mathcal{R}$ is a reward function, $\mathcal{R}_s = \mathbb{E}[R _{t+1} \vert S_t = s]$
+- $\gamma$ is a discount factor, $\gamma \in [0, 1]$
+
+$R_s$는 보상함수로, 상태 $S_s$일 때, 받을 수 있는 즉각적인 보상에 대한 기댓값이다. 중요한 점은 앞으로 받을 보상들을 고려한 누적 보상값이 아닌 즉각적으로 받는 보상(immediate reward)이다. 
+
+현재 상태 $t$에서 다음 step에 받을 보상과 상태가 $r$과 $s^{\prime}$이 될 확률은 다음과 같이 표현한다. 
+
+$$p(s^{\prime}, r \vert s) = P[S_{t+1} = s^{\prime}, R_{t+1} = r \vert S_t = s]$$
+
 
 
 
@@ -63,7 +78,7 @@ Graphical Model을 사용하면 시간방향 전이 외에도 다양한 변수 �
 
 
 # Reference 
-https://benban.tistory.com/62     
-https://benban.tistory.com/63   
-https://velog.io/@qkrdbwls191/Markov-chain      
+POMDP : https://www.davidsilver.uk/teaching/        
+https://ralasun.github.io/reinforcement%20learning/2020/07/12/mdp/  
+
 https://planetrl.github.io/  
