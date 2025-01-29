@@ -12,7 +12,7 @@ last_modified_at: 2025-01-19T08:06:00-05:00
 
 # POMDP
 
-## Markov process 
+## Markov process(Markov Chain)
 
 어떤 변수가 1시점 이전의 변수로부터만 영향을 받고, 확률적으로 변화하는 성질을 가질 때, Markov Property를 갖는다고 가정한다. 
 Markov Property는 다음과 같은 식이 성립한다. 
@@ -35,7 +35,7 @@ P_{11} & \cdots & P_{1n} \\
 P_{n1} & \cdots & P_{nn} \\ 
 \end{pmatrix}$$
 
-## Markov reward process 
+## Markov reward process(MRP) 
 
 Markov Reward Process(MRP)는 Markov chain에 reward가 더해진 것이다. 임의의 state들의 시퀀스를 상태 변환 확률에 따라 지나가면서 각 상태에 도착할 때마다 보상을 얼마나 받는지도 시퀀스로서 파악하는 것이다. 
 
@@ -53,7 +53,7 @@ $R_s$는 보상함수로, 상태 $S_s$일 때, 받을 수 있는 즉각적인 �
 $$p(s^{\prime}, r \vert s) = P[S_{t+1} = s^{\prime}, R_{t+1} = r \vert S_t = s]$$
 
 
-## Markov decision process
+## Markov decision process(MDP)
 
 Markov Decision Process(MDP)는 MRP에 행동(actions)이 더해진 것이다. 
 
@@ -85,7 +85,7 @@ $$R^{\pi}(s) = \sum_{a \in A} \pi(a \vert s)R(s, a)$$
 
 $$P^{\pi}(s^{\prime} \vert s) = \sum_{a \in A} \pi(a \vert s)P(s^{\prime} \vert s, a)$$
 
-## partially observable Markov decision process
+## partially observable Markov decision process(POMDP)
 
 <p align="center"><img src="https://github.com/user-attachments/assets/e53d2d91-8fe6-4e8d-9d36-71d33eab0fec" height="300px" width="300px">    <img src="https://github.com/user-attachments/assets/c5464dc8-bb99-4113-b488-173426fceae7" height="300px" width="300px"></p>
 
