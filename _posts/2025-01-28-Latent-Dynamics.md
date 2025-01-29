@@ -43,7 +43,7 @@ Markov Reward Process(MRP)는 Markov chain에 reward가 더해진 것이다. 임
 - $\mathcal{S}$ is a (finite) set of states
 - $\mathcal{P}$ is a state transition probability matrix,
   $\mathcal{P}_{ss^{\prime}} = P\left[s _{t+1} = s^{\prime} \vert S_t = s \right]$  
-- $mathcal{R}$ is a reward function, $\mathcal{R}_s = \mathbb{E}[R _{t+1} \vert S_t = s]$
+- $\mathcal{R}$ is a reward function, $\mathcal{R}_s = \mathbb{E}[R _{t+1} \vert S_t = s]$
 - $\gamma$ is a discount factor, $\gamma \in [0, 1]$
 
 $R_s$는 보상함수로, 상태 $S_s$일 때, 받을 수 있는 즉각적인 보상에 대한 기댓값이다. 중요한 점은 앞으로 받을 보상들을 고려한 누적 보상값이 아닌 즉각적으로 받는 보상(immediate reward)이다. 
@@ -62,7 +62,7 @@ Markov Decision Process(MDP)는 MRP에 행동(actions)이 더해진 것이다.
 - $\mathcal{A}$ is a finite set of actions  
 - $\mathcal{P}$ is a state transition probability matrix,
   $\mathcal{P}_{ss^{\prime}}^a = P\left[s _{t+1} = s^{\prime} \vert S_t = s, A_t = a \right]$  
-- $mathcal{R}$ is a reward function, $\mathcal{R}_s^a = \mathbb{E}[R _{t+1} \vert S_t = s, A_t = a]$
+- $\mathcal{R}$ is a reward function, $\mathcal{R}_s^a = \mathbb{E}[R _{t+1} \vert S_t = s, A_t = a]$
 - $\gamma$ is a discount factor, $\gamma \in [0, 1]$
 
 행동(action)까지 고려한 MDP에서의 환경 모델은 다음과 같다. 
