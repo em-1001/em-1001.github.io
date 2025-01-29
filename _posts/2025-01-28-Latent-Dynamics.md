@@ -12,7 +12,7 @@ last_modified_at: 2025-01-19T08:06:00-05:00
 
 # POMDP
 
-## Markov Process 
+## Markov process 
 
 어떤 변수가 1시점 이전의 변수로부터만 영향을 받고, 확률적으로 변화하는 성질을 가질 때, Markov Property를 갖는다고 가정한다. 
 Markov Property는 다음과 같은 식이 성립한다. 
@@ -35,11 +35,14 @@ P_{11} & \cdots & P_{1n} \\
 P_{n1} & \cdots & P_{nn} \\ 
 \end{pmatrix}$$
 
-## Markov Reward Process 
+## Markov reward process 
 
 Markov Reward Process(MRP)는 Markov chain에 reward가 더해진 것이다. 임의의 state들의 시퀀스를 상태 변환 확률에 따라 지나가면서 각 상태에 도착할 때마다 보상을 얼마나 받는지도 시퀀스로서 파악하는 것이다. 
 
 **A Markov Reward Process is a tuple** $<\mathcal{S}, \mathcal{P}, \mathcal{R}, \gamma>$  
+- $\mathcal{S}$ is a (finite) set of states
+- $\mathcal{P}$ is a state transition probability matrix,
+  $\mathcal{P}_{ss^{\prime}} = P\left[s _{t+1} = s^{\prime} \vert S_t = s \right]$  
 - $mathcal{R}$ is a reward function, $\mathcal{R}_s = \mathbb{E}[R _{t+1} \vert S_t = s]$
 - $\gamma$ is a discount factor, $\gamma \in [0, 1]$
 
@@ -50,30 +53,39 @@ $R_s$는 보상함수로, 상태 $S_s$일 때, 받을 수 있는 즉각적인 �
 $$p(s^{\prime}, r \vert s) = P[S_{t+1} = s^{\prime}, R_{t+1} = r \vert S_t = s]$$
 
 
+## Markov decision process
 
+Markov Decision Process(MDP)는 MRP에 행동(actions)이 더해진 것이다. 
 
-## Markov decision process(MDP)
+**A Markov Decision Process is a tuple** $<\mathcal{S}, \mathcal{A}, \mathcal{P}, \mathcal{R}, \gamma>$  
+- $\mathcal{S}$ is a (finite) set of states
+- \mathcal{A} is a finite set of actions  
+- $\mathcal{P}$ is a state transition probability matrix,
+  $\mathcal{P}_{ss^{\prime}}^a = P\left[s _{t+1} = s^{\prime} \vert S_t = s, A_t = a \right]$  
+- $mathcal{R}$ is a reward function, $\mathcal{R}_s^a = \mathbb{E}[R _{t+1} \vert S_t = s, A_t = a]$
+- $\gamma$ is a discount factor, $\gamma \in [0, 1]$
 
-결정적 시스템(Deterministic Process) 이란 어떤 상태($s$)에서 행동($a$)를 선택할 때 결과가 한 가지로 정해져있는 시스템이다. 
-현실의 대부분은 결정적 시스템이 아닌 확률적 시스템(Stochastic System)이다. 
+행동(action)까지 고려한 MDP에서의 환경 모델은 다음과 같다. 
 
-어떤 변수가 1시점 이전의 변수로부터만 영향을 받고, 확률적으로 변화하는 성질을 가질 때, Markov Property를 갖는다고 가정한다. 
-Markov Property는 다음과 같은 식이 성립한다. 
+$$p(s^{\prime}, r \vert s, a) = P[S_{t+1} = s^{\prime}, R_{t+1} = r \vert S_t = s, A_t = a]$$
 
-$$P(s_{t+1} \vert s_t, s_{t-1}, \cdots, s_1) = P(s_{t+1} \vert s_{1:t}) = P(s_{t+1} \vert s_t)$$
+### Policies
 
-Markov Property를 갖는 상태 전이 모형을 Markove Model이라 하고, Markove Model으로 생성되는 상태 전이 연속열을 마르코프 체인(Markov Chain)이라 한다. 마르코프 모형은 결국 확률 변수 사이에서 영향을 주고 받는 관계라 생각할 수 있다. 
+MDP에서 좋은 의사결정을 하기 위해, 에이전트 내부에 행동 전략(policy)을 가지고 있어야 한다. 
 
-$$S_1 \to S_2 \to \cdots S_{t-1} \to S_{t} \to S_{t+1}$$
+$$\pi(a \vert s) = P[A_t = a | S_t = s]$$
 
-Graphical Model을 사용하면 시간방향 전이 외에도 다양한 변수 사이의 상호관계를 나타낼 수 있다. 아래 그림처럼 state외에도 action space를 고려하는 경우가 대표적이다. 
+policy의 정의는 위 처럼 현재 상태 $S_t = s$에서, 모든 행동들에 대한 확률 분포이다. 상태는 마르코프 성질을 가지므로, 현재 상태로만으로도 의사결정 시 충분한 근거가 될 수 있다. 따라서, 현재 상태만 조건으로 가진 조건부 확률분포가 된다. 또한 MDP의 policy는 시간에 따라 변하지 않는다(stationary). 이 말은 시간이 지남에 따라 에이전트가 동일한 상태를 여러번 지나도 그 상태에 있을 때의 policy는 변하지 않는다는 뜻이다. 
 
-<p align="center"><img src="https://github.com/user-attachments/assets/a4861c03-6e52-4707-82a6-5cfeb04ef7f0"></p>
+MDP와 명시적인 policy가 있다면, 이는 MRP문제와 동일하며 MDP의 보상함수는 policy와의 가중평균으로 MRP의 보상함수가 된다. 
 
-이처럼 행동 $a_t$에도 의존하여 상태 $s_{t+1}$가 결정되는 확률적 시스템 $P(s_{t+1} \vert s_t, a_t)$ 을 마르코프 결정 프로세스(Markov Decision Process, MDP)라 한다. 
+$$R^{\pi}(s) = \sum_{a \in A} \pi(a \vert s)R(s, a)$$
 
-## partially observable Markov decision process(POMDP)
+마찬가지로, MDP의 상태변이함수도 policy와의 가중평균으로 구해지며 MRP의 상태변이함수가 된다. 
 
+$$P^{\pi}(s^{\prime} \vert s) = \sum_{a \in A} \pi(a \vert s)P(s^{\prime} \vert s, a)$$
+
+## partially observable Markov decision process
 
 
 
