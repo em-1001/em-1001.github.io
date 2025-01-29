@@ -24,7 +24,7 @@ Markov Process(Markov chain)은 마코브 성질을 가지는 랜덤 상태 $S_1
 A Markov Process (or Markov Chain) is a tuple $<\mathcal{S}, \mathcal{P}>$  
 - $\mathcal{S}$ is a (finite) set of states
 - $\mathcal{P}$ is a state transition probability matrix,
-  $\mathcal{P}_{ss^'} = P\left[s _{t+1} = s^' \vert S_t = s \right]$
+  $\mathcal{P}_{ss^{\prime}} = P\left[s _{t+1} = s^{\prime} \vert S_t = s \right]$
 
 상태들간의 변환 확률 행렬(state transition matrix)은 현재 상태에서 다른 상태로 갈 확률을 모든 상태에 대해 행렬 형태로 나타낸 것이다. 상태 변환 확률 행렬 $P$는 아래와 같으며, 각 행의 합은 1이 된다. 
 
