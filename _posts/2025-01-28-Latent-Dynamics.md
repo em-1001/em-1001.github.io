@@ -51,6 +51,16 @@ Markov Property는 다음과 같은 식이 성립한다.
 
 $$P(s_{t+1} \vert s_t, s_{t-1}, \cdots, s_1) = P(s_{t+1} \vert s_{1:t}) = P(s_{t+1} \vert s_t)$$
 
+Markov Property를 갖는 상태 전이 모형을 Markove Model이라 하고, Markove Model으로 생성되는 상태 전이 연속열을 마르코프 체인(Markov Chain)이라 한다. 마르코프 모형은 결국 확률 변수 사이에서 영향을 주고 받는 관계라 생각할 수 있다. 
+
+$$S_1 \to S_2 \to \cdots S_{t-1} \to S_{t} \to S_{t+1}$$
+
+Graphical Model을 사용하면 시간방향 전이 외에도 다양한 변수 사이의 상호관계를 나타낼 수 있다. 아래 그림처럼 state외에도 action space를 고려하는 경우가 대표적이다. 
+
+<p align="center"><img src="https://github.com/user-attachments/assets/a4861c03-6e52-4707-82a6-5cfeb04ef7f0"></p>
+
+이처럼 행동 $a_t$에도 의존하여 상태 $s_{t+1}$가 결정되는 확률적 시스템 $P(s_{t+1} \vert s_t, a_t)$ 을 마르코프 결정 프로세스(Markov Decision Process, MDP)라 한다. 
+
 
 
 # Reference 
