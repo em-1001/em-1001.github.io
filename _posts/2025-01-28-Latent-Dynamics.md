@@ -123,10 +123,10 @@ $$b(h) = (P[S_t = s^1 \vert H_t = h], \cdots, P[S_t = s^n \vert H_t = h])$$
 1. Planning in latent spaces   
 PlaNet은 dynamics model을 학습시키고, latent space로부터 planning하여 DeepMind의 다양한 task(Cartpole, Reacher, Cheetah, Finger, Cup, Walker...)를 수행한다. 
 
-2. Recurrent state space model
+2. Recurrent state space model  
 Deterministic Process은 어떤 상태 $s$에서 행동 $a$를 선택할 때 결과가 한 가지로 정해진 시스템이다. 반면 Stochastic System 같은 $s$와 $a$를 취해도 확률적으로 다른 결과가 나올 수 있는 시스템이다. 본 논문은 latent dynamics model에 deterministic과  stochastic components를 모두 사용한다.
 
-3. Latent overshooting
+3. Latent overshooting  
 
 ## Latent Space Planning
 
