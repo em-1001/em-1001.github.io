@@ -87,6 +87,24 @@ $$P^{\pi}(s^{\prime} \vert s) = \sum_{a \in A} \pi(a \vert s)P(s^{\prime} \vert 
 
 ## partially observable Markov decision process
 
+<p align="center"><img src="https://github.com/user-attachments/assets/e53d2d91-8fe6-4e8d-9d36-71d33eab0fec" height="300px" width="300px">    <img src="https://github.com/user-attachments/assets/c5464dc8-bb99-4113-b488-173426fceae7" height="300px" width="300px"></p>
+
+위 환경은 9x9 gridworld로 agent가 파란 박스를 움직여 빨간 박스를 피해 초록 박스에 도달하는 policy를 찾는 예시이다. 왼쪽 그림의 경우 환경의 모든 조건을 관찰 가능하기 때문에 agent가 optimal policy를 찾는 데 알아야할 것들을 그대로 이용할 수 있고 이러한 환경이 앞서 언급한 Markov decision process(MDP)이다. 하지만 real world environment에서는 system의 full state를 agent에 제공하는 경우가 거의 없다. 오른쪽 그림은 해당 world에서 3x3 region만 관측할 수 있고, 이처럼 state의 observability가 보장되지 못하는 환경을 POMDP(Partial Observability MDP)라고 한다. 
+
+partially observable Markov decision process(POMDP)에서는 현 상태에 대한 온전한 정보가 없기 때문에, 상태를 유추할 관찰 정보 observation이 추가된다. 
+
+**A POMDP is a tuple** $<\mathcal{S}, \mathcal{A}, \mathcal{O}, \mathcal{P}, \mathcal{R}, \mathcal{Z}, \gamma>$   
+- $\mathcal{S}$ is a (finite) set of states
+- $\mathcal{A}$ is a finite set of actions
+- $\mathcal{O}$ is a finite set of observations   
+- $\mathcal{P}$ is a state transition probability matrix,
+  $\mathcal{P}_{ss^{\prime}}^a = P\left[s _{t+1} = s^{\prime} \vert S_t = s, A_t = a \right]$  
+- $\mathcal{R}$ is a reward function, $\mathcal{R}_s^a = \mathbb{E}[R _{t+1} \vert S_t = s, A_t = a]$
+- $\mathcal{Z}$ is an observation function, $\mathcal{Z}_{s^{\prime} o}^a = P[O _{t+1} = o \vert S _{t+1} = s^{\prime}, A_t = a]$
+- $\gamma$ is a discount factor, $\gamma \in [0, 1]$
+
+MDP와 POMDP의 차이를 정리하면 MDP는 $s_t = o_t$이지만 POMDP는 $s_t \neq o_t$라 할 수 있다. 
+
 
 
 # Reference 
