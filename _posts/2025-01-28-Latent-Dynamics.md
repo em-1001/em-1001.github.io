@@ -109,7 +109,7 @@ MDP와 POMDP의 차이를 정리하면 MDP는 $s_t = o_t$이지만 POMDP는 $s_t
 
 POMDP의 history $H_t$는 actions, observations and rewards의 시퀀스로 다음과 같이 표현된다. 
 
-$$H_t = A_0, O_1, R_1, \cdots, A_{t-1}, O_t, R_t$
+$$H_t = A_0, O_1, R_1, \cdots, A_{t-1}, O_t, R_t$$
 
 belief state $b(h)$는 history $H$에 따른 state의 확률분포로 다음과 같이 표현된다. 
 
