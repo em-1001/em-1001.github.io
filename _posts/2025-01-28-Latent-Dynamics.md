@@ -166,8 +166,7 @@ Initialize model parameters $\theta$ randomly.
 &emsp;$o_1 \gets$ env.reset()  
 &emsp;**for** time step $t=1...\lceil \frac{T}{R} \rceil$ **do**  
 &emsp;&emsp;Infer belief over current state $q(s _t \vert o _{\leq t}, a _{< t})$ from the history.  
-&emsp;&emsp;$a _t \gets$ planner $(q(s _t \vert o _{\leq t}, a _{< t}), p)$, see [Algorithm 2] in the appendix for details. 
-  
+&emsp;&emsp;$a _t \gets$ planner $(q(s _t \vert o _{\leq t}, a _{< t}), p)$, see [Algorithm 2] in the appendix for details.  
 &emsp;&emsp;Add exploration noise $\epsilon \sim p(\epsilon)$ to the action.    
 &emsp;&emsp;**for** action repeat $k=1..R$ **do**    
 &emsp;&emsp;&emsp;$r _t^k, o _{t+1}^k \gets$ env.step($a _t$)     
