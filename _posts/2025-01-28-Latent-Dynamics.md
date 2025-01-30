@@ -120,13 +120,13 @@ $$b(h) = (P[S_t = s^1 \vert H_t = h], \cdots, P[S_t = s^n \vert H_t = h])$$
 
 본 논문은 dynamics model로 Deep Planning Network (PlaNet)를 제안한다. 모델의 Key contributions은 다음과 같다. 
 
-1. Planning in latent spaces
+1. Planning in latent spaces  
 고차원의 입력 데이터로를 latent space로 매핑하는 encoder를 학습하고, 현재 latent state와 action을 입력으로 받아 다음 latent state를 예측하는 dynamics model을 학습하여 DeepMind의 다양한 task(Cartpole, Reacher, Cheetah, Finger, Cup, Walker...)를 수행한다. 
 
-2. Recurrent state space model(RSSM)  
+2. Recurrent state space model(RSSM)    
 Deterministic System은 어떤 상태 $s$에서 행동 $a$를 선택할 때 결과가 한 가지로 정해진 시스템이다. 반면 Stochastic System은 같은 $s$와 $a$를 취해도 확률적(노이즈, 관측의 불완전성..)으로 다른 결과가 나올 수 있는 시스템이다. 본 논문은 latent dynamics model에 deterministic과 stochastic components를 모두 사용한다.
 
-3. Latent overshooting  
+3. Latent overshooting    
 Latent overshooting은 한 단계 앞의 상태를 예측하는 것이 아닌, multi-step을 학습 목표로 포함시켜 단기 예측뿐만 아니라 장기 예측에도 안정적인 성능을 발휘할 수 있게 한다.
 
 ## Latent Space Planning
