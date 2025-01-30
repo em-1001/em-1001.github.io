@@ -172,7 +172,7 @@ Initialize model parameters $\theta$ randomly.
 &emsp;&emsp;**for** action repeat $k=1..R$ **do**    
 &emsp;&emsp;&emsp;$r _t^k, o _{t+1}^k \gets$ env.step($a _t$)     
 &emsp;&emsp;$r _t, o _{t+1} \gets \sum _{k=1}^R r_t^k, o _{t+1}^R$    
-&emsp;$\mathcal{D} \gets \mathcal{D} \cup \left{(o _t, a _t, r _t) _{t=1}^{T} \right}$  
+&emsp;$\mathcal{D} \gets \mathcal{D} \cup \lbrace(o _t, a _t, r _t) _{t=1}^{T} \rbrace$  
 
 
 # Reference 
