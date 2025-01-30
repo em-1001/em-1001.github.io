@@ -185,6 +185,12 @@ $$a_t = \pi(z_t) + \epsilon_t,  \epsilon_t \sim \mathcal{N}(0, \sigma^2)$$
 
 $\pi(z_t)$는 현재 latent state $z_t$를 기반으로 선택된 action이다. Gaussian noise를 추가함으로써 agent가 다양한 행동을 시도하고, 환경을 더 넓게 탐색하도록 하여 Exploration을 강화할 수 있다. 또한 noise를 통해 agent가 단기적인 행동 변화와 탐색 더 민감해져 **planning horizon** 을 줄이고 예측의 정확도를 높일 수 있다고 한다. planning horizon은 모델이 미래 상태를 예측하고 계획을 수립할 때 고려하는 시간 범위로 planning horizon이 길어질수록 예측해야 하는 미래 상태의 불확실성이 커지고, 예측 오차가 누적될 가능성이 높아진다. 
 
+#### cem
+https://towardsdatascience.com/cross-entropy-method-for-reinforcement-learning-2b6de2a4f3a0  
+https://leekh7411.github.io/_build/html/Reinforcement_Learning_method_Cross_Entropy.html  
+https://liger82.github.io/rl/rl/2021/06/05/DeepRLHandsOn-ch04-The_Cross-Entropy_Method.html  
+https://wnthqmffhrm.tistory.com/13
+
 
 # Reference 
 POMDP : https://www.davidsilver.uk/teaching/        
