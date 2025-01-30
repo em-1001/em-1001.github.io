@@ -179,6 +179,13 @@ Initialize model parameters $\theta$ randomly.
 ### Model-based planning
 PlaNet은 transition model($p(s_t \vert s_{t-1}, a_{t-1})$), observation model($p(o_t \vert s_t)$), reward model($p(r_t \vert s_t)$)을 학습하고, 현재 hidden state에 대한 belief를 근사시키는 encoder $q(s_t \vert o_{\leq t}, a_{< t})$를 필터링을 통해 학습한다. 이렇게 얻어진 components를 통해 future action 시퀀스를 구할 policy를 찾는다. 
 
+We use model-predictive control (MPC;
+Richards, 2005) to allow the agent to adapt its plan based
+on new observations, meaning we replan at each step. In
+contrast to model-free and hybrid reinforcement learning
+algorithms, we do not use a policy or value network.
+
+
 
 # Reference 
 POMDP : https://www.davidsilver.uk/teaching/        
