@@ -35,11 +35,11 @@ P_{11} & \cdots & P_{1n} \\
 P_{n1} & \cdots & P_{nn} \\ 
 \end{pmatrix}$$
 
-Markov process에서 sampling된 시퀀스를 에피소드(episode)라 한다. 
+Markov process에서 sampling된 시퀀스를 **에피소드(episode)** 라 한다. 
 
 ## Markov reward process(MRP) 
 
-Markov Reward Process(MRP)는 Markov chain에 reward가 더해진 것이다. 임의의 state들의 시퀀스를 상태 변환 확률에 따라 지나가면서 각 상태에 도착할 때마다 보상을 얼마나 받는지도 시퀀스로서 파악하는 것이다. 
+Markov Reward Process(MRP)는 Markov chain에 **reward** 가 더해진 것이다. 임의의 state들의 시퀀스를 상태 변환 확률에 따라 지나가면서 각 상태에 도착할 때마다 보상을 얼마나 받는지도 시퀀스로서 파악하는 것이다. 
 
 **A Markov Reward Process is a tuple** $<\mathcal{S}, \mathcal{P}, \mathcal{R}, \gamma>$  
 - $\mathcal{S}$ is a (finite) set of states
@@ -48,7 +48,7 @@ Markov Reward Process(MRP)는 Markov chain에 reward가 더해진 것이다. 임
 - $\mathcal{R}$ is a reward function, $\mathcal{R}_s = \mathbb{E}[R _{t+1} \vert S_t = s]$
 - $\gamma$ is a discount factor, $\gamma \in [0, 1]$
 
-$R_s$는 보상함수로, 상태 $S_s$일 때, 받을 수 있는 즉각적인 보상에 대한 기댓값이다. 중요한 점은 앞으로 받을 보상들을 고려한 누적 보상값이 아닌 즉각적으로 받는 보상(immediate reward)이다. 
+$R_s$는 보상함수로, 상태 $S_s$일 때, 받을 수 있는 즉각적인 보상에 대한 기댓값이다. 중요한 점은 앞으로 받을 보상들을 고려한 누적 보상값이 아닌 **즉각적으로 받는 보상(immediate reward)** 이다. 
 
 현재 상태 $t$에서 다음 step에 받을 보상과 상태가 $r$과 $s^{\prime}$이 될 확률은 다음과 같이 표현한다. 
 
@@ -57,7 +57,7 @@ $$p(s^{\prime}, r \vert s) = P[S_{t+1} = s^{\prime}, R_{t+1} = r \vert S_t = s]$
 
 ## Markov decision process(MDP)
 
-Markov Decision Process(MDP)는 MRP에 행동(actions)이 더해진 것이다. 
+Markov Decision Process(MDP)는 MRP에 **행동(actions)** 이 더해진 것이다. 
 
 **A Markov Decision Process is a tuple** $<\mathcal{S}, \mathcal{A}, \mathcal{P}, \mathcal{R}, \gamma>$  
 - $\mathcal{S}$ is a (finite) set of states
@@ -73,7 +73,7 @@ $$p(s^{\prime}, r \vert s, a) = P[S_{t+1} = s^{\prime}, R_{t+1} = r \vert S_t = 
 
 ### Policies
 
-MDP에서 좋은 의사결정을 하기 위해, 에이전트 내부에 행동 전략(policy)을 가지고 있어야 한다. 
+MDP에서 좋은 의사결정을 하기 위해, 에이전트 내부에 행동 **전략(policy)** 을 가지고 있어야 한다. 
 
 $$\pi(a \vert s) = P[A_t = a | S_t = s]$$
 
@@ -91,9 +91,9 @@ $$P^{\pi}(s^{\prime} \vert s) = \sum_{a \in A} \pi(a \vert s)P(s^{\prime} \vert 
 
 <p align="center"><img src="https://github.com/user-attachments/assets/e53d2d91-8fe6-4e8d-9d36-71d33eab0fec" height="300px" width="300px">    <img src="https://github.com/user-attachments/assets/c5464dc8-bb99-4113-b488-173426fceae7" height="300px" width="300px"></p>
 
-위 환경은 9x9 gridworld로 agent가 파란 박스를 움직여 빨간 박스를 피해 초록 박스에 도달하는 policy를 찾는 예시이다. 왼쪽 그림의 경우 환경의 모든 조건을 관찰 가능하기 때문에 agent가 optimal policy를 찾는 데 알아야할 것들을 그대로 이용할 수 있고 이러한 환경이 앞서 언급한 Markov decision process(MDP)이다. 하지만 real world environment에서는 system의 full state를 agent에 제공하는 경우가 거의 없다. 오른쪽 그림은 해당 world에서 3x3 region만 관측할 수 있고, 이처럼 state의 observability가 보장되지 못하는 환경을 POMDP(Partial Observability MDP)라고 한다. 
+위 환경은 9x9 gridworld로 agent가 파란 박스를 움직여 빨간 박스를 피해 초록 박스에 도달하는 policy를 찾는 예시이다. 왼쪽 그림의 경우 환경의 모든 조건을 관찰 가능하기 때문에 agent가 optimal policy를 찾는 데 알아야할 것들을 그대로 이용할 수 있고 이러한 환경이 앞서 언급한 Markov decision process(MDP)이다. 하지만 real world environment에서는 system의 full state를 agent에 제공하는 경우가 거의 없다. 오른쪽 그림은 해당 world에서 3x3 region만 관측할 수 있고, 이처럼 state의 **observability** 가 보장되지 못하는 환경을 **POMDP(Partial Observability MDP)** 라고 한다. 
 
-partially observable Markov decision process(POMDP)에서는 현 상태에 대한 온전한 정보가 없기 때문에, 상태를 유추할 관찰 정보 observation이 추가된다. 
+partially observable Markov decision process(POMDP)에서는 현 상태에 대한 온전한 정보가 없기 때문에, 상태를 유추할 관찰 정보 **observation** 이 추가된다. 
 
 **A POMDP is a tuple** $<\mathcal{S}, \mathcal{A}, \mathcal{O}, \mathcal{P}, \mathcal{R}, \mathcal{Z}, \gamma>$   
 - $\mathcal{S}$ is a (finite) set of states
@@ -178,12 +178,12 @@ Initialize model parameters $\theta$ randomly.
 ### Model-based planning
 PlaNet은 transition model($p(s_t \vert s_{t-1}, a_{t-1})$), observation model($p(o_t \vert s_t)$), reward model($p(r_t \vert s_t)$)을 학습하고, 현재 hidden state에 대한 belief를 근사시키는 encoder $q(s_t \vert o_{\leq t}, a_{< t})$를 필터링을 통해 학습한다. 이렇게 얻어진 components를 통해 future action 시퀀스를 구할 policy를 찾는다. 
 
-We use model-predictive control (MPC;
-Richards, 2005) to allow the agent to adapt its plan based
-on new observations, meaning we replan at each step. In
-contrast to model-free and hybrid reinforcement learning
-algorithms, we do not use a policy or value network.
+### Experience collection
+초기에는 모델이 학습되지 않은 상태이므로 random actions으로 수집된 seed episodes에서 시작한다. seed episodes를 따라 환경과 상호작용하며 수집된 데이터로 모델을 학습하고 학습된 모델을 사용하여 planning을 수행하여 더 나은 데이터를 수집한다. 이 과정에서 발생한 추가 episode를 data set에 넣는다. 이런식으로 data set에 episodes를 수집할 때, action에 small Gaussian exploration noise를 추가한다고 한다. 
 
+$$a_t = \pi(z_t) + \epsilon_t,  \epsilon_t \sim \mathcal{N}(0, \sigma^2)$$
+
+$\pi(z_t)$는 현재 latent state $z_t$를 기반으로 선택된 action이다. Gaussian noise를 추가함으로써 agent가 다양한 행동을 시도하고, 환경을 더 넓게 탐색하도록 하여 Exploration을 강화할 수 있다. 또한 noise를 통해 agent가 단기적인 행동 변화와 탐색 더 민감해져 **planning horizon** 을 줄이고 예측의 정확도를 높일 수 있다고 한다. planning horizon은 모델이 미래 상태를 예측하고 계획을 수립할 때 고려하는 시간 범위로 planning horizon이 길어질수록 예측해야 하는 미래 상태의 불확실성이 커지고, 예측 오차가 누적될 가능성이 높아진다. 
 
 
 # Reference 
