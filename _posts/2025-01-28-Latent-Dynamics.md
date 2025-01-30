@@ -118,17 +118,38 @@ $$b(h) = (P[S_t = s^1 \vert H_t = h], \cdots, P[S_t = s^n \vert H_t = h])$$
 
 # Latent Dynamics
 
-본 논문은 planning을 위한 dynamics model로 Deep Planning Network (PlaNet)를 제안한다. 모델의 Key contributions은 다음과 같다. 
+본 논문은 dynamics model로 Deep Planning Network (PlaNet)를 제안한다. 모델의 Key contributions은 다음과 같다. 
 
-1. Planning in latent spaces   
-PlaNet은 dynamics model을 학습시키고, latent space로부터 planning하여 DeepMind의 다양한 task(Cartpole, Reacher, Cheetah, Finger, Cup, Walker...)를 수행한다. 
+1. Planning in latent spaces
+고차원의 입력 데이터로를 latent space로 매핑하는 encoder를 학습하고, 현재 latent state와 action을 입력으로 받아 다음 latent state를 예측하는 dynamics model을 학습하여 DeepMind의 다양한 task(Cartpole, Reacher, Cheetah, Finger, Cup, Walker...)를 수행한다. 
 
-2. Recurrent state space model  
-Deterministic Process은 어떤 상태 $s$에서 행동 $a$를 선택할 때 결과가 한 가지로 정해진 시스템이다. 반면 Stochastic System 같은 $s$와 $a$를 취해도 확률적으로 다른 결과가 나올 수 있는 시스템이다. 본 논문은 latent dynamics model에 deterministic과  stochastic components를 모두 사용한다.
+2. Recurrent state space model(RSSM)  
+Deterministic System은 어떤 상태 $s$에서 행동 $a$를 선택할 때 결과가 한 가지로 정해진 시스템이다. 반면 Stochastic System은 같은 $s$와 $a$를 취해도 확률적(노이즈, 관측의 불완전성..)으로 다른 결과가 나올 수 있는 시스템이다. 본 논문은 latent dynamics model에 deterministic과 stochastic components를 모두 사용한다.
 
-3. Latent overshooting  
+3. Latent overshooting
+Latent overshooting은 한 단계 앞의 상태를 예측하는 것이 아닌, multi-step을 학습 목표로 포함시켜 단기 예측뿐만 아니라 장기 예측에도 안정적인 성능을 발휘할 수 있게 한다.
 
 ## Latent Space Planning
+
+본 논문에서는 일반적으로 관측된 데이터가 환경의 full state를 보여주지 못하기 때문에 POMDP를 사용하고, 다음과 같은 stochastic dynamics를 정의한다. 
+
+- Transition function: $s_t \sim P(s_t \vert s_{t-1}, a_{t-1})$  
+- Observation function: $o_t \sim P(o_t \vert s_t)$  
+- Reward function: $r_t \sim P(r_t \vert s_t)$  
+- Policy: $a_t \sim P(a_t \vert o_{\leq t}, a_{< t})$  
+
+PlaNet이 동작하는 알고리즘은 다음과 같다. 
+
+**Algorithm 1:** Deep Planning Network (PlaNet)  
+**Input:**  
+$R$ &nbsp;Action repeat&nbsp;&nbsp;&nbsp;&nbsp; $p(s_t \vert s_{t-1}, a_{t-1})$ &nbsp;Transition model  
+$S$ &nbsp;Seed episodes&nbsp;&nbsp;&nbsp; $p(o_t \vert s_t)$ &emsp;&emsp;&emsp;&emsp;Observation model  
+$C$ &nbsp;Collect interval&nbsp;&nbsp;  $p(r_t \vert s_t)$ &emsp;&emsp;&emsp;&emsp;Reward model  
+$B$ &nbsp;Batch size&emsp;&emsp;&nbsp; $q(s_t \vert o_{\leq t}, a_{< t})$ &emsp;Encoder   
+$L$ &nbsp;Chunk length&nbsp;&nbsp;&nbsp;&nbsp; $p(\epsilon)$ &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;Exploration noise  
+$\alpha$ &nbsp;Learning rate
+
+
 
 
 # Reference 
