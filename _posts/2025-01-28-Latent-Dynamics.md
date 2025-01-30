@@ -126,7 +126,7 @@ $$b(h) = (P[S_t = s^1 \vert H_t = h], \cdots, P[S_t = s^n \vert H_t = h])$$
 2. Recurrent state space model(RSSM)  
 Deterministic System은 어떤 상태 $s$에서 행동 $a$를 선택할 때 결과가 한 가지로 정해진 시스템이다. 반면 Stochastic System은 같은 $s$와 $a$를 취해도 확률적(노이즈, 관측의 불완전성..)으로 다른 결과가 나올 수 있는 시스템이다. 본 논문은 latent dynamics model에 deterministic과 stochastic components를 모두 사용한다.
 
-3. Latent overshooting
+3. Latent overshooting  
 Latent overshooting은 한 단계 앞의 상태를 예측하는 것이 아닌, multi-step을 학습 목표로 포함시켜 단기 예측뿐만 아니라 장기 예측에도 안정적인 성능을 발휘할 수 있게 한다.
 
 ## Latent Space Planning
@@ -173,6 +173,11 @@ Initialize model parameters $\theta$ randomly.
 &emsp;&emsp;&emsp;$r _t^k, o _{t+1}^k \gets$ env.step($a _t$)     
 &emsp;&emsp;$r _t, o _{t+1} \gets \sum _{k=1}^R r_t^k, o _{t+1}^R$    
 &emsp;$\mathcal{D} \gets \mathcal{D} \cup \lbrace(o _t, a _t, r _t) _{t=1}^{T} \rbrace$  
+
+알고리즘의 목표는 expected sum of rewards $E_p \left[\sum_{t=1}^T r_t \right]$를 최대화 하는 policy $p(a_t \vert o_{\leq t}, a_{< t})$를 찾는 것이다. 
+
+### Model-based planning
+PlaNet은 transition model($p(s_t \vert s_{t-1}, a_{t-1})$), observation model($p(o_t \vert s_t)$), reward model($p(r_t \vert s_t)$)을 학습하고, 현재 hidden state에 대한 belief를 근사시키는 encoder $q(s_t \vert o_{\leq t}, a_{< t})$를 필터링을 통해 학습한다. 이렇게 얻어진 components를 통해 future action 시퀀스를 구할 policy를 찾는다. 
 
 
 # Reference 
