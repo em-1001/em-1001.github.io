@@ -142,13 +142,26 @@ PlaNet이 동작하는 알고리즘은 다음과 같다.
 
 **Algorithm 1:** Deep Planning Network (PlaNet)  
 **Input:**  
-$R$ &nbsp;Action repeat&nbsp;&nbsp;&nbsp;&nbsp; $p(s_t \vert s_{t-1}, a_{t-1})$ &nbsp;Transition model  
-$S$ &nbsp;Seed episodes&nbsp;&nbsp;&nbsp; $p(o_t \vert s_t)$ &emsp;&emsp;&emsp;&emsp;Observation model  
-$C$ &nbsp;Collect interval&nbsp;&nbsp;  $p(r_t \vert s_t)$ &emsp;&emsp;&emsp;&emsp;Reward model  
-$B$ &nbsp;Batch size&emsp;&emsp;&nbsp; $q(s_t \vert o_{\leq t}, a_{< t})$ &emsp;Encoder   
-$L$ &nbsp;Chunk length&nbsp;&nbsp;&nbsp;&nbsp; $p(\epsilon)$ &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;Exploration noise  
-$\alpha$ &nbsp;Learning rate
+$R$ &nbsp;Action repeat&nbsp;&nbsp;&nbsp;&nbsp;   
+$S$ &nbsp;Seed episodes&nbsp;&nbsp;&nbsp;   
+$C$ &nbsp;Collect interval&nbsp;&nbsp;     
+$B$ &nbsp;Batch size&emsp;&emsp;&nbsp;      
+$L$ &nbsp;Chunk length&nbsp;&nbsp;&nbsp;&nbsp;     
+$\alpha$ &nbsp;Learning rate    
+$p(s_t \vert s_{t-1}, a_{t-1})$ &nbsp;Transition model  
+$p(o_t \vert s_t)$ &nbsp;Observation model  
+$p(r_t \vert s_t)$ &nbsp;Reward model   
+$q(s_t \vert o_{\leq t}, a_{< t})$ &nbsp;Encoder     
+$p(\epsilon)$ &nbsp;Exploration noise  
 
+Initialize dataset $\mathcal{D}$ with $S$ random seed episodes.  
+Initialize model parameters $\theta$ randomly.  
+**while** not converged **do**  
+&emsp;// Model fitting  
+&emsp;**for** update step $s=1..C$ **do**  
+&emsp;&emsp;Draw sequence chunks ${(o_t, a_t, r_t)_{t=k}^{L+k}} _{i=1}^B \sim \mathcal{D}$ uniformly at random from the dataset.  
+&emsp;&emsp;Compute loss $\mathcal{L}$ from [Equation 3].  
+&emsp;&emsp;Update model parameters $\theta \gets \theta - \alpha \nabla _{\theta}\mathcal{L}(\theta).  
 
 
 
