@@ -167,11 +167,12 @@ Initialize model parameters $\theta$ randomly.
 &emsp;**for** time step $t=1...\lceil \frac{T}{R} \rceil$ **do**  
 &emsp;&emsp;Infer belief over current state $q(s _t \vert o _{\leq t}, a _{< t})$ from the history.  
 &emsp;&emsp;$a _t \gets$ planner $(q(s _t \vert o _{\leq t}, a _{< t}), p)$, see [Algorithm 2] in the appendix for details. 
+  
 &emsp;&emsp;Add exploration noise $\epsilon \sim p(\epsilon)$ to the action.    
 &emsp;&emsp;**for** action repeat $k=1..R$ **do**    
 &emsp;&emsp;&emsp;$r _t^k, o _{t+1}^k \gets$ env.step($a _t$)     
 &emsp;&emsp;$r _t, o _{t+1} \gets \sum _{k=1}^R r_t^k, o _{t+1}^R$    
-&emsp;$\mathcal{D} \gets \mathcal{D} \cup {(o _t, a _t, r _t) _{t=1}^{T}$  
+&emsp;$\mathcal{D} \gets \mathcal{D} \cup \left{(o _t, a _t, r _t) _{t=1}^{T} \right}$  
 
 
 # Reference 
