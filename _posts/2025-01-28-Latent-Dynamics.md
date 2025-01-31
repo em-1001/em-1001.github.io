@@ -176,14 +176,18 @@ Initialize model parameters $\theta$ randomly.
 알고리즘의 목표는 expected sum of rewards $E_p \left[\sum_{t=1}^T r_t \right]$를 최대화 하는 policy $p(a_t \vert o_{\leq t}, a_{< t})$를 찾는 것이다. 
 
 ### Model-based planning
-PlaNet은 transition model($p(s_t \vert s_{t-1}, a_{t-1})$), observation model($p(o_t \vert s_t)$), reward model($p(r_t \vert s_t)$)을 학습하고, 현재 hidden state에 대한 belief를 근사시키는 encoder $q(s_t \vert o_{\leq t}, a_{< t})$를 필터링을 통해 학습한다. 이렇게 얻어진 components를 통해 future action 시퀀스를 구할 policy를 찾는다. 
+PlaNet은 transition model($p(s_t \vert s_{t-1}, a_{t-1})$), observation model($p(o_t \vert s_t)$), reward model($p(r_t \vert s_t)$)을 학습하고, 현재 hidden state에 대한 belief를 근사시키는 encoder $q(s_t \vert o_{\leq t}, a_{< t})$를 필터링을 통해 학습한다. 이렇게 얻어진 components를 통해 future action 시퀀스를 planning algorithm을 통해 구한다. deepseek 답변 보기
 
 ### Experience collection
 초기에는 모델이 학습되지 않은 상태이므로 random actions으로 수집된 seed episodes에서 시작한다. seed episodes를 따라 환경과 상호작용하며 수집된 데이터로 모델을 학습하고 학습된 모델을 사용하여 planning을 수행하여 더 나은 데이터를 수집한다. 이 과정에서 발생한 추가 episode를 data set에 넣는다. 이런식으로 data set에 episodes를 수집할 때, action에 small Gaussian exploration noise를 추가한다고 한다. 
 
 $$a_t = \pi(z_t) + \epsilon_t,  \epsilon_t \sim \mathcal{N}(0, \sigma^2)$$
 
-$\pi(z_t)$는 현재 latent state $z_t$를 기반으로 선택된 action이다. Gaussian noise를 추가함으로써 agent가 다양한 행동을 시도하고, 환경을 더 넓게 탐색하도록 하여 Exploration을 강화할 수 있다. 또한 noise를 통해 agent가 단기적인 행동 변화와 탐색 더 민감해져 **planning horizon** 을 줄이고 예측의 정확도를 높일 수 있다고 한다. planning horizon은 모델이 미래 상태를 예측하고 계획을 수립할 때 고려하는 시간 범위로 planning horizon이 길어질수록 예측해야 하는 미래 상태의 불확실성이 커지고, 예측 오차가 누적될 가능성이 높아진다. 
+$\pi(z_t)$는 현재 latent state $z_t$를 기반으로 선택된 action이다. Gaussian noise를 추가함으로써 agent가 다양한 행동을 시도하고, 환경을 더 넓게 탐색하도록 하여 Exploration을 강화할 수 있다. 추가적으로 **planning horizon**을 줄이고 모델에 명확한 학습 신호를 보내기 위해 각 action을 $R$번 반복한다고 한다. planning horizon은 모델이 미래 상태를 예측하고 계획을 수립할 때 고려하는 시간 범위로 planning horizon이 길어질수록 예측해야 하는 미래 상태의 불확실성이 커지고, 예측 오차가 누적될 가능성이 높아진다. 
+
+
+### Planning algorithm
+Planning algorithm으로는 cross entropy method(CEM)을 사용한다. 
 
 #### cem
 https://towardsdatascience.com/cross-entropy-method-for-reinforcement-learning-2b6de2a4f3a0  
