@@ -55,7 +55,7 @@ $$\int_{\Omega} f(x)dx \approx \frac{(b-a)^d}{n}\sum_{i=1}^n f(x_i)$$
 $$\begin{align}
 S &= 4 \int_0^r \sqrt{r^2 - x^2}dx \\   
 &= 4 \int_{0}^{\frac{\pi}{2}} r^2 \sin^2 \theta d\theta \because \ x \triangleq r \cos \theta, dx = -r \sin \theta d\theta \\ 
-&= 4 \cdot r^2 \cdot \frac{1}{2} \cdot {\pi}{2} \because \ \mathbf{Wallis \ formula} \\  
+&= 4 \cdot r^2 \cdot \frac{1}{2} \cdot {\pi}{2} \because \ {\scriptstyle\text{Wallis \ formula} \\  
 &= \pi r^2
 \end{align}$$
 
