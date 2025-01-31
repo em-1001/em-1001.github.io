@@ -65,7 +65,57 @@ $[0, 3]$의 범위에서 균등분포에 의해 무작위로 생성된 $n$개의
 
 $$4 \int_0^r \sqrt{9 - x^2}dx \approx \frac{12}{n}\sum_{i=1}^n \sqrt{9 - x_i^2}$$
 
+위 근사에 따라 결과를 확인하면 다음과 같다. 
 
+```py
+import numpy as np
+import matplotlib.pyplot as plt
+
+# 파라미터 설정
+radius = 3.0               # 원의 반지름
+max_samples = 100000        # 최대 샘플 수
+step = 500                 # 샘플 수 증가 단위
+true_area = np.pi * radius**2  # 원의 실제 넓이 (9π)
+
+# 샘플 수와 추정된 넓이를 저장할 리스트
+sample_sizes = []
+estimated_areas = []
+
+# 몬테카를로 시뮬레이션
+for num_samples in range(1, max_samples + 1, step):
+    # 균등분포로 점 생성
+    x = np.random.uniform(0, radius, num_samples)
+    
+    area_estimate = 12/num_samples * np.sum((9-x**2)**0.5)
+    
+    sample_sizes.append(num_samples)
+    estimated_areas.append(area_estimate)
+
+# 그래프 그리기
+plt.figure(figsize=(8, 4))
+plt.plot(sample_sizes, estimated_areas, label='Monte Carlo Estimate', color='blue')
+plt.axhline(true_area, color='red', linestyle='--', label='True Area (9π)')
+plt.xlabel('Number of Samples')
+plt.ylabel('Estimated Area')
+plt.title(f'Monte Carlo Estimation of Circle Area (Radius = {radius})')
+plt.legend()
+plt.grid(True)
+plt.show()
+```
+
+<img src="https://github.com/user-attachments/assets/f055cf9c-e7f0-4088-8927-29c4a104679f">
+
+
+## Monte Carlo integration for stochastic models
+확률모델의 학습이나 추론 과정에서 가장 빈번하게 마주치는 문제는 아래 식과 같이 어떠한 확률분포를 따르는 변수 $x \in X$와 관련된 기댓값을 계산하는 것이다.
+
+$$E_{x \sim p} [f(x)] = \int_X f(x)p(x)dx$$
+
+머신러닝에서는 일반적으로 $p(x)$를 따르는 i.i.d. 샘플 $x_1, x_2, \cdots, x_n$에 대한 몬테카를로 적분을 기반으로 아래와 같이 $f(x)$의 기댓값을 계산한다. 
+
+$$\int_X f(x)p(x)dx \approx \frac{1}{n}\sum_{i=1}^N f(x_i)$$
+
+대부분의 머신러닝 응용에서는 데이터 (샘플)이 주어지기 때문에 가능도나 사후확률과 같은 어떠한 함수 $f(x)$의 기댓값을 계산해야하는 문제에서 우리는 몬테카를로 적분을 이용하여 이를 해결할 수 있는 것이다.
 
 
 
