@@ -48,7 +48,7 @@ $$\int_{\Omega} f(x)dx \approx \frac{(b-a)^d}{n}\sum_{i=1}^n f(x_i)$$
 
 ## Monte Carlo integration example: Area of ​​a circle
 
-<img src="https://github.com/user-attachments/assets/bf96cced-54ec-4b68-94b8-132c7cccfd9d">
+<p align="center"><img src="https://github.com/user-attachments/assets/bf96cced-54ec-4b68-94b8-132c7cccfd9d"></p>
 
 몬테카를로 적분의 예제로써 적분 계산 없이 원의 넓이를 구하는 방법을 소개한다. 실제로 적분계산을 통해 나온 결과와 몬테카를로 적분를 활용했을 때의 결과가 어떻게 나오는지 확인해보자.
 
