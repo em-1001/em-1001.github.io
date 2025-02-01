@@ -184,7 +184,7 @@ Initialize factorized belief over action sequences $q(a_{t:t+H}) \gets Normal(0,
 &emsp;&emsp;$a_{t:t+H+1}^{(j)} \sim q(s_t \vert o_{1:t}, a_{1:t-1}) \prod_{\tau=t+1}^{t+H+1} p(s_{\tau} \vert s_{\tau-1}, a_{\tau-1}^{(j)}$  
 &emsp;&emsp;$R^{(j)} = \sum_{\tau=t+1}^{t+H+1} E \left[p(r_{\tau} \vert s_{\tau}^{(j)}) \right]$  
 &emsp;// Re-fit belief to the K best action sequences.  
-&emsp;$\mathcal{K} \gets argsort({R^{(j)}}_{j=1}^J)_{1:K}$  
+&emsp;$\mathcal{K} \gets argsort({R^{(j)}}_ {j=1}^J)_{1:K}$  
 &emsp;$\mu _{t:t+H} = \frac{1}{k} \sum _{k \in \mathcal{K}} a _{t:t+H}^{(k)},  \sigma _{t:t+H} = \frac{1}{K-1} \sum _{k \in \mathcal{K}} \vert a _{t:t+H}^{(k)} - \mu _{t:t+H} \vert.$  
 &emsp;$q(a _{t:t+H} \gets Normal(\mu _{t:t+H}, \sigma _{t:t+H}^2 \mathbb{I})$  
 return first action mean $\mu _t$.     
