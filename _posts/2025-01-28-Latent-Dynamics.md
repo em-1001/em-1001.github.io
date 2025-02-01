@@ -118,17 +118,6 @@ $$b(h) = (P[S_t = s^1 \vert H_t = h], \cdots, P[S_t = s^n \vert H_t = h])$$
 
 # Latent Dynamics
 
-본 논문은 dynamics model로 Deep Planning Network (PlaNet)를 제안한다. 모델의 Key contributions은 다음과 같다. 
-
-1. Planning in latent spaces  
-고차원의 입력 데이터로를 latent space로 매핑하는 encoder를 학습하고, 현재 latent state와 action을 입력으로 받아 다음 latent state를 예측하는 dynamics model을 학습하여 DeepMind의 다양한 task(Cartpole, Reacher, Cheetah, Finger, Cup, Walker...)를 수행한다. 
-
-2. Recurrent state space model(RSSM)    
-Deterministic System은 어떤 상태 $s$에서 행동 $a$를 선택할 때 결과가 한 가지로 정해진 시스템이다. 반면 Stochastic System은 같은 $s$와 $a$를 취해도 확률적(노이즈, 관측의 불완전성..)으로 다른 결과가 나올 수 있는 시스템이다. 본 논문은 latent dynamics model에 deterministic과 stochastic components를 모두 사용한다.
-
-3. Latent overshooting    
-Latent overshooting은 한 단계 앞의 상태를 예측하는 것이 아닌, multi-step을 학습 목표로 포함시켜 단기 예측뿐만 아니라 장기 예측에도 안정적인 성능을 발휘할 수 있게 한다.
-
 ## Latent Space Planning
 
 본 논문에서는 일반적으로 관측된 데이터가 환경의 full state를 보여주지 못하기 때문에 POMDP를 사용하고, 다음과 같은 stochastic dynamics를 정의한다. 
@@ -175,8 +164,37 @@ Initialize model parameters $\theta$ randomly.
 
 알고리즘의 목표는 expected sum of rewards $E_p \left[\sum_{t=1}^T r_t \right]$를 최대화 하는 policy $p(a_t \vert o_{\leq t}, a_{< t})$를 찾는 것이다. 
 
+다음은 Planning Algorithm이다. 
+
+**Algorithm 2:** Latent planning with CEM  
+**Input :**  
+$H$ &nbsp;Planning horizon distance  
+$I$ &nbsp;Optimization iterations  
+$J$ &nbsp;Candidates per iteration  
+$K$ &nbsp;Number of top candidates to fit  
+$q(s_t \vert o_{\leq t}, a_{< t})$ &nbsp;Current state belief  
+$p(s_t \vert s_{t-1}, a_{t-1})$ &nbsp;Transition model  
+$p(r_t \vert s_t)$ &nbsp;Reward model  
+
+Initialize factorized belief over action sequences $q(a_{t:t+H}) \gets Normal(0, \mathbb{I})$.  
+**for** optimization iteration $i=1..I$ **do**    
+&emsp;// Evaluate $J$ action sequences from the current belief.    
+&emsp;**for** candidate action sequence $j=1..J$ **do**    
+&emsp;&emsp;$a_{t:t+H}^{(j)} \sim q(a_{t:t+H})$  
+&emsp;&emsp;$a_{t:t+H+1}^{(j)} \sim q(s_t \vert o_{1:t}, a_{1:t-1}) \prod_{\tau=t+1}^{t+H+1} p(s_{\tau} \vert s_{\tau-1}, a_{\tau-1}^{(j)}$  
+&emsp;&emsp;$R^{(j)} = \sum_{\tau=t+1}^{t+H+1} E \left[p(r_{\tau} \vert s_{\tau}^{(j)}) \right]$  
+&emsp;// Re-fit belief to the K best action sequences.  
+&emsp;$\mathcal{K} \gets argsort({R^{(j)}}_{j=1}^J)_{1:K}$  
+&emsp;$\mu _{t:t+H} = \frac{1}{k} \sum _{k \in \mathcal{K}} a _{t:t+H}^{(k)},  \sigma _{t:t+H} = \frac{1}{K-1} \sum _{k \in \mathcal{K}} \vert a _{t:t+H}^{(k)} - \mu _{t:t+H} \vert.$  
+&emsp;$q(a _{t:t+H} \gets Normal(\mu _{t:t+H}, \sigma _{t:t+H}^2 \mathbb{I})$  
+return first action mean $\mu _t$.     
+
+
+
+
+
 ### Model-based planning
-PlaNet은 transition model($p(s_t \vert s_{t-1}, a_{t-1})$), observation model($p(o_t \vert s_t)$), reward model($p(r_t \vert s_t)$)을 학습하고, 현재 hidden state에 대한 belief를 근사시키는 encoder $q(s_t \vert o_{\leq t}, a_{< t})$를 필터링을 통해 학습한다. 이렇게 얻어진 components를 통해 future action 시퀀스를 planning algorithm을 통해 구한다. deepseek 답변 보기
+PlaNet은 transition model($p(s_t \vert s_{t-1}, a_{t-1})$), observation model($p(o_t \vert s_t)$), reward model($p(r_t \vert s_t)$)을 학습하고, 현재 hidden state에 대한 belief를 근사시키는 encoder $q(s_t \vert o_{\leq t}, a_{< t})$를 필터링을 통해 학습한다. 이렇게 얻어진 components를 통해 future action 시퀀스를 planning algorithm을 통해 구한다. model-free나 d hybrid reinforcement learning algorithms과는 다르게, 명시적인 policy를 직접 사용하지 않고, Planning을 통해 다음 action을 선택한다. 
 
 ### Experience collection
 초기에는 모델이 학습되지 않은 상태이므로 random actions으로 수집된 seed episodes에서 시작한다. seed episodes를 따라 환경과 상호작용하며 수집된 데이터로 모델을 학습하고 학습된 모델을 사용하여 planning을 수행하여 더 나은 데이터를 수집한다. 이 과정에서 발생한 추가 episode를 data set에 넣는다. 이런식으로 data set에 episodes를 수집할 때, action에 small Gaussian exploration noise를 추가한다고 한다. 
