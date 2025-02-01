@@ -118,16 +118,20 @@ $$b(h) = (P[S_t = s^1 \vert H_t = h], \cdots, P[S_t = s^n \vert H_t = h])$$
 
 # Latent Dynamics
 
+**PlaNet**은 Latent State 만으로 Planning을 진행하고, 별도의 Policy Network 없이 Planning의 결과만을 바탕으로 Action을 결정하는 **Model-Based Algorithm**이다. 
+이미지와 같은 고차원의 state를 갖는 경우 planning에 많은 비용이 들어가고, 정확도가 떨어지는 문제가 있다. 이러한 문제를 해결하기 위해 데이터를 저차원의 의미 있는 표현(latent representation)으로 encoding하여 Latent Space 상에서 Prediction과 Loss 계산을 수행한다. 
+
 ## Latent Space Planning
 
-본 논문에서는 일반적으로 관측된 데이터가 환경의 full state를 보여주지 못하기 때문에 POMDP를 사용하고, 다음과 같은 stochastic dynamics를 정의한다. 
+본 논문에서는 일반적으로 관측된 데이터가 환경의 full state를 보여주지 못하기 때문에 **POMDP**를 사용하고, 다음과 같은 stochastic dynamics를 정의한다. 
 
-- Transition function: $s_t \sim P(s_t \vert s_{t-1}, a_{t-1})$  
-- Observation function: $o_t \sim P(o_t \vert s_t)$  
-- Reward function: $r_t \sim P(r_t \vert s_t)$  
+- Transition model(Gaussian): $s_t \sim P(s_t \vert s_{t-1}, a_{t-1})$    
+- Observation model(Gaussian): $o_t \sim P(o_t \vert s_t)$    
+- Reward model(Gaussian): $r_t \sim P(r_t \vert s_t)$   
+- Encoder: $s_t \sim q(s_t \vert o_{\leq t}, a_{< t})$    
 - Policy: $a_t \sim P(a_t \vert o_{\leq t}, a_{< t})$  
 
-PlaNet이 동작하는 알고리즘은 다음과 같다. 
+$o_t$는 Environment로부터 전달받은 이미지를, $s_t$는 $o_t$를 encoding하여 얻은 Latent State를 의미한다.
 
 **Algorithm 1:** Deep Planning Network (PlaNet)  
 **Input:**  
@@ -162,6 +166,8 @@ Initialize model parameters $\theta$ randomly.
 &emsp;&emsp;$r _t, o _{t+1} \gets \sum _{k=1}^R r_t^k, o _{t+1}^R$    
 &emsp;$\mathcal{D} \gets \mathcal{D} \cup \lbrace(o _t, a _t, r _t) _{t=1}^{T} \rbrace$  
 
+**belief**는 Observation을 인코딩하여 얻은 Latent State $q(s _t \vert o _{\leq t}, a _{< t})$를 의미한다.
+
 알고리즘의 목표는 expected sum of rewards $E_p \left[\sum_{t=1}^T r_t \right]$를 최대화 하는 policy $p(a_t \vert o_{\leq t}, a_{< t})$를 찾는 것이다. 
 
 다음은 Planning Algorithm이다. 
@@ -189,12 +195,8 @@ Initialize factorized belief over action sequences $q(a_{t:t+H}) \gets Normal(0,
 &emsp;$q(a _{t:t+H} \gets Normal(\mu _{t:t+H}, \sigma _{t:t+H}^2 \mathbb{I})$  
 return first action mean $\mu _t$.     
 
-
-
-
-
 ### Model-based planning
-PlaNet은 transition model($p(s_t \vert s_{t-1}, a_{t-1})$), observation model($p(o_t \vert s_t)$), reward model($p(r_t \vert s_t)$)을 학습하고, 현재 hidden state에 대한 belief를 근사시키는 encoder $q(s_t \vert o_{\leq t}, a_{< t})$를 필터링을 통해 학습한다. 이렇게 얻어진 components를 통해 future action 시퀀스를 planning algorithm을 통해 구한다. model-free나 d hybrid reinforcement learning algorithms과는 다르게, 명시적인 policy를 직접 사용하지 않고, Planning을 통해 다음 action을 선택한다. 
+PlaNet은 transition model($p(s_t \vert s_{t-1}, a_{t-1})$), observation model($p(o_t \vert s_t)$), reward model($p(r_t \vert s_t)$)을 학습하고, 현재 hidden state에 대한 belief를 근사시키기 위해 encoder $q(s_t \vert o_{\leq t}, a_{< t})$를 필터링을 통해 학습한다. 이렇게 얻어진 components를 통해 future action 시퀀스를 planning algorithm을 통해 구한다. model-free나 d hybrid reinforcement learning algorithms과는 다르게, 명시적인 policy를 직접 사용하지 않고, Planning을 통해 다음 action을 선택한다. 
 
 ### Experience collection
 초기에는 모델이 학습되지 않은 상태이므로 random actions으로 수집된 seed episodes에서 시작한다. seed episodes를 따라 환경과 상호작용하며 수집된 데이터로 모델을 학습하고 학습된 모델을 사용하여 planning을 수행하여 더 나은 데이터를 수집한다. 이 과정에서 발생한 추가 episode를 data set에 넣는다. 이런식으로 data set에 episodes를 수집할 때, action에 small Gaussian exploration noise를 추가한다고 한다. 
@@ -205,7 +207,8 @@ $\pi(z_t)$는 현재 latent state $z_t$를 기반으로 선택된 action이다. 
 
 
 ### Planning algorithm
-Planning algorithm으로는 cross entropy method(CEM)을 사용한다. Algorithm 2에 나와있듯이, action sequences에 대한 time-dependent인 Gaussian belief를 설정한다. $a_{t:t+H} \sim Normal(\mu_{t:t+H}, \sigma_{t:t+H}^2 \mathbb{I})$, $t$는 agent의 현재 time step이고, $H$는 planning horizon길이이다. zero-mean, unit variance로 표준화하고, 반복적으로 $J$개의 candidate action sequences를 뽑아 모델에 evaluate시키고, top $K$ action sequences를 re-fit한다. 총 $I$번의 반복 후, planner는 current time step $\mu_t$에 대한 belief의 평균을 반환한다. 다음 observation을 받은 후에는 local optima를 방지하기 위해 action sequences에 대한 belief를 다시 zero-mean, unit variance로 표준화한다. 
+Planning algorithm으로는 **cross entropy method(CEM)** 을 사용한다. Algorithm 2에 나와있듯이, 초기 Action Sampling Distribution은 Normal Distribution $a_{t:t+H} \sim Normal(\mu_{t:t+H}, \sigma_{t:t+H}^2 \mathbb{I})$으로 한다. $t$는 agent의 현재 time step이고, $H$는 planning horizon길이이다. 현재 시점 $t$에서 Planning을 통해 Action $a_t$를 결정하겠다는 것은 Latent State $s_t$에서 시작하여 만들어질 수 있는 무한한 State-Action Sequence 중에서 기대 누적 Reward가 가장 큰 경우에 따르겠다는 것을 뜻한다. PlaNet은 매 Optimization Iteration마다 $q(a_{t:t+H})$에서 Sampling하며, 이 중 Sequence의 기대 누적 Reward $R^{(j)}$가 큰 순서대로 $K$개를 뽑아 이들의 분포로 Action Sampling Distribution을 re-fit한다. 총 $I$번의 반복 후, planner는 $s_t$의 action으로 current time step에 대한 Action Sampling Distribution의 평균 $\mu_t$를 반환한다.
+
 
 #### cem
 https://towardsdatascience.com/cross-entropy-method-for-reinforcement-learning-2b6de2a4f3a0  
@@ -219,5 +222,6 @@ POMDP : https://www.davidsilver.uk/teaching/
 https://ralasun.github.io/reinforcement%20learning/2020/07/12/mdp/  
 https://benban.tistory.com/63  
 
+논문: https://enfow.github.io/paper-review/reinforcement-learning/model-based-rl/2020/09/13/learning_latent_dynamics_for_planning_from_pixels/
 
 https://planetrl.github.io/  
