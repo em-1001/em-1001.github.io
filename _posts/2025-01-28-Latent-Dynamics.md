@@ -205,7 +205,7 @@ $\pi(z_t)$는 현재 latent state $z_t$를 기반으로 선택된 action이다. 
 
 
 ### Planning algorithm
-Planning algorithm으로는 cross entropy method(CEM)을 사용한다. 
+Planning algorithm으로는 cross entropy method(CEM)을 사용한다. Algorithm 2에 나와있듯이, action sequences에 대한 time-dependent인 Gaussian belief를 설정한다. $a_{t:t+H} \sim Normal(\mu_{t:t+H}, \sigma_{t:t+H}^2 \mathbb{I})$, $t$는 agent의 현재 time step이고, $H$는 planning horizon길이이다. zero-mean, unit variance로 표준화하고, 반복적으로 $J$개의 candidate action sequences를 뽑아 모델에 evaluate시키고, top $K$ action sequences를 re-fit한다. 총 $I$번의 반복 후, planner는 current time step $\mu_t$에 대한 belief의 평균을 반환한다. 다음 observation을 받은 후에는 local optima를 방지하기 위해 action sequences에 대한 belief를 다시 zero-mean, unit variance로 표준화한다. 
 
 #### cem
 https://towardsdatascience.com/cross-entropy-method-for-reinforcement-learning-2b6de2a4f3a0  
