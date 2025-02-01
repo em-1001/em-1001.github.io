@@ -209,6 +209,7 @@ $\pi(z_t)$는 현재 latent state $z_t$를 기반으로 선택된 action이다. 
 ### Planning algorithm
 Planning algorithm으로는 **cross entropy method(CEM)** 을 사용한다. Algorithm 2에 나와있듯이, 초기 Action Sampling Distribution은 Normal Distribution $a_{t:t+H} \sim Normal(\mu_{t:t+H}, \sigma_{t:t+H}^2 \mathbb{I})$으로 한다. $t$는 agent의 현재 time step이고, $H$는 planning horizon길이이다. 현재 시점 $t$에서 Planning을 통해 Action $a_t$를 결정하겠다는 것은 Latent State $s_t$에서 시작하여 만들어질 수 있는 무한한 State-Action Sequence 중에서 기대 누적 Reward가 가장 큰 경우에 따르겠다는 것을 뜻한다. PlaNet은 매 Optimization Iteration마다 $q(a_{t:t+H})$에서 Sampling하며, 이 중 Sequence의 기대 누적 Reward $R^{(j)}$가 큰 순서대로 $K$개를 뽑아 이들의 분포로 Action Sampling Distribution을 re-fit한다. 총 $I$번의 반복 후, planner는 $s_t$의 action으로 current time step에 대한 Action Sampling Distribution의 평균 $\mu_t$를 반환한다.
 
+앞으로 나올 diagonal Gaussian: https://velog.io/@kjb0531/%EA%B0%95%ED%99%94%ED%95%99%EC%8A%B5-%EA%B0%9C%EB%85%90%EC%A0%95%EB%A6%AC1
 
 #### cem
 https://towardsdatascience.com/cross-entropy-method-for-reinforcement-learning-2b6de2a4f3a0  
