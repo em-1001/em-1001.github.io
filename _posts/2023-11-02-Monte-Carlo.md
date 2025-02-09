@@ -1,5 +1,5 @@
 ---
-title:  "[Statistics]Monte Carlo method"
+title:  "[Statistics] Monte Carlo method"
 excerpt: "Law of Large Numbers & Monte Carlo method"
 
 categories:
