@@ -22,7 +22,13 @@ last_modified_at: 2025-01-19T08:06:00-05:00
 표기하는데, 만약 신뢰수준이 95%라면, 유의수준은 5%가 된다. 유의수준(Significant Level)을 양쪽 구간으로 따질 때는 유의수준을 둘로 나눠서 
 양측 검정($\alpha/2$)을하고, 한쪽만 따질 때는 나누지 않고 단측검정을 한다. 
 
-<p align="center"><img src="https://github.com/user-attachments/assets/4904388b-5008-42c3-aee9-f162e5da0487" height="50%" width="50%"></p>
+<p align="center"><img src="https://github.com/user-attachments/assets/6e09b6fd-2574-44a0-833c-375c0ec4d274" height="50%" width="50%"></p>
+
+1. 귀무가설의 분포
+2. 귀무가설의 95% 신뢰구간
+3. 귀무가설의 채택역
+4. 귀무가설의 기각역
+5. 유의수준 ($\alpha/2$)
 
 ### Null Hypothesis & Alternative Hypothesis
 
@@ -114,7 +120,11 @@ False Positive는 잘못된 긍정으로 없는 것을 있다고 하는 것(잘�
 |Accept the $H_0$|True Negative|Type II Error<br/>$\beta$ Error<br/>False Negative|
 |Reject the $H_0$|Type I Error<br/>$\alpha$ Error<br/>False Positive|True Positive|
 
+귀무가설을 잘못 기각하면 1종 오류(Type I Error), 귀무가설을 기각하지 않아서 생기는 오류를 2종 오류(Type II Error)라 한다. 
 
+유의수준이 5%일 때 양측 가설 검정을 수행한다고 하면, 귀무가설이 옳다고 할 때, 양쪽의 2.5% 유의수준보다 바깥쪽의 데이터가 관측되어 귀무가설을 잘못 기각하는 경우(False Positive)는 5%의 확률로 발생한다. 사실상 유의수준 $\alpha$는 False Positive에 의한 위험도의 확률로서의 최댓값이라 할 수 있다. 
+
+$\alpha$가 False Positive 위험도의 확률 최댓값이라 하면, 실제 얼마나 위험한지 알고싶을 때 p value를 사용한다. 검정을 극단치를 더하는 것인 정의인 p value를 통해 검정을 하면, 관측된 검정 통계량에 의한 p value가 5%보다 작을 때, False Positive에 의한 오류의 확률이 5%보다 작아진다. 따라서  p value는 관측된 데이터에 의한 False Positive 위험률의 최댓값이 되는데, p value와 $\alpha$를 비교해서 p value가 작으면 귀무가설을 기각하는데 확률적으로 부담이 적게된다. 
 
 
 
