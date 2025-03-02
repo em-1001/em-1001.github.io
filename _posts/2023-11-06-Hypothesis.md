@@ -1,5 +1,5 @@
 ---
-title:  "[Statistics] Null Hypothesis & Alternative Hypothesis"
+title:  "[Statistics] Hypothesis Testing"
 excerpt: "statistical hypothesis test"
 
 categories:
@@ -14,9 +14,9 @@ last_modified_at: 2025-01-19T08:06:00-05:00
 > 데이터 사이언티스트 되기 책: https://recipesds.tistory.com/
 
 
-# hypothesis test
+# Hypothesis Testing
 
-가설검정은 관심을 가지고 있는 모집단에 대한 가설을 세우고, 표본을 뽑아서 표본정보로부터 그 가설들을 검증하는 것을 의미한다. 
+가설검정(Hypothesis Testing)은 관심을 가지고 있는 모집단에 대한 가설을 세우고, 표본을 뽑아서 표본정보로부터 그 가설들을 검증하는 것을 의미한다. 
 
 신뢰수준(구간)은 모수가 포함된 구간의 확률이고, 유의수준은 신뢰수준을 제외한 나머지 Extreme 영역을 말한다. 유의수준은 보통 $\alpha%$로 
 표기하는데, 만약 신뢰수준이 95%라면, 유의수준은 5%가 된다. 유의수준(Significant Level)을 양쪽 구간으로 따질 때는 유의수준을 둘로 나눠서 
