@@ -1,6 +1,6 @@
 ---
-title:  "[Statistics] Estimation"
-excerpt: "Estimation"
+title:  "[Statistics] Statistical Estimation"
+excerpt: "Statistical Estimation"
 
 categories:
   - Statistics
@@ -80,6 +80,39 @@ $$\mu - t_{2.5\%, 499} \frac{\sqrt{2000000}}{\sqrt{500}} \leq 100000$$
 을 만족하는 범위를 찾으면 된다. 여기서 $t_{2.5\%, 499}$는 자유도($n-1$)이 499, 확률이 2.5%인 $t$값을 의미하고, 자유도와 유의수준에 따른 해당 값은 t분포표에서 찾을 수 있다.
 
 정리하면 모집단 평균의 구간 추정을 할 때, $\sigma$가 알려지지 않은 경우(현실세계)  $s$를 $\sigma$의 추정치로 사용하고 $\mu$의 구간 추정은 $t$분포에 기초한다고 할 수 있다. 이때 자유도가 30을 초과하면, $t$값은 정규분포 $z$의 값과 거의 같아지기 시작한다. 따라서 정규분포 $z$는 $t$ 테이블의 무한 자유도 값으로 대치할 수 있다. 
+
+##  Estimating Proportions
+
+앞서 평균의 구간 추정을 해봤다면, 이젠 모비율의 구간 추정을 해볼 것이다. 모비율을 추정한다는 것은 표본비율을 가지고 모비율을 추정한다는 것으로, 비율인 $p$에 대해 $p$와 $1-p$로 어떤 현상을 설명하는 Binomial분포를 이용한다. Binomial는 $n$개의 확률변수가 어떤 확률 분포를 따르는지에 상관없이 $n$이 충분히 크다면 그 합은 가우시안을 따른다는 중심극한정리에 의해 Bernoulli의 성공횟수의 합을 확률변수로 가지므로 가우시안으로 근사된다. 
+
+$$X \to P(X=x) \sim B(n, p) \approx N(np, np(1-p))$$
+
+이때 주의할 점은 $p$는 구하고자 하는 모수이기 때문에 조사한 표본의 비율로 바꿀 수 없지만, 분산은 $n$이 충분히 크기 때문에 표본분산을 모분산으로 대체할 수 있다. 
+
+예를 들어 600가구를 대상으로 현재 시청하는 채널을 조사했더니, 99가구가 KBS를 보고 있었다고 할 때, 진짜 KBS의 시청율을 95%의 신뢰구간으로 추정해보자. $\hat{p} = \frac{99}{600}$이다. 여기서 $\hat{p}$는 관측했다는 뜻이다. 따라서 가우시안으로 근사하면 다음과 같다.
+
+$$B(n, p) \approx N(np, n\hat{p}\hat{q}) = N(600p, 600 \cdot \frac{99}{600} \cdot \frac{501}{600})$$
+
+따라서 $600p \pm 1.96 \cdot \sqrt{600 \cdot \frac{99}{600} \cdot \frac{501}{600}}$ 사이를 95% 구간으로 볼 수 있다. 
+이제 평균 추정과 마찬가지로 관측한 99가 위 구간에 포함되야 하므로, 
+
+$$600p + 1.96 \cdot \sqrt{600 \cdot \frac{99}{600} \cdot \frac{501}{600}} \geq 99$$
+
+$$600p - 1.96 \cdot \sqrt{600 \cdot \frac{99}{600} \cdot \frac{501}{600}} \leq 99$$
+
+이다. 따라서 $p$는 $\frac{99}{600} \pm 1.96 \frac{\sqrt{600 \cdot \frac{99}{600} \cdot \frac{501}{600}}{600}$ 구간이 95% 신뢰구간이 된다. $0.165 \pm 0.0297$
+
+이러한 모비율 추정을 공식화 하면 원래 $X \sim B(n, p)$인 것을, $X$를 $n$으로 나눠서 비율로 다시 표현하면 $\hat{p} = \frac{X}{n}$이 된다. 표본비율이 $n$개의 표본 중 $X$개를 차지한다고 보면, $X \sim B(n, p) \approx N(np, n\hat{p}\hat{q})$ 이므로, 
+
+$$\hat{p} = \frac{X}{n} \sim N \left( p, \frac{\hat{p}\hat{q}}{n} \right)$$
+
+가 된다. 이유는 $E(\hat{p}) = E\left( \frac{X}{n} \right) = \frac{np}{n} = p$ 이고, $Var(\hat{p}) = Var \left(\frac{X}{n} \right) = \frac{n \hat{p} \hat{q}}{n^2} = \frac{\hat{p} \hat{q}}{n}$ 이기 때문이다. 
+
+따라서 $\hat{p}$는 $N(p, \frac{\hat{p} \hat{q}}{n})$를 따르고, 정규화 하면 $\frac{\hat{p} - p}{\sqrt{\frac{\hat{p} \hat{q}}{n}}}$이 근사적으로 표준 정규분포를 따른다. 
+
+최종적으로 모비율 추정을 공식화하면 다음과 같다. 
+
+$$P \left( -z_{critical} \leq \frac{\hat{p} - p}{\sqrt{\frac{\hat{p} \hat{q}}{n}}} \leq z_{critical} \right) \to P \left( \hat{p}-z_{critical}\sqrt{\frac{\hat{p} \hat{q}}{n}} \leq p \leq \hat{p}+z_{critical}\sqrt{\frac{\hat{p} \hat{q}}{n}}  \right)$$ 
 
 
 
