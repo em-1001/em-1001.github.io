@@ -100,7 +100,7 @@ $$600p + 1.96 \cdot \sqrt{600 \cdot \frac{99}{600} \cdot \frac{501}{600}} \geq 9
 
 $$600p - 1.96 \cdot \sqrt{600 \cdot \frac{99}{600} \cdot \frac{501}{600}} \leq 99$$
 
-이다. 따라서 $p$는 $\frac{99}{600} \pm 1.96 \frac{\sqrt{600 \cdot \frac{99}{600} \cdot \frac{501}{600}}{600}$ 구간이 95% 신뢰구간이 된다. $0.165 \pm 0.0297$
+이다. 따라서 $p$는 $\frac{99}{600} \pm 1.96 \frac{\sqrt{600 \cdot \frac{99}{600} \cdot \frac{501}{600}}}{600}$ 구간이 95% 신뢰구간이 된다. $0.165 \pm 0.0297$
 
 이러한 모비율 추정을 공식화 하면 원래 $X \sim B(n, p)$인 것을, $X$를 $n$으로 나눠서 비율로 다시 표현하면 $\hat{p} = \frac{X}{n}$이 된다. 표본비율이 $n$개의 표본 중 $X$개를 차지한다고 보면, $X \sim B(n, p) \approx N(np, n\hat{p}\hat{q})$ 이므로, 
 
