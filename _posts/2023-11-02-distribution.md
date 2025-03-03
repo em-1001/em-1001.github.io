@@ -78,7 +78,7 @@ F-분포는 두 개 집단의 분산의 비를 통해 집단간 평균을 비교
 
 분자, 분모가 모두 제곱 합으로 표현되는 검정 통계량은 보통 F-분포를 따른다. 보통 통계에서 사용되는 제곱의 합은 카이제곱 분포의 비율의 형태로써, 서로 다른 카이제곱 분포의 비율이다. 
 
-결국 $F = \frac{\boldsymbol{\chi}^2_{(dof1)}}{\boldsymbol{\chi}^2_{(dof2)}} \sim F(dof1, dof2)$ 의 형태가 되어, Normal Distribution을 따르는 두 개의 데이터에 대한 분산의 비율에 대해 분석할 때 사용한다. F-분포는 신뢰구간, 가설검정에 사용하는 분포이고, 다집단의 평균이 같은지(ANOVA)도 확인할 수 있다. 
+결국 $F = \frac{\boldsymbol{\chi}^2_ {(dof1)}}{\boldsymbol{\chi}^2_ {(dof2)}} \sim F(dof1, dof2)$의 형태가 되어, Normal Distribution을 따르는 두 개의 데이터에 대한 분산의 비율에 대해 분석할 때 사용한다. F-분포는 신뢰구간, 가설검정에 사용하는 분포이고, 다집단의 평균이 같은지(ANOVA)도 확인할 수 있다. 
 
 <p align="center"><img src="https://github.com/user-attachments/assets/28def51e-7621-4f3e-a46d-9566e32ad6d7" height="" width=""></p>
 
