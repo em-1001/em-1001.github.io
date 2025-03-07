@@ -114,6 +114,30 @@ $$\hat{p} = \frac{X}{n} \sim N \left( p, \frac{\hat{p}\hat{q}}{n} \right)$$
 
 $$P \left( -z_{critical} \leq \frac{\hat{p} - p}{\sqrt{\frac{\hat{p} \hat{q}}{n}}} \leq z_{critical} \right) \to P \left( \hat{p}-z_{critical}\sqrt{\frac{\hat{p} \hat{q}}{n}} \leq p \leq \hat{p}+z_{critical}\sqrt{\frac{\hat{p} \hat{q}}{n}}  \right)$$ 
 
+## Estimating Population Variance
+
+이번엔 모분산을 추정할 것이다. 모분산을 추정할 때는 카이제곱 분포를 이용한다. 앞서 $\frac{(n-1)s^2}{\sigma^2}$ 이 통계량이 $\chi_{(n-1)}^2$ 카이스퀘어 분포를 따른다고 했었다. 이를 이용해서 평균 추정과 마찬가지로 upper bound는 관측치보다 크게 하고, lower bound는 관측치보다 작게 하면, 다음이 성립한다. 
+
+<p align="center"><img src="https://github.com/user-attachments/assets/f7bdd02b-7f74-4efc-ad7e-c925f23c0f92"></p>
+
+카이스퀘어의 분포를 따른다 할 때, 95% 신뢰구간으로 추정한다고 하면, 어떤 관측지가 있다고 할 때, 95% 신뢰구간의 상한인 $\chi_{(n-1), 97.5\%}^2$는 관측치보다 커야하고, 하한인 $\chi_{(n-1), 2.5\%}^2$는 관측치보다 작아야 한다. 이를 일반화하면 다음과 같다. 
+
+$$\frac{(n-1)s^2}{\chi_{\alpha/2, n-1}^2} \geq \sigma^2 \geq \frac{(n-1)s^2}{\chi_{1-\alpha/2, n-1}^2}$$
+
+예를 들어 78m, 85m, 82m, 79m, 77m의 데이터가 있다고 하자. 이때 모분산 $\sigma^2$를 추정한다고 하면, 먼저 표본분산을 계산한다. 
+$s^2 = 10.75 \approx 10.8$. 그리고, 위 카이스퀘어 통계량을 계산하면, $\frac{(n-1)s^2}{\sigma^2} = \frac{10.8}{\sigma^2} \times 4 = \frac{43.2}{\sigma^2}$ 가 된다. 카이제곱분포의 95% 구간은 0.4844 ~ 11.1433($n-1 \ dof$)이므로
+
+$$0.4844 \geq \frac{43.2}{\sigma^2} \geq 11.1433$$
+
+가 된다. 이 부등식을 풀면 
+
+$$3.877 \geq \sigma^2 \geq 89.182$$
+
+3.877~89.182의 구간에서 신뢰도 95%로 모분산을 추정할 수 있다. 
+
+
+
+
 
 
 
