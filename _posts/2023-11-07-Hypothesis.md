@@ -158,6 +158,101 @@ Null Hypothesis는 $\mu=75$, Alternative Hypothesis는 $\mu \neq 75$가 된다. 
 
 어떤 집단의 평균을 추정하면 검정을 통해 해당 집단의 평균이 진짜 그런지, 어떤 일이 벌어지기 전과 후의 평균이 같은지 다른지, 서로 이질적인 집단 2개의 평균이 같은지 다른지, 세 개 이상의 집단의 평균이 같은지 다른지 등을 확률적으로 검사할 수 있다. 
 
+추정에서 보았듯이 표본평균의 분포는 중심극한정리(또는 모분포가 정규분포인 경우)에 의해 가우시안이므로, 평균을 추정할 수 있고, 서로 다른 두 집단의 평균 역시 중심극한정리를 이용해 비교할 수 있다. 
+
+예를 들어 남자와 여자의 평균 손톱 길이를 비교해 본다고 하자. 일단 남자의 손톱 길이 분포와 여자의 손톱 길이 분포를 바로 비교할 수는 없다. 각 분포의 표본평균의 분포를 구하면 다 분포 모두 가우시안이 되므로 비교가 가능하다. 이때 당연히 표본이 달라질 때마다 표본 평균의 차이도 달라질 것이다. 따라서 남자와 여자 각각의 표본평균의 분포도 가우시안이지만, 표본평균의 차이도 가우시안이 된다. 즉, 평균의 차이가 확률분포인 가우시안이 된다. 참고로 가우시안은  가우시안끼리의 합도 가우시안이 되고, 차도 가우시안이 된다.  
+
+이제 $\mu_1 - \mu_2$ 평균의 차이가 0이라 가정하고, 평균의 차이 분포인 가우시안 분포를 통해 실제로 차이가 나는지 검정을 한다. 
+$X, Y$ 두 집단이 있다고 하면, 두 집단의 평균이 차이가 나는지 확인할 때, 귀무가설은 $H_0: \mu_X = \mu_Y \leftrightarrow \mu_X - \mu_Y = 0$ 가 되고, 대립가설은 $H_1: \mu_X \neq \mu_Y \leftrightarrow \mu_X - \mu_Y \neq 0$ 가 된다. 따라서 귀무가설에 따라 차이의 분포의 평균은 0으로 가정한다. 
+
+그러면 각각의 표본평균의 평균은 중심극한정리에 의해 $\bar{X}$는 $\mathcal{N} \left( \mu_X, \frac{\sigma_X^2}{n_X} \right)$, $\bar{Y}$는 $\mathcal{N} \left( \mu_Y, \frac{\sigma_Y^2}{n_Y} \right)$의 분포를 따른다. 
+
+이때 $\bar{X}$와 $\bar{Y}$가 독립이라면, 평균은 두 평균의 차이가 되고, 분산은 합이 된다. 분산이 합이되는 이유는 분산은 항상 0이상의 값이고, 각각의 변화가 합쳐져 더 커진다. 
+
+<p align="center"><img src="https://github.com/user-attachments/assets/69f77ffc-504b-4c93-bc28-fae788294571"></p>
+
+결국, 표준오차가 합이되는 특성을 갖는다. 
+
+$$\bar{X} - \bar{Y} \sim \mathcal{N} \left( \mu_X - \mu_Y, \frac{\sigma_X^2}{n_X} + \frac{\sigma_Y^2}{n_Y} \right)$$
+
+그래서 이 분포를 Normalization하면 다음과 같이 된다. 
+
+
+$$Z = \frac{(\bar{X} - \bar{Y}) - (\mu_X - \mu_Y)}{\sqrt{\left( \frac{\sigma_X^2}{n_X} + \frac{\sigma_Y^2}{n_Y} \right)}} \sim \mathcal{N}(0, 1)$$
+
+Independet Samples $t$-test는 이전 평균추정과 매우 유사하다. 
+
+<p align="center"><img src="https://github.com/user-attachments/assets/0762ae4e-1163-48dc-ac7b-7f050452099c"></p>
+
+평균의 차이에 대해서 95% 신뢰구간을 추정한 후에 5% 유의수준에 의하여 Null Hypothesis를 판단하는 것과 똑같다. 
+
+이제 남은 과정은 분산의 수식을 간단하게 만드는 것이다. 먼저 등분산일 경우는 매우 간단한데, $\sigma_X = \sigma_Y = \sigma$이므로, 아래와 같이 간략화 된다. 
+
+$$Z = \frac{(\bar{X} - \bar{Y}) - (\mu_X - \mu_Y)}{\sqrt{\left( \frac{1}{n_X} + \frac{1}{n_Y} \right)\sigma^2}} \sim \mathcal{N}(0, 1)$$
+
+이제 여기서 우리는 모분산을 모르므로 표본분산을 사용하면 된다. 표본분산으로 대체하면 $((n_X-1)+(n_Y-1)) = n_X + n_Y - 2$ 자유도의 $t$분포를 따르게 된다. 최종적으로 $t$분포를 사용하면 다음과 같이 된다. 
+
+$$Z \to T = \frac{(\bar{X} - \bar{Y}) - (\mu_X - \mu_Y)}{\sqrt{\left( \frac{1}{n_X} + \frac{1}{n_Y} \right)s^2}} \sim t(n_X + n_Y - 2)$$
+
+이때, 두 분포의 차이에 대해 통합된 표본분산(불편분산)은 다음과 같이 계산된다. 
+
+$$S_{unbiased-pooled}^2 = \frac{\sum_i^{n_X}(X_i - \bar{X})^2 + \sum_i^{n_Y}(Y_i - \bar{Y})^2}{(n_X - 1) + (n_Y - 1)} = \frac{(n_X - 1)S_X + (n_Y - 1)S_Y}{n_X + n_Y - 2}$$
+
+불편분산은 각 그룹의 평균으로부터의 변화량의 합을 자유도로 나눈다. 
+
+최종 검정을 위한 식은 다음과 같다. 
+
+$$T = \frac{(\bar{X} - \bar{Y}) - (\mu_X - \mu_Y)}{\sqrt{\left( \frac{1}{n_X} + \frac{1}{n_Y} \right)S_{unbiased-pooled}^2}} \sim t(n_X + n_Y - 2)$$
+
+여기에 Null Hypotesis인 $\mu_X - \mu_Y = 0$을 고려하여 0으로 대치하면, 검정 통계량이 된다. 
+
+만약 등분산이 아니고 분산이 다른 경우는 불편분산을 그대로 계산하는 Welch's t test라는 것을 사용하여 계산한다. 
+
+실제 예를 들어 앞서 남자와 여자의 손톱 길이에 대한 데이터가 다음과 같다고 하자. 
+
+```py
+boy = [4.7 5.1 4.8 5.5 4.6 4.9 5. 4.6 5.1 5. 5.1 5.8 5.1 4.4 5. 5.5 5.4 4.4
+ 4.7 5.3 5.1 5.4 5.2 4.6 4.8 5. 4.3 4.8 4.9 5.7 5. 5.1 5.7 5.1 4.8 5.
+ 5.4 5.2 5. 4.4 4.9 5.4 5.4 4.9 4.5 5.1 5. 4.8 4.6 5.2]
+girl = [6.1 5. 6.4 6.3 6.2 5.5 6.3 5.1 6.1 6.5 5.7 5.4 6.3 5.9 5.7 5.9 5.6 6.7
+ 6.4 6. 5.6 6.7 6.9 6.6 5.8 5.6 5.2 5.8 6.7 6.1 5.7 5.6 6. 5.6 5. 5.5
+ 6.8 7. 6.1 5.5 6. 5.5 6. 4.9 6.2 5.7 5.5 6.6 5.7 5.8]
+```
+
+귀무가설은 "남자와 여자의 손톱 길이 **평균값**의 차이가 없다."이고, 대립가설은 "남자와 여자의 손톱 길이 **평균값**의 차이가 있다."이다. 
+
+먼저 등분산성을 확인해보면, Null Hypothesis를 "두 개의 분산이 같다."로 설정하여 다음과 같이 확인할 수 있다. 
+
+```py
+from scipy.stats import bartlett
+bartlett(boy, girl)
+ 
+BartlettResult(statistic=6.891726740802407, pvalue=0.008659557933880048)
+```
+
+결과를 확인해보면 p value가 0.05보다 작으므로 귀무가설이 기각되어 등분산성을 만족하지 못한다.
+
+등분산이 아니므로 Welch's t-test를 이용해 구해야 한다. 
+
+```py
+from scipy.stats import ttest_ind
+ttest_ind(boy, girl, equal_var=False)
+```
+equal_var 옵션을 False로 주면된다. 등분산일 경우에는 True로 주거나, 아예 아무것도 주지 않아도 된다. 
+
+```py
+Ttest_indResult(statistic=-10.52098626754912, pvalue=3.746742613983681e-17)
+```
+최종 결과를 확인해보면 p value가 유의수준 5%라 할 때, 매우 작으므로 귀무가설이 기각되어 남자와 여자의 손톱 길이의 평균은 차이가 있다고 할 수 있다. 
+
+등분산이 아닌경우의 Welch's t-test의 검정통계량은 다음과 같다. 
+
+$$T = \frac{(\bar{X} - \bar{Y})}{\sqrt{\left( \frac{\sigma_X^2}{n_X} + \frac{\sigma_Y^2}{n_Y} \right)}} \sim t(dof)$$
+
+$$dof = \frac{\left( \frac{\sigma_X^2}{n_X} + \frac{\sigma_Y^2}{n_Y} \right)^2}{\frac{S_X^4}{n_X^2(n_X-1)}+\frac{S_Y^4}{n_Y^2(n_Y-1)}}$$
+
+위 자유도는 그냥 이렇게 나온다라고 생각하면 되고, 이 식을 통해 자유도가 항상 정수인 것은 아니라는 사실을 알 수 있다. 
+
 
 
 
