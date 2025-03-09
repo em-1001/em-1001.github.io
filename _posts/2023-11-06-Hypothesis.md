@@ -253,6 +253,9 @@ $$dof = \frac{\left( \frac{\sigma_X^2}{n_X} + \frac{\sigma_Y^2}{n_Y} \right)^2}{
 
 위 자유도는 그냥 이렇게 나온다라고 생각하면 되고, 이 식을 통해 자유도가 항상 정수인 것은 아니라는 사실을 알 수 있다. 
 
+# A/B test
+
+
 
 
 
