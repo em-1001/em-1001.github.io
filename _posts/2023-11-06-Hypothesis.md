@@ -22,13 +22,7 @@ last_modified_at: 2025-01-19T08:06:00-05:00
 표기하는데, 만약 신뢰수준이 95%라면, 유의수준은 5%가 된다. 유의수준(Significant Level)을 양쪽 구간으로 따질 때는 유의수준을 둘로 나눠서 
 양측 검정($\alpha/2$)을하고, 한쪽만 따질 때는 나누지 않고 단측검정을 한다. 
 
-<p align="center"><img src="https://github.com/user-attachments/assets/6e09b6fd-2574-44a0-833c-375c0ec4d274" height="50%" width="50%"></p>
-
-1. 귀무가설의 분포
-2. 귀무가설의 95% 신뢰구간
-3. 귀무가설의 채택역
-4. 귀무가설의 기각역
-5. 유의수준 ($\alpha/2$)
+<p align="center"><img src="https://github.com/user-attachments/assets/12416bbb-c296-46ab-a725-34733ba4ed1e" height="50%" width="50%"></p>
 
 ## Null Hypothesis & Alternative Hypothesis
 
@@ -169,7 +163,7 @@ $X, Y$ 두 집단이 있다고 하면, 두 집단의 평균이 차이가 나는�
 
 이때 $\bar{X}$와 $\bar{Y}$가 독립이라면, 평균은 두 평균의 차이가 되고, 분산은 합이 된다. 분산이 합이되는 이유는 분산은 항상 0이상의 값이고, 각각의 변화가 합쳐져 더 커진다. 
 
-<p align="center"><img src="https://github.com/user-attachments/assets/69f77ffc-504b-4c93-bc28-fae788294571"></p>
+<p align="center"><img src="https://github.com/user-attachments/assets/69f77ffc-504b-4c93-bc28-fae788294571" height="70%" width="70%"></p>
 
 결국, 표준오차가 합이되는 특성을 갖는다. 
 
