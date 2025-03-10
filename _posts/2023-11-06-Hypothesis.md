@@ -249,6 +249,115 @@ $$dof = \frac{\left( \frac{\sigma_X^2}{n_X} + \frac{\sigma_Y^2}{n_Y} \right)^2}{
 
 ## A/B test
 
+비율을 검정할 때는 $np \geq 5, nq \geq 5$인 경우 가우시안 근사 $X_{n, p} \sim B(n, p) \sim N(np, npq)$ 를 활용해 $z$ 검정을 한다. $X_{n,p}$는 성공 횟수 이므로, 전체 시행 횟수와의 비율로 나타내어 가우시안으로 근사하면 다음과 같다. 
+
+$$\frac{X_{n,p}}{n} = p \sim N \left( p, \frac{pq}{n} \right)$$
+
+$$\because E\left( \frac{X_{n,p}}{n} \right) = \frac{np}{n}=p, \ Var \left( \frac{X_{n,p}}{n} \right) = \frac{npq}{n^2}=\frac{pq}{n}$$
+
+비율에 관한 통계적 접근은 3가지가 있는데, 이 세 가지에서 분산을 구하는 방법이 조금씩 다르다. 
+
+1. 모비율에 대한 신뢰구간 구하기
+2. 모비율에 대한 검정
+3. 두 집단의 비율의 차이 검정
+
+1,3의 경우와 2의 경우 분산이 다르다. 1의 경우 표본을 통해 모비율의 신뢰구간을 추정하기 때문에, 표본의 비율이 분산으로 사용되어 $\frac{\hat{p}\hat{q}}{n}$ 이다. 2의 경우 Null Hypothesis가 맞다는 가정으로 표본이 어떻게 관측되었는지 접근하기 때문에 검정하고자 하는 비율(모비율) $\frac{pq}{n}이 정해지고 그에 대한 분산이 계산된다. 이때의 검정통계량은 $Z = \frac{\bar{X} - \mu}{\sigma}$ 와 같은 원리로 $\frac{\hat{p}-p}{\sqrt{\frac{pq}{n}}}$ 이다. 3의 경우 표본을 통해 두 집단의 비율 차이를 확률적으로 계산하려는 것이기 때문에 표본의 비율이 분산으로 사용되어 $\frac{\hat{p}\hat{q}}{n}$ 이다. 
+
+1의 경우는 앞서 추정에서 살펴보았으므로, 2와 3의 검정에 대해 알아볼 것이다. 
+
+먼저 2의 경우 모비율을 $p$라 가정하고, 어떤 비율을 관측했을 때, 그 비율이 맞는지 검정할 수 있다. 이때의 검정통계량은 $Z_{stat} = \frac{\hat{p}-p}{\sqrt{\frac{pq}{n}}}$ 이다. 
+
+예를 들어 1000명 중 87명이 광고를 보고 상품을 구매했다고 할 때, 상품을 구입한 사람의 비율이 국가별 평균 6.5%와 다른지 확인한다고 하자. 이 경우 $p=6.5%$가 귀무가설이 된다. 대립가설은 $p \neq 6.5%$이고, 양측검정이다. 
+
+귀무가설에 대한 $p$의 분포는 평균 $p$, 분산 $\frac{pq}{n}$인 가우시안으로 검정통계량은 $Z_{stat} = \frac{\hat{p}-p}{\sqrt{\frac{pq}{n}}} = \frac{87/1000 - 0.065}{\sqrt{\frac{0.065(1-0.065)}{1000}}} = 2.82$ 이다. 
+
+<p align="center"><img src="https://github.com/user-attachments/assets/45d99950-4d91-437f-b012-dcbf5ee5dc58" height="60%" width="60%"></p>
+
+계산해 보면 관측치가 신뢰구간 2.5%의 바깥쪽에 있고, p value가 0.477%로 유의확률보다 작아서 귀무가설이 기각된다. 
+
+statsmodel 패키지의 proportions_ztest를 이용해서 구해보면 다음과 같다. 
+
+```py
+import scipy
+from statsmodels.stats.proportion import proportions_ztest
+import math
+p = 0.065   
+q = 1-p
+n = 1000
+nobs = 87  # Number of OBservationS
+p_hat = nobs/n
+q_hat = 1-p_hat
+z_stat = ((p_hat-p)/(math.sqrt(p*q/n)))
+pstat, ppval = proportions_ztest(nobs, n, p, "two-sided", prop_var=p)
+print("z_stat : %f"%(z_stat))
+print("p value two-sided : %f" %((1-scipy.stats.norm(0, 1).cdf(z_stat))*2))
+print("z_stat statsmodel : %f"%(pstat))
+print("p value two-sided statsmodel : %f"%(ppval))
+ 
+z_stat : 2.822021
+p value two-sided : 0.004772
+z_stat statsmodel : 2.822021
+p value sstatsmodel : 0.004772
+```
+
+z_stat, p value two-sided는 통계량과 p value를 직접 계산한 결과이고, pstat, ppval은 statsmodel의 패키지의 검정을 이용한 것으로 결과가 같음을 확인할 수 있다. 
+
+이제 3번의 경우인 모비율 차이에 대한 검정을 보면 모비율 차이 검정을 가장 잘 쓸 수 있는 예시가 A/B 테스트이다. 모비율 차이에 대한 검정은 모비율의 차이를 0으로 한 Null Hypothesis를 설정하고 검정하게 되는데,  Independent Samples t test에서 했던 평균의 차가 0 인 조건의 분포와 똑같이 취급할 수 있다. 
+
+$$T = \frac{(\bar{X} - \bar{Y}) - (\mu_X - \mu_Y)}{\sqrt{\left( \frac{\sigma_X^2}{n_X} + \frac{\sigma_Y^2}{n_Y} \right)}} \sim N(0, 1)$$
+
+평균을 비율로 대치하면 다음과 같다. 
+
+$$Z = \frac{(\hat{p_X} - \hat{p_Y}) - (p_X - p_Y)}{\sqrt{\left( \frac{\hat{p_X}\hat{q_X}}{n_X} + \frac{\hat{p_Y}\hat{q_Y}}{n_Y} \right)}} \sim N(0, 1)$$
+
+코끼리 밥 주기 앱을 서비스하는 우리 회사는 이번에 하는 앱 설치 마케팅 캠페인의 효과를 A/B테스트를 통해 측정하려고 한다. 새로운 캠페인 중 A 안은 50명이 랜딩페이지에 왔다가 20명이 앱을 설치했고, B 안은 추적을 해 보니, 200명이 랜딩페이지에 도착 후 120명이 앱을 설치했다고 하자. 이런 경우에 B 캠페인이 앱 설치도가 더 좋은지 확인햅 보자. 
+
+A/B 테스트에서는 분산이 표본의 분산으로 계산된다는 점을 기억해야 한다. 관측치 $\hat{p}$를 이용해 분산을 계산한다. 이걸 간략화 하는 경우가 있는데, $\hat{p}_ A, \hat{p}_ B \sim \hat{p} _0$ 형태로 공통표본비율(합동표본비율)로 한번에 간략화하는 경우로, 이 경우 $p _0 = \frac{count_A + count_B}{n_A + n_B}$ 로 전체 발생건수 / 전체 표본수로 간략화해서 계산하기도 한다. 이렇게 하면 통계량은 다음과 같이 된다. 
+
+$$Z = \frac{(\hat{p_B} - \hat{p_A}) - (p_B - p_A)}{\sqrt{\hat{p} _0 \hat{q} _0 \left( \frac{1}{n_A} + \frac{1}{n_B} \right)}} \sim N(0, 1)$$
+
+이제 가설을 세워보면, $\hat{p_A} = 20/50 = 0.4, n_A = 50, \hat{p_B} = 120/200 = 0.6, n_B = 200$이다. 
+귀무가설을 $p_B - p_A \leq 0$이라 하면, 대립가설은 $p_B - p_A > 0$이다. 귀무가설이 참일 때의 검정통계량은 $p_B - p_A = 0$으로 설정한 분포에서의 관측값으로 공통 비율 $p_0 = \frac{20+120}{50+200}=0.56$이다. 공통 표준편차는 $\sqrt{0.56 \times (1-0.56)\left( 
+\frac{1}{50} + \frac{1}{200} \right)} = 0.0784..$이다. 따라서 $Z_{stat} = \frac{0.6 - 0.4}{0.0784..} = 2.54$가 된다. 
+
+statsmodels를 이용해서 검정하면 다음과 같다. 
+
+```py
+from statsmodels.stats.proportion import proportions_ztest
+import numpy as np
+ 
+# 이거는 직접 계산 
+count_b = 120
+count_a = 20
+n_b = 200
+n_a = 50
+p_a = count_a/n_a
+p_b = count_b/n_b
+p_0 = (count_b+count_a)/(n_b+n_a)
+prop_var = math.sqrt((p_0*(1-p_0)/n_a  + p_0*(1-p_0)/n_b))
+z_val = (0.6-0.4)/prop_var
+print("z_stat : %f"%(z_val)) # 직접 계산
+print ("p_val : %f"%(1-scipy.stats.norm(0, 1).cdf(z_val))) # 직접 계산
+ 
+# 이거는 statsmodel 이용해서 검정
+count = np.array([count_b, count_a])
+nobs = np.array([n_b, n_a])
+stat, pval = proportions_ztest(count, nobs, alternative="larger")
+print("z_stat statsmodels : %f" %(stat)) # 라이브러리 이용
+print("p_val statsmodels : %f " %(pval)) # 라이브러리 이용 
+ 
+> 직접 계산값
+z_stat : 2.548236
+p_val : 0.005413
+ 
+> statsmodel 결과값
+z_stat statsmodels : 2.548236
+p_val statsmodels : 0.005413
+```
+
+p value를 확이해보면 0.05보다 작다. 따라서 귀무가설이 기각되므로, B안이 더 효과적이라 할 수 있다. 
+
+
 
 
 
