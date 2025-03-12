@@ -120,7 +120,7 @@ False Positive는 잘못된 긍정으로 없는 것을 있다고 하는 것(잘�
 
 $\alpha$가 False Positive 위험도의 확률 최댓값이라 하면, 실제 얼마나 위험한지 알고싶을 때 p value를 사용한다. 검정을 극단치를 더하는 것인 정의인 p value를 통해 검정을 하면, 관측된 검정 통계량에 의한 p value가 5%보다 작을 때, False Positive에 의한 오류의 확률이 5%보다 작아진다. 따라서  p value는 관측된 데이터에 의한 False Positive 위험률의 최댓값이 되는데, p value와 $\alpha$를 비교해서 p value가 작으면 귀무가설을 기각하는데 확률적으로 부담이 적게된다. 
 
-## $z$ test & $t$ test
+## $z$ test & One-Sample $t$ test
 
 검정의 예를 $z$검정과 $t$검정을 예로 들어보자. $t$분포는 모분산을 모를 때, 가우시안을 대용해 실제 표본으로 통계적인 접근을 할 수 있는 분포이다. 다음과 같은 경우 $t$검정을 하지 않고, $z$검정을 할 수 있다. 
 
@@ -356,6 +356,68 @@ p_val statsmodels : 0.005413
 ```
 
 p value를 확이해보면 0.05보다 작다. 따라서 귀무가설이 기각되므로, B안이 더 효과적이라 할 수 있다. 
+
+## Paired t test 
+
+대응표본 차이 검정(Paired t test)은 한 집단에 어떤 변화를 주었을 때, 그에 대한 변화가 있는지를 알아보는 검정이다. Paired t test를 위해선 동일한 개체의 사전, 사후의 쌍(pair) 데이터가 있어야 하고, 각 개체의 변화 결과는 다른 개체의 결과와 독립이어야 한다. 
+결국 사전 사후의 차이가 0인진를 통해 변화를 확인하므로 One-Sample t-Test와 논리가 비슷하다. 
+
+예를 들어 어떤 정신과 의사가 환자들을 상대로 스트레스 호르몬인 코르티솔을 줄이기 위해 음악을 듣게 했다고 하자. 
+이 환자들(각 개체)의 전후 상태는 다음과 같다. 
+
+|환자|실험 전|실험 후|차이(후-전) diff|
+|-|-|-|-|
+|1|201|200|-1|
+|2|231|236|5|
+|3|221|216|-5|
+|4|260|233|-27|
+|5|228|224|-4|
+|6|237|216|-21|
+|7|326|296|-30|
+|8|235|195|-40|
+|9|240|207|-33|
+|10|267|247|-20|
+|11|284|210|-74|
+|12|201|209|8|
+
+Null Hypothesis는 "after가 더 크거나 같다.", Alternative Hypothesis는 "after가 더 작다."로 설정하면 귀무가설에 따른 확률분포를 전과 후가 같은걸로 확실하게 모수를 가정할 수 있고, 음악이 치료에 별 효과가 없다고 주장할 수 있다. 또한 만약 단측검정의 결과가 Significant하다면 귀무가설을 기각하여 치료에 효과가 있다고 주장할 수 있다. 
+
+Null Hypothesis : $\mu_{after} - \mu_{before} \geq 0$  
+Alternative Hypothesis : $\mu_{after} - \mu_{before} \leq 0$   
+
+평균의 차이를 따져야 하는데 표준편차를 표본의 표준편차를 사용할 것이므로, 모집단이 정규분포라는 가정아래 Paired t test에서의 실험 전, 실험 후의 차이의 분포가 t 분포를 따르게 된다. 따라서 $\sigma$를 $\frac{s_{diff}}{\sqrt{n}}$로 대치하면, t 검정통계량은 $t = frac{\bar{diff} - \mu_{diff}}{\frac{s_{diff}}{\sqrt{n}}}$가 된다. 한 개의 집단에서 pair를 이루는 대상에 대한 데이터의 차이를 표본으로 두면 1 Sample t test와 같은 형태이다. 
+
+통계량은 계산해보면 다음과 같다. 
+
+$$t_{stat} = frac{\bar{diff} - \mu_{diff}}{\frac{s_{diff}}{\sqrt{n}}}\right\vert_{\bar{diff}=-20.07, \mu_{diff}=0, s_{diff}=538.06, n=12} = -3.02$$
+
+t가 -3.02가 나왔다. t 분포에서 자유도 11의 5%유의수준인 경우, one-sided t 값은 -1.80이므로 값이 더 작아 귀무가설을 기각할 수 있다. 즉 음악이 스트레스 완화에 효과가 있다고 결론지을 수 있다. 
+
+statmodel을 이용하면 다음과 같다. 
+
+```py
+paired_sample = stats.ttest_rel(df_raw['실험후'], df_raw['실험전'] )
+print('t검정 통계량 = %.3f, p_value = %.3f'%paired_sample)
+```
+
+t검정 통계량 = -3.020, p_value = 0.012가 나오고, p value가 5%보다 작다. 
+
+diff를 1개의 변수로 보았으니, 1 Sample t test로 검정해보면 다음과 같다. 
+
+```py
+import numpy as np
+ 
+x = np.subtract(np.array(after), np.array(before))
+ttest_1samp(x, 0)
+```
+
+결과는 t검정 통계량 = -3.020, p_value = 0.012로 같다. 
+
+
+
+
+
+
 
 
 
