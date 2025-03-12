@@ -1,5 +1,5 @@
 ---
-title:  "[Statistics] Hypothesis Testing2"
+title:  "[Statistics] Hypothesis Testing II"
 excerpt: "statistical hypothesis test"
 
 categories:
