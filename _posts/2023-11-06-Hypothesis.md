@@ -389,7 +389,7 @@ Alternative Hypothesis : $\mu_{after} - \mu_{before} \leq 0$
 
 통계량은 계산해보면 다음과 같다. 
 
-$$t_{stat} = frac{\bar{diff} - \mu_{diff}}{\frac{s_{diff}}{\sqrt{n}}}\right\vert_{\bar{diff}=-20.07, \mu_{diff}=0, s_{diff}=538.06, n=12} = -3.02$$
+$$t_{stat} = \left.frac{\bar{diff} - \mu_{diff}}{\frac{s_{diff}}{\sqrt{n}}} \right\vert_{\bar{diff}=-20.07, \mu_{diff}=0, s_{diff}=538.06, n=12} = -3.02$$
 
 t가 -3.02가 나왔다. t 분포에서 자유도 11의 5%유의수준인 경우, one-sided t 값은 -1.80이므로 값이 더 작아 귀무가설을 기각할 수 있다. 즉 음악이 스트레스 완화에 효과가 있다고 결론지을 수 있다. 
 
