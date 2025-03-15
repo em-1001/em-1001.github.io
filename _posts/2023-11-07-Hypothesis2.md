@@ -76,7 +76,20 @@ kurtosis(data, fisher=True) # 첨도
 
 $\chi^2$ 분포는 이전에 살펴보았듯이 가우시안의 제곱의 합이 해당 분포를 따른다. 카이제곱 분포는 표본분산의 분포와 관련있고, 표본분산의 검정을 할 때 사용된다. 통계량은 다음과 같다. 
 
-$$
+$$\chi^2 = \sum_{i=1}^n \frac{(O_i - E_i)^2}{E_i}   
+\begin{align}
+O : Observations \\  
+E : Expections 
+\end{cases}$$
+
+위 통계량은 비율에 대한 검정이다. 비율은 Binomial로 표현되고, Binomial은 가우시안으로 근사가 되니까, 비율은 가우시안으로 근사된다. 
+연속형 정규분포 변수에서의 카이제곱은 가우시안 제곱의 합 $\sum_{i=1}^n Z_i^2 = \sum_{i=1}^n \lbrack \frac{X_i - \mu}{\sigma} \rbrack^2 = \chi^2$ 임을 이용해서 2개 Binomial Case로 카이제곱 분포를 따르는지 유도해보면 다음과 같다. 
+
+Binomial의 Gaussian근사를 상정하고, $\mu = np, \sigma^2 = npq$를 이용해 관측치 $O$를 z score로 쓰면,
+
+$$z = frac{O_0 - np_0}{\sqrt{np_0(1-p_0)}} \sim N(0, 1), z^2 = \frac{(O_0 - np_0)^2}{np_0(1-p_0)} \sim \chi_{(1)}^2$$
+
+가 된다. 이제 Binomial case 이므로 $p_0 + p_1 = 1, E_0 + E_1 = n, O_0 + O_1 = n, np_0 = E_0, np_1 = E_1$ 
 
 
 
