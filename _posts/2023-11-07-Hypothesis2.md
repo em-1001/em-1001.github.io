@@ -169,8 +169,8 @@ $P(i \vert j) = p(i), p(j \vert i) = p(j), p(i, j) = p(i) \cdot p(j)$를 의미�
 
 검정에 앞서 카이스퀘어의 자유도를 확인해보면, (행의 수 - 1)x(열의 수 - 1)이 검정의 자유도가 된다. 표 데이터에서 합계가 정해져 있다고 생각하면, 각 행과 열에서 1개는 자유롭지만 1개가 정해지는 순간 나머지는 자동으로 정해진다. 
 
-Null Hypothesis : 술과 담배는 서로 독립이다.   
-Alternative Hypothesis : 술과 담배는 서로 독립이 아니다.   
+Null Hypothesis: 술과 담배는 서로 독립이다.   
+Alternative Hypothesis: 술과 담배는 서로 독립이 아니다.   
 
 먼저 기대도수를 구해야 한다. 기대도수는 확률x전체개수 이므로 술을 마시는 사람을 $D$, 담배를 피우는 사람을 $S$라 할 때, $P(D \cap S) = P(D)P(S)$ 이므로 $\frac{D}{Total} \cdot \frac{S}{Total}$이 기대 비율이 되고, 기대 도수는 $P(D \cap S) \cdot Total$ 이므로 $\frac{D \cdot S}{Total}$이 된다. 
 
@@ -204,6 +204,40 @@ dof: 1
 
 <p align="center"><img src="https://github.com/user-attachments/assets/94345047-3413-4887-8df5-673aa5074b59"></p>
 
+Null Hypothesis: 광고 A와 광고 B는 서로 분포가 같다. P(광고A, 전환)=P(광고B, 전환), P(광고A, 이탈)=P(광고B, 이탈)  
+Alternative Hypothesis: 광고A와 광고B는 서로 분포가 다르다. 
+
+오른 쪽 합계를 잘 보면 200으로 같은데, 동질성 검정의 경우 두 집단에서 표집하고, Feature의 분포를 비교하기 때문에 표집수를 같은 수로 하는 경우가 많다. 이때 예측할 수 있는 기대 빈도는 광고에 따른 집단과는 관계없이 전환 확률이 같고, 이탈 확률이 같으면 된다. 따라서 간단하게, 간단하게 광고A에 의한 전환사용자와 광고B에 의한 전환사용자를 합한 후 2로 나누면 된다. 이탈도 마찬가지로 각 기대 빈도는 각 Feature의 합/2가 된다. 이유는 기대도수 = 전환합/전환 합계 x 광고 A합/전체 합계 x 전체 합계 인데, 광고 A합/ 전체 합계가 1/2가 되기 때문이다. 
+
+<p align="center"><img src="https://github.com/user-attachments/assets/da258a0c-fff4-43fd-92cc-c085dd977d27"></p>
+
+검정 통계량은 다음과 같다. 
+
+$$\chi^2 = \frac{(44-53)^2}{53} + \frac{(62-53)^2}{53} + \frac{(156-147)^2}{147} + \frac{(138-147)^2}{147} = 4.158644$$
+
+파이썬으로 구하면 다음과 같다. 
+
+```py
+from scipy.stats import chi2_contingency
+ 
+row1 = [44, 156]
+row2 = [62, 138]
+ 
+chi2, p, dof, expected = chi2_contingency([row1, row2], correction=False)
+msg = 'Statistic: {}\np value: {}\ndof: {}'
+print(msg.format(chi2, p, dof))
+print(expected)
+ 
+Statistic: 4.158644589911436
+p value: 0.04142253879330136
+dof: 1
+[[ 53. 147.]
+ [ 53. 147.]]
+```
+
+p value = 0.041이므로 귀무가설을 기각하고, 두 개의 광고 간에 전환과 이탈은 차이가 있다고 할 수 있다. 
+
+독립성검정과 동질성검정은 범주형 데이터의 서로 관계가 있는지를 확인하는 통계기법이고, 연속형인 경우에는 공분산을 분석한다. 카이제곱 검정을 하려면 조건이 있는데, 기대도수가 5 이하인 데이터 셀이 전체의 20% 가 넘지 않도록 해야 한다. 이런 경우에는 표본을 늘리던지, 그룹을 더 줄여서 (묶어서) 5 이하의 빈도가 나오지 않게 하는 방법이 있고, 그래도 안된다면 Fisher 검정을 해야 한다. 
 
 
 
