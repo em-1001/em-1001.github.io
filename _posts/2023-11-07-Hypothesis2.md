@@ -145,6 +145,70 @@ $\beta$ : 회귀선을 찾아냈지만, 여전히 있는 관측치와 회귀선�
 
 - $F$ 검정은 통제 가능한 분산과 통제 불가능한 분산의 비를 이용해 통제 불가능한 것에 비해 통제 가능한 것이 차이가 나는가를 확인할 때 사용한다. 
 
+## Test of Independence & Test of Homogeneity
+
+동립성 검정(Test of Independence), 독질성 검정(Test of Homogeneity) 모두 카이스퀘어 검정을 한다. 
+독립성 검정은 한 개의 표본 집단에서 뽑은 변수가 서로 독립인지를 검사한다. 동질성 검정은 서로 다른 표본 집단 변수의 동질성을 검사한다. 카이스퀘어 검정의 기본적인 아이디어는 관측빈도와 예측할 수 있는 기대빈도의 차이를 비교하는 것이다. 독립성 검정일 때에는 독립일 떄의 기대빈도와 관측빈도가 같다면 독립이다. 
+
+Null Hypothesis와 Alternative Hypothesis를 살펴보면 독립성 검정은 기본적으로 변수끼리의 독립을 가정한다.   
+$H_0$: 관심 Feature끼리 서로 관련이 없다(독립적이다. 예측한 기대빈도와 동일하다, 예측 기대 빈도는 $P_{ij}=P_iP_j$로 예측할 수 있다.)  
+$H_1$: 관심 Feature끼리 서로 관련이 있다.(독립적이지 않다, 예측한 기대빈도와 많이 다르다.)  
+
+동질성 검정의 경우 다음과 같다.   
+$H_0$: 두개의 그룹이 각 변수(Feature)에 대하여 서로 분포가 동일하다, 분포 가정이 가능하다. ($P_{i1},P_{i2}, \cdots, P_{in} = P_{j1},P_{j2}, \cdots, P_{jn}$)  
+$H_1$: 두개의 그룹이 각 변수(Feature)에 대하여 서로 분포가 동일하지 않다.
+
+교차표로 따지면 독립성 검정은 교차표의 행과 열이 독립인지(관계가 없는지)를 검정하는 것이고, 동질성 검정은 교차표의 행끼리 분포가 서로 같은지를 검정하는 것이다. 
+
+두 변수 사이에 비율이 기댓값과 일치하는지 확인하는 거라 goodness of fit라 부른다. 확률적으로 독립에 접근하면, 
+$P(i \vert j) = p(i), p(j \vert i) = p(j), p(i, j) = p(i) \cdot p(j)$를 의미하고, 이게 성립한다는 것은 $p(i) \cdot p(j)$를 이용한 예측 비율과 일치한다는 것이다. 
+
+카이제곱 분포가 자유도 $n-1$인 $z^2$의 합의 형태 $\sum_{i=1}^n \frac{(O_i - E_i)^2}{E_i} \sim \chi_{(n-1)}^2$라는 점을 이용해서 실제 검정을 해보자. 먼저 술을 마시고 안 마시는 사람에 따라 담배를 피우는 것이 서로 독립인지(차이가 있는지)를 확인해보자. 
+
+<p align="center"><img src="https://github.com/user-attachments/assets/e4a8c145-dbb1-4d9b-a9d5-0ba8c8619efc"></p>
+
+검정에 앞서 카이스퀘어의 자유도를 확인해보면, (행의 수 - 1)x(열의 수 - 1)이 검정의 자유도가 된다. 표 데이터에서 합계가 정해져 있다고 생각하면, 각 행과 열에서 1개는 자유롭지만 1개가 정해지는 순간 나머지는 자동으로 정해진다. 
+
+Null Hypothesis : 술과 담배는 서로 독립이다.   
+Alternative Hypothesis : 술과 담배는 서로 독립이 아니다.   
+
+먼저 기대도수를 구해야 한다. 기대도수는 확률x전체개수 이므로 술을 마시는 사람을 $D$, 담배를 피우는 사람을 $S$라 할 때, $P(D \cap S) = P(D)P(S)$ 이므로 $\frac{D}{Total} \cdot \frac{S}{Total}$이 기대 비율이 되고, 기대 도수는 $P(D \cap S) \cdot Total$ 이므로 $\frac{D \cdot S}{Total}$이 된다. 
+
+<p align="center"><img src="https://github.com/user-attachments/assets/35485e71-c568-4a7f-b1de-c68d381be564"></p>
+
+데이터 옆 괄호 안에 있는 값이 기대도수로 카이스퀘어 검정에서 귀무가설인 독립이라면 이렇게 될 것이라는 예측값이 된다. 따라서 카이제곱 통계량을 계산하면 다음과 같다.
+
+$$\chi^2 = \frac{(48-31.92)^2}{31.92} + \frac{(8-24.08)^2}{24.08} + \frac{(9-25.08)^2}{25.08} + \frac{(35-18.92)^2}{18.92} =  42.8142$$
+
+<p align="center"><img src="https://github.com/user-attachments/assets/d2871b86-4956-4c64-a786-a89976697079"></p>
+
+5%유의수준 자유도 1에서의 카이스퀘어 값이 3.8415이므로, 유의수준보다 훨신 큰 검정통계량이다. 따라서 술과 담배는 독립이 아니라는 결론이 나온다. 
+
+파이썬을 통해 구하면 다음과 같다. 이때 주의할 점은 scipy의 chi2_contingency는 df가 1인 경우에는 Yates’ correction for continuity를 적용한다. Yates 수정식은 카이스퀘어에 관련하여 교차표의 모든 cell에서 기대 도수≥5인 경우에 카이스퀘어 검정이 동작하는데, 기대 도수≤5인 경우 에도 사용할 수 있도록 해 주는 수정 식이다. 우리 예시의 경우 기대 도수가 충분히 크므로 적용하지 않고(correcion=False) 실행시킨다. 
+
+```py
+row1, row2 = [48, 8], [9, 35]
+chi2, p, dof, expected = chi2_contingency([row1, row2], correction=False)
+msg = 'Statistic: {}\np value: {}\ndof: {}'
+print(msg.format(chi2, p, dof))
+print(expected)
+ 
+Statistic: 42.81422371997646
+p value: 6.019290099276929e-11
+dof: 1
+[[31.92 24.08]
+ [25.08 18.92]] → 이것은 예측치
+```
+
+이제 동질성 검정의 예를 들어보자. 동질성 검정은 A/B 테스트에 이용되기도 하는데, 특히 A/B가 서로 다른 집단인 경우 유용하다. 
+
+<p align="center"><img src="https://github.com/user-attachments/assets/94345047-3413-4887-8df5-673aa5074b59"></p>
+
+
+
+
+
+
 
 
 
