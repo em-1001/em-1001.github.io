@@ -62,7 +62,7 @@ $$\frac{(x_1 - \bar{x})^2}{\sigma^2} + \frac{(x_2 - \bar{x})^2}{\sigma^2} + \cdo
 
 정리하면 Normal Distribution은 $X \sim \frac{X-\mu}{\sigma} \sim N(0, 1) \sim Z$분포가 되고, $\sum X^2 = \sum Z^2 \sim \boldsymbol{\chi}^2_{n-1}$가 되며, 표본 수-1인 $n-1$이 카이제곱 분포의 자유도가 된다. 
 
-따라서 카이제곱 분포는 정규분포를 따르는 변수이 분산을 분석할 때 사용된다. 
+따라서 카이제곱 분포는 정규분포를 따르는 변수의 분산을 분석할 때 사용된다. 
 
 추가적으로 카이제곱은 t분포와 다음과 같은 관계를 갖는다. 
 
