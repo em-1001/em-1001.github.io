@@ -245,7 +245,7 @@ p value = 0.041이므로 귀무가설을 기각하고, 두 개의 광고 간에 
 |-|-|-|-|
 |정규성 검정|Shapiro-Wilk 검정| | |
 |분산의 동질성 검정 <br/> (등분산 확인)|Bartlett(바틀렛) <br/> (정규성 만족)|Levene(레빈) <br/> (정규성 미만족)| |
-|독립인 두 집단의 평균 비교|Independent Samples $t$-test|이분산: Welch's $t$ test|Mann Whitney 검정|
+|독립인 두 집단의 평균 비교|Independent Samples $t$-test|이분산: Welch's $t$ test|Mann Whitney U 검정|
 |독립인 두 집단의 비율 비교|$t$-test / $z$-test| | | 
 |대응표본의 차이 비교|Paired $t$-test| |Wilcoxon 부호 순위 검정|
 |세 개 이상 집단의 평균 비교|$F$-test <br/> 분석: ANOVA, RMANOVA(대응표본)|이분산: Welch test|Kruskal-Wallis H 검정(1 way) <br/> Friedman(RMANOVA)|
