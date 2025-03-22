@@ -248,7 +248,7 @@ p value = 0.041이므로 귀무가설을 기각하고, 두 개의 광고 간에 
 |독립인 두 집단의 평균 비교|Independent Samples $t$-test|이분산: Welch's $t$ test|Mann Whitney U 검정|
 |독립인 두 집단의 비율 비교|$t$-test / $z$-test| | | 
 |대응표본의 차이 비교|Paired $t$-test| |Wilcoxon 부호 순위 검정|
-|세 개 이상 집단의 평균 비교|$F$-test <br/> 분석: ANOVA, RMANOVA(대응표본)|이분산: Welch test|Kruskal-Wallis H 검정(1 way) <br/> Friedman(RMANOVA)|
+|세 개 이상 집단의 평균 비교|$F$-test <br/> 분석: ANOVA, RMANOVA(대응표본)|이분산: Welch's test|Kruskal-Wallis H 검정(1 way) <br/> Friedman(RMANOVA)|
 |두 범주형 변수 사이의 관계|$\chi^2$-test|기대값 5미만: Fisher exact test| | 
 
 
