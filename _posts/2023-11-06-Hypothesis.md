@@ -385,7 +385,7 @@ Null Hypothesis는 "after가 더 크거나 같다.", Alternative Hypothesis는 "
 Null Hypothesis : $\mu_{after} - \mu_{before} \geq 0$  
 Alternative Hypothesis : $\mu_{after} - \mu_{before} \leq 0$   
 
-평균의 차이를 따져야 하는데 표준편차를 표본의 표준편차를 사용할 것이므로, 모집단이 정규분포라는 가정아래 Paired t test에서의 실험 전, 실험 후의 차이의 분포가 t 분포를 따르게 된다. 따라서 $\sigma$를 $\frac{s_{diff}}{\sqrt{n}}$로 대치하면, t 검정통계량은 $t = frac{\bar{diff} - \mu_{diff}}{\frac{s_{diff}}{\sqrt{n}}}$가 된다. 한 개의 집단에서 pair를 이루는 대상에 대한 데이터의 차이를 표본으로 두면 1 Sample t test와 같은 형태이다. 
+평균의 차이를 따져야 하는데 표준편차를 표본의 표준편차를 사용할 것이므로, 모집단이 정규분포라는 가정아래 Paired t test에서의 실험 전, 실험 후의 차이의 분포가 t 분포를 따르게 된다. 따라서 $\sigma$를 $\frac{s_{diff}}{\sqrt{n}}$로 대치하면, t 검정통계량은 $t = \frac{\bar{diff} - \mu_{diff}}{\frac{s_{diff}}{\sqrt{n}}}$가 된다. 한 개의 집단에서 pair를 이루는 대상에 대한 데이터의 차이를 표본으로 두면 1 Sample t test와 같은 형태이다. 
 
 통계량은 계산해보면 다음과 같다. 
 
