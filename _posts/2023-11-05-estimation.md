@@ -1,5 +1,5 @@
 ---
-title:  "[Statistics] Estimation"
+title:  "[Statistics] Statistical Estimation"
 excerpt: "Statistical Estimation"
 
 categories:
