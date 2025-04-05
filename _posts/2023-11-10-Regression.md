@@ -1,5 +1,5 @@
 ---
-title:  "[Statistics] Regression"
+title:  "[Statistics] Regression I"
 excerpt: Regression
 
 categories:
