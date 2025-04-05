@@ -70,7 +70,7 @@ $$\frac{\partial E}{\partial b_1} = \sum 2 \cdot (y_i - b_0 - b_1x_i)(-x_i) = 0 
 $$\begin{align} 
 b_1 &= \frac{n\sum x_iy_i - \sum x_i \sum y_i}{n \sum x_i^2 - (\sum x_i)^2} \\  
 &= \frac{\sum(x_i - \bar{x})(y_i-\bar{y})}{\sum(x_i-\bar{x})^2}
-\end{align}
+\end{align}$$
 
 $$b_0 = \frac{\sum y \sum x^2 - \sum x \sum xy}{n\sum x^2 - (\sum x)^2} = \bar{y} - b_1\bar{x}$$
 
