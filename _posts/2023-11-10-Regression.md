@@ -65,7 +65,39 @@ $$\frac{\partial E}{\partial b_1} = \sum 2 \cdot (y_i - b_0 - b_1x_i)(-x_i) = 0 
 \sum (y_i - b_0 - b_1x_i)(x_i) = 0 \\  
 \sum x_iy_i = b_0\sum x_i + b_1 \sum x_i^2 \cdots (2)$$
 
-위 처럼 2개의 연립방정식이 나오고 두 식 모두 계수에 대해서 아래로 볼록한 convex 함수로부터 미분한 것이므로 두 식을 0으로 만드는 계수 값들이 최소값이다. 
+위 처럼 2개의 연립방정식이 나오고 두 식 모두 계수에 대해서 아래로 볼록한 convex 함수로부터 미분한 것이므로 두 식을 0으로 만드는 계수 값들이 최소값이다. 결국 (1), (2) 연립방정식을 풀면 $b_0, b_1$에 대한 오차제곱합의 최소값을 구할 수 있다. 
+
+$$\begin{align} 
+b_1 &= \frac{n\sum x_iy_i - \sum x_i \sum y_i}{n \sum x_i^2 - (\sum x_i)^2} \\  
+&= \frac{\sum(x_i - \bar{x})(y_i-\bar{y})}{\sum(x_i-\bar{x})^2}
+\end{align}
+
+$$b_0 = \frac{\sum y \sum x^2 - \sum x \sum xy}{n\sum x^2 - (\sum x)^2} = \bar{y} - b_1\bar{x}$$
+
+$b_1$은 식의 형태가 Covariance를 Variance로 나눈 듯한 형태인데 Regression Coefficent, 즉 기울기는 $x$에 대한 $x, y$의 공동 변화량 느낌으로 생각하면 된다. 
+
+<p align="center"><img src="https://github.com/user-attachments/assets/55950b06-62bc-4fa9-b696-f1b8d4373610" height="" width=""></p>
+
+원래 회귀선은 각각의 $x_i$에서의 관측치 $y_i$가 정규 분포를 갖고, 그때 각각의 $x_i$에 대한 $y$ 예측값을 $\hat{y_i}$라 볼 수 있다. 
+
+다음으로 잔차와 오차의 정의는 다음과 같다. 
+
+<p align="center"><img src="https://github.com/user-attachments/assets/8ecd13ef-fc15-4e72-8f91-702826ba3f51" height="" width=""></p>
+
+우리가 회귀를 할 때 관심있는건 회귀 모델과 관측값의 차이이고, 그 차이가 잔차(Residual)이다. 
+
+$$E = \sum(y_i - \hat{y}_i)^2 = \sum(y_i - b_0 - b_1x_i)^2$$
+
+잔차는 오차 Error를 정의해서 편미분 한 위 식에서 
+
+$$(y_i - \hat{y}_i)$$
+
+이 값이 잔차이다. 따라서 다시 정리하면 단순 선형회귀는 잔차의 제곱의 합을 최소화하는 계수를 찾아내는 것이라고 정리할 수 있다. 
+
+$$OLS = minimize(\sum(Residual)^2) = minimize(\sum(y_i - \hat{y}_i)^2)$$
+
+
+
 
 
 
