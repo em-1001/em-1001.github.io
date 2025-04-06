@@ -97,7 +97,7 @@ $$(y_i - \hat{y}_i)$$
 $$OLS = minimize(\sum(Residual)^2) = minimize(\sum(y_i - \hat{y}_i)^2)$$
 
 사실 회귀분석을 할 때 고려해야할 사항이 몇가지 있다.   
-정규성: l잔차의 분포가 정규분포를 따르는지 확인  
+정규성: 잔차의 분포가 정규분포를 따르는지 확인  
 등분산성: 잔차의 분포가 등분산성인지 확인. 즉, 잔차가 서로 같은 분포를 가진 iid인지 확인한다. 
 
 $b_1$을 구할 때 미분을 통해 나온 공식으로 구할 수도 있지만 공분산으로도 구할 수 있다. 
@@ -117,7 +117,77 @@ $$Cov(x, y) = 0 + b_1 Cov(x, x) + 0 = b_1 Cov(x, x) = b_1 Var(x)$$
 
 이런 방식 외에도 원래 $b_1$식 $\frac{\sum(x_i - \bar{x})(y_i-\bar{y})}{\sum(x_i-\bar{x})^2}$에 대해 분모 분자를 각각 자유도인 $n-1$로 나누어도 똑같이 공분산/분산의 형태가 되는 것을 알 수 있다. 
 
+실제 예를 들어 아래와 같은 데이터가 있다고 하자. 
 
+배달거리 x: [100 200 300 400 500]  
+배달시간 y: [30 56 76 140 197]
+
+파이썬의 sklearn을 통해 회귀를 할 수 있다. 
+
+```py
+from sklearn.linear_model import LinearRegression # Package를 import하고요,
+x = [[100], [200], [300], [400], [500]] # x데이터
+y = [28, 56, 76, 142, 198] # y데이터
+line_fitter = LinearRegression() 
+line_fitter.fit(x, y) # Regression 실행
+print (line_fitter.coef_) # Slope 출력
+print (line_fitter.intercept_) # Intercept 출력
+>
+[0.426]
+-27.79999999999994
+```
+
+<p align="center"><img src="https://github.com/user-attachments/assets/ea359a78-9b94-4388-922b-eda7270bf243" height="" width=""></p>
+
+이 방법말고도 더 자세한 데이터 회귀 모델의 분석 결과를 얻을 수도 있고, pandas Dataframe을 이용할 수 있는 방식이 있다. 
+
+```py
+from statsmodels.formula.api import ols
+import pandas as pd
+x = [100, 200, 300, 400, 500] # x데이터
+y = [28, 56, 76, 142, 198] # y데이터
+intercept = [0, 0, 0, 0, 0]
+df = pd.DataFrame({'x':x, 'y':y, 'intercept':intercept})
+res = ols('y ~ x', data=df).fit() # y~x는 y=... x라는 뜻
+res.summary()
+```
+
+```py
+R-squared:	0.952 ...(1)
+Adj. R-squared:	0.936 ...(1)
+F-statistic:	59.41 ...(2)
+Prob (F-statistic):	0.00454 ...(2)
+
+
+(3)      	coef	std err	t	P>|t|	[0.025	0.975]
+Intercept	-27.8	18.331	-1.517	0.227	-86.136	30.536
+X		0.426	0.055	7.708	0.005	0.25	0.602
+```
+
+summary를 확인해보면 값이 굉장히 많이 나오는데, 일단 기울기가 0.426, y절편이 -27.8라는 것은 알 수 있다.   
+
+값들을 순서대로 보면 다음과 같다.  
+(1): 모형이 얼마나 설명력을 갖는지? $\to$ 결정계수 R_squared($R^2$)를 확인한다.   
+(2): 모형이 통계적으로 유의한지? $\to$ F검정과 유의확률(p value)로 확인한다.   
+(3): 회귀계수가 유의한지? $\to$ 회귀계수의 t값과 유의확률(p value)로 확인한다. 
+
+하나하나 자세히 살펴보면 다음과 같다. 
+
+**(1)** 결과를 보면 값이 매우 높다. 이 값은 모형 적합도, 설명력이라 하며 결정계수라 부른다. 0.952의 뜻은 y의 분산을 95.2% 설명한다는 뜻으로 전체 변동의 95.2%를 회귀 결과가 커버한다는 의미이다. 여기에 $R^2$adjusted 도 93.6%로 매우 높은 것을 확인할 수 있는데, 이는 독립변수의 개수와 표본의 크기를 고려하여 R-squared를 보정한 값이다. $R^2$값은 독립변수의 개수와 표본의 크기가 커짐에 따라 과장되는 경향이 있는데 이를 보정한 값이다. 
+
+**(2)(3)** F 검정통계량도 매우 크고, p value도 0.00454로 매우 작으며 유의하다. 이 의미는 관측한 표본뿐 아니라 모집단에서도 통하는 의미있는 모델이라는 의미이다. t 검정도 이후에 확인하겠지만 유의하다. 
+
+결과를 살펴보니 전반적으로 괜찮은 회귀 결과인 것 같은데 어떤 원리로 이런 해석이 나올 수 있는지 알아봐야 할 것 같다. 우선 R_squared값 부터 보면, R_squared는 간단하게 기울기가 0이고, 회귀분석이라고 하기엔 부족한 경우의 기본 회귀선인 $y=\bar{y}$의 직선인 경우의 Residual 제곱의 합과, 실제 회귀선을 찾은 후의 Residual 제곱의 합을 비교하는 것이다. 
+
+<p align="center"><img src="https://github.com/user-attachments/assets/40a4f90c-28cf-457f-a339-1605d965482c" height="" width=""></p>
+
+여기서 T, R, E라는 notation이 사용되는데, T(Total)는 전체 변동, R(Regresssion)는 기본회귀선으로부터 회귀분석을 통해 찾아낸 회귀선 까지의 변동, E(Error)는 실제 관측 데이터와 회귀와의 변동(회귀로 커버칠 수 없는 여전히 존재하는 변동)인 잔차와 관련된 값이다. 여기서 가장 중요한 것은 회귀를 통해 기본회귀선을 R만큼 개선했다는 점이다. 참고로 여기서 R은 R_squared의 R과 다른 R이다. 
+
+이때 설명력 R_squared($R^2$)은 전체오류중에 회귀를 함으로써 얼마나 개선되었는가를 따지는 값이다. 
+
+<p align="center"><img src="https://github.com/user-attachments/assets/f59ddb7c-82e3-4fe4-a559-65eea39312b0" height="" width=""></p>
+
+즉, $R^2$은 전체 편차 중에서 회귀분석을 통해 찾아낸 회귀선이 기본회귀선으로부터 변동을 얼마나 개선했는가 또는 찾아낸 회귀선이 얼마나 Residual을 줄였냐를 의미한다.  
 
 
 
