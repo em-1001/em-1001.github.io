@@ -189,7 +189,23 @@ summary를 확인해보면 값이 굉장히 많이 나오는데, 일단 기울�
 
 즉, $R^2$은 전체 편차 중에서 회귀분석을 통해 찾아낸 회귀선이 기본회귀선으로부터 변동을 얼마나 개선했는가 또는 찾아낸 회귀선이 얼마나 Residual을 줄였냐를 의미한다.  
 
+실제 아래 데이터로 $R^2$을 구해보자. 
 
+<p align="center"><img src="https://github.com/user-attachments/assets/9f54926c-ad4b-4caa-9ef8-6bdbabfb116a" height="" width=""></p>
+
+먼저 전체편차 T는 엉망 회귀선의 잔차 제곱의 합이므로 $T = \sum(y - \bar{y})^2$가 되고 결과는 19064이다. 분자 R은 회귀를 통해 얻은 $\hat{y} = -27.8 + 0.426x$ 회귀선과 엉망 회귀선과의 차이 이므로 $R = \sum(\hat{y} - \bar{y})^2$이고 결과는 18147.6이다. 
+
+최종 $R^2$을 구해보면 $\frac{R}{T} = \frac{18147.6}{19064} = 0.9519 = R^2$가 된다. 1에 가까울수록 회귀선이 편차의 대부분을 커버친다고 할 수 있다. 
+
+T, R, E의 $T = R + E$관계를 일반적으로 사용하는 notation으로 정리하면 다음과 같다. 
+
+$$\underbrace{\sum _{i=1}^n(y_i - \bar{y})^2} _{SST} = \underbrace{\sum _{i=1}^n(\hat{y}_i - \bar{y})^2} _{SSR} + \underbrace{\sum _{i=1}^n(y_i - \hat{y}_i)^2} _{SSE}$$
+
+$T$: $\sum(y_i - \bar{y})^2$: 전체 편차를 나타내는 분산 느낌 (기울기 0의 엉망 회귀선으로부터), : SST (Sum of Square Total)  
+$R$: $\sum(\hat{y}_i - \bar{y})^2$: 회귀선과 엉망 회귀선과의 변동에 대한 분산 느낌  : SSR (Sum of Square Regression)  
+$E$: $\sum(y_i - \hat{y}_i)^2$: 잔차의 제곱의 합. 실제 관찰 값과 회귀선 사이의 편차에 대한 분산 느낌 : SSE (Sum of Square Error)
+
+$R^2$의 값이 1에 가까울수록 추정 회귀식이 표본 자료를 더 잘 설명한다고 할 수 있다. 즉, R²가 클수록 관측치들이 추정 회귀식에 가까이 집중되어 있다는 뜻이다. 
 
 
 
