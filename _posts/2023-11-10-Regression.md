@@ -96,6 +96,29 @@ $$(y_i - \hat{y}_i)$$
 
 $$OLS = minimize(\sum(Residual)^2) = minimize(\sum(y_i - \hat{y}_i)^2)$$
 
+사실 회귀분석을 할 때 고려해야할 사항이 몇가지 있다.   
+정규성: l잔차의 분포가 정규분포를 따르는지 확인  
+등분산성: 잔차의 분포가 등분산성인지 확인. 즉, 잔차가 서로 같은 분포를 가진 iid인지 확인한다. 
+
+$b_1$을 구할 때 미분을 통해 나온 공식으로 구할 수도 있지만 공분산으로도 구할 수 있다. 
+
+$$b_1 = \frac{\sum(x_i - \bar{x})(y_i-\bar{y})}{\sum(x_i-\bar{x})^2} = \frac{Cov(x, y)}{Var(x)}$$
+
+x, y의 공분산은 다음과 같이 표현할 수 있다.   
+> 공분산의 성질: https://wikidocs.net/256585
+
+$$Cov(x, y) = Cov(x, b_0 + b_1x + \epsilon) = b_0 Cov(x, 1) + b_1 Cov(x, x) + Cov(x, \epsilon)$$
+
+이때, $Cov(x, 1) = 0$이고, $x$와 $\epsilon$은 독립이므로 둘의 공분산도 0이 된다. 따라서 다음과 같이 된다. 
+
+$$Cov(x, y) = 0 + b_1 Cov(x, x) + 0 = b_1 Cov(x, x) = b_1 Var(x)$$
+
+결국 $Cov(x, y) = b_1 Var(x)$ 이므로 $b_1 = \frac{Cov(x, y)}{Var(x)}$가 된다. 
+
+이런 방식 외에도 원래 $b_1$식 $\frac{\sum(x_i - \bar{x})(y_i-\bar{y})}{\sum(x_i-\bar{x})^2}$에 대해 분모 분자를 각각 자유도인 $n-1$로 나누어도 똑같이 공분산/분산의 형태가 되는 것을 알 수 있다. 
+
+
+
 
 
 
