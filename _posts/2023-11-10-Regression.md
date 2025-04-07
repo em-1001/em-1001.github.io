@@ -234,7 +234,7 @@ OLS의 $R^2$가 상관계수의 제곱인데, 서술해보면 다음과 같다.
 
 $$R^2 = \frac{R}{T} = \frac{\sum(\hat{y}_i - \bar{y})^2}{\sum(y_i - \bar{y})^2} = \frac{\sum((b_0 - b_1x_i) - (b_0 + b_1\bar{x}))^2}{\sum(y_i - \bar{y})^2} = b_1^2 \frac{\sum(x_i - \bar{x})^2}{\sum(y_i - \bar{y})^2}$$
 
-이겨서 $b_1 = \frac{\sum(x_i - \bar{x})(y_i - \bar{y})}{\sum(x_i - \bar{x})^2}$$ 이므로 전개하면 다음과 같다. 
+이겨서 $b_1 = \frac{\sum(x_i - \bar{x})(y_i - \bar{y})}{\sum(x_i - \bar{x})^2}$ 이므로 전개하면 다음과 같다. 
 
 $$R^2 = \left( \frac{\sum(x_i - \bar{x})(y_i - \bar{y})}{\sum(x_i - \bar{x})^2} \right)^2 \cdot \frac{\sum(x_i - \bar{x})^2}{\sum(y_i - \bar{y})^2} = \left( \frac{\sum(x_i - \bar{x})(y_i - \bar{y})}{\sum(x_i - \bar{x})^2 \sum(y_i - \bar{y})^2} \right)^2 = r^2$$ 
 
