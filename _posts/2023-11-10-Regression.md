@@ -80,6 +80,11 @@ $b_1$은 식의 형태가 Covariance를 Variance로 나눈 듯한 형태인데 R
 
 원래 회귀선은 각각의 $x_i$에서의 관측치 $y_i$가 정규 분포를 갖고, 그때 각각의 $x_i$에 대한 $y$ 예측값을 $\hat{y_i}$라 볼 수 있다. 
 
+예를 들어,  
+$\hat{y}_i = 10 + 20x_i$ (회귀)  
+$y_i = 10 + 20x_i + \epsilon_i$ (관측)  
+일 때, 실제 관측값이 (2, 55)라면 회귀식에 의한 $y_i$값은 $10 + 20 \times 2=50$ 실제 관측값은 55니까 $\epsilon_i = 5$가 된다. 
+
 다음으로 잔차와 오차의 정의는 다음과 같다. 
 
 <p align="center"><img src="https://github.com/user-attachments/assets/8ecd13ef-fc15-4e72-8f91-702826ba3f51" height="" width=""></p>
@@ -207,6 +212,33 @@ $E$: $\sum(y_i - \hat{y}_i)^2$: 잔차의 제곱의 합. 실제 관찰 값과 �
 
 $R^2$의 값이 1에 가까울수록 추정 회귀식이 표본 자료를 더 잘 설명한다고 할 수 있다. 즉, R²가 클수록 관측치들이 추정 회귀식에 가까이 집중되어 있다는 뜻이다. 
 
+추가로 $R_{adjusted}^2 = 1 - \frac{(1-R^2)(n-1)}{n-k-1}$인데, $n$은 표본의 수, $k$는 독립변수의 수이다. 표본수가 많을 수록, 독립변수가 많을수록 결정계수를 조정해줘야 한다는 것이다. 이유는 Least Square 방법이 $\min(SSE) = \min(\sum\epsilon^2) = \min_{\beta} \sum(y_i - \hat{y})^2$가 되는데, 다중 회귀에서는 $\min_{\beta} \left( \sum_{i=1}^n(y_i - (\beta_0 + \beta_1x_{i,1} + \beta_2x_{i,2} \cdots + \beta_kx_{i,k}))^2 \right)$ 가 된다. $n$은 관측수, $k$는 독립변수 수이다. 
+
+여기서 $R^2 = \frac{R}{T} = 1 - \frac{E}{T} (\because T = R + E / \therefore R = T - E)$ 이고, SSE를 최소화하는 것이 $R^2$을 최대화 하는 것이 된다. 
+
+여기서 만약 1개의 독립변수가 추가된다면,   
+
+$$\min_{\beta} \left( \sum_{i=1}^n(y_i - (\beta_0 + \beta_1x_{i,1} + \beta_2x_{i,2} \cdots + \beta_kx_{i,k} + \beta_{k+1}x_{i+1,k+1}))^2 \right)$$
+
+이런 식으로 괄호안의 빼기가 늘어나게되고, 이는 $k+1$번째가 $x$가 $y$와 전혀 상관관계가 없다면 0이고, 그 외에는 무조건 더 빼질 수밖에 없으니까 SSE는 줄어들 수 밖에 없고, $R^2$는 최소한 그대로 유지하거나 늘어날 수 밖에 없다. 이를 non-decreasing property of R square라 하는데, 이 때문에 결정계수는 계속 커질 수 밖에 없으므로 조정을 해주는 것이다. 
+
+회귀를 할 때  Least Sqaure 방법을 쓴다고 하는데, Least Square와 Mean Square, Root Mean Square는 다른 개념이다.  Least Square는 잔차의 제곱의 합을 최소화하여 회귀선을 구하는 방법이고, Mean Square, Root Mean Square는 모델에 대한 성능평가를 위한 Error 측정방법이다. 
+
+회귀분석은 결국 각각의 데이터의 잔차(residual)의 제곱의 합이 최소화되는 공식을 도출하는  방법이다. 따라서 $R^2$값이 1에 가까울수록 설명력이 좋다고하는데 그렇다는 것은 $T = R + E$에서 $R$이 $T$에 가깝다는 뜻이므로 $E$가 작다 즉, 잔차가 작다는 뜻이다. 이는 결국 데이터가 회귀직선에 가까이 있다는 뜻과 같다. 상관계수를 다룰 때는 상관계수가 크다고 더 촘촘하다고 할 수는 없었는데, 결정계수의 경우는 1에 가까울수록 관측 데이터가 더 촘촘하다고 할 수 있다. 
+
+<p align="center"><img src="https://github.com/user-attachments/assets/e0408600-8888-4c00-883c-3a360efb6069" height="" width=""></p>
+
+추가적으로 OLS 선형 회귀에서는 $R^2$가 크면 좋은 모델로 판단하는 것이 일반적인데, 결정계수 $R^2$이 높다는 것이 꼭 모델의 쓸모 있음을 판단하는 의미는 아니다. 대강 결정계수가 0.25이면 상관계수는 0.5로 매우 크다. 결정계수가 0.09면 상관계수는 0.3으로 엄청 나쁜정도는 아니다. 결국 설명력이 낮다는 것은 직선이 나쁘다는 의미가 아니라 거꾸로 데이터가 회귀에 적합하지 않다고 볼 수도 있다. 
+
+OLS의 $R^2$가 상관계수의 제곱인데, 서술해보면 다음과 같다. 
+
+$$R^2 = \frac{R}{T} = \frac{\sum(\hat{y}_i - \bar{y})^2}{\sum(y_i - \bar{y})^2} = \frac{\sum((b_0 - b_1x_i) - (b_0 + b_1\bar{x}))^2}{\sum(y_i - \bar{y})^2} = b_1^2 \frac{\sum(x_i - \bar{x})^2}{\sum(y_i - \bar{y})^2}$$
+
+이겨서 $b_1 = \frac{\sum(x_i - \bar{x})(y_i - \bar{y})}{\sum(x_i - \bar{x})^2}$$ 이므로 전개하면 다음과 같다. 
+
+$$R^2 = \left( \frac{\sum(x_i - \bar{x})(y_i - \bar{y})}{\sum(x_i - \bar{x})^2} \right)^2 \cdot \frac{\sum(x_i - \bar{x})^2}{\sum(y_i - \bar{y})^2} = \left( \frac{\sum(x_i - \bar{x})(y_i - \bar{y})}{\sum(x_i - \bar{x})^2 \sum(y_i - \bar{y})^2} \right)^2 = r^2$$ 
+
+## Regression Analysis Test
 
 
 
