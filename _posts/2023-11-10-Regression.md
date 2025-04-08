@@ -255,6 +255,8 @@ X		0.426	0.055	7.708	0.005	0.25	0.602
 
 앞서 회귀분석 결과에서 확인했듯이 회귀분석에도 **(2)** F검정과 **(3)** t검정이 있다. 
 
+### $t$ test
+
 먼저 t 검정부터 살펴보면 가설은 $y = \beta_0 + \beta_1x $가 회귀식이라 할 때 Null Hypothesis은 $\beta_1=0$이고, Alternative Hypothesis은 $\beta_1 \neq 0 $이다. 
 
 가설의 의미는 모 기울기가 0이면 즉, 저번에 다룬 엉망 회귀선과 같은경우 귀무가설을 기각하지 못하면 회귀분석을 통해 회귀선을 찾았다 해도 엉망이라는 뜻이다. 기울기가 0이 아니면 모집단의 독립변수와 종송변수가 관계가 있긴 하고, 회귀분석이 어느정도 의미가 있다는 뜻이다. 
@@ -267,7 +269,7 @@ $$t_{stat} = \frac{\bar{X} - \mu}{\frac{s}{\sqrt{n}}} = \frac{\bar{x}- \mu}{SE} 
 
 $$t_{stat} = \frac{b_1 - \beta_1}{SE(b_1)} = \frac{b_1 - 0}{SE(b_1)}$$
 
-$SE(b_1)$는 회귀계수 $b_1$의 표준오차인데 구하는 방법을 살펴보면 우선 $SE$는 분산에 루트를 씌운 값이다. 분산은 $Var(b_1) = Var \left( \frac{\sum(x_i - \bar{x})(y_i - \bar{y})}{\sum(x_i - \bar{x})^2} \right)$이다. 여기서 $(x_i - \bar{x})$를 $c_i$로 치환하면 $= Var \left( \frac{\sum c_i(y_i - \bar{y})}{\sum c_i^2} \right) = \sum \left( Var \left( \frac{c_i(y_i - \bar{y})}{c_i^2} \right)\right)$$   
+$SE(b_1)$는 회귀계수 $b_1$의 표준오차인데 구하는 방법을 살펴보면 우선 $SE$는 분산에 루트를 씌운 값이다. 분산은 $Var(b_1) = Var \left( \frac{\sum(x_i - \bar{x})(y_i - \bar{y})}{\sum(x_i - \bar{x})^2} \right)$이다. 여기서 $(x_i - \bar{x})$를 $c_i$로 치환하면 $= Var \left( \frac{\sum c_i(y_i - \bar{y})}{\sum c_i^2} \right) = \sum \left( Var \left( \frac{c_i(y_i - \bar{y})}{c_i^2} \right)\right)$   
 $c_i$를 밖으로 빼면 제곱이 되고, 상수의 Var은 0이므로 $\sum \left( \frac{1}{c_i^2}Var(y_i - \bar{y}) \right) = \sum \left( 
 \frac{Var(y_i)}{c_i^2} \right)$ 가 된다.   
 $Var(y_i) = Var(b_0 + b_1x_i + \epsilon_i) = Var(\epsilon_i)$ 이다(Var(상수) = 0 이므로). 여기에서 모든 $i$에 대해 $Var(\epsilon_i)$는 가우시안을 따르는 오차항으로써 $\sum$과 관계없는 $Var(y_i) \triangleq \sigma^2$ (상수)로 정의할 수 있다. 
@@ -281,6 +283,8 @@ $$b_1 \sim \mathcal{N} \left( \beta_1, \frac{\sigma^2}{\sum(x_i - \bar{x})^2} \r
 $s$는 $s^2=Var(y_i)=Var(b_0+b_1x_i+\epsilon_i) = Var(\epsilon_i)=\frac{\sum(\epsilon_i - 0)^2}{dof} = \frac{\sum(\epsilon_i)^2}{dof}$ 가 된다. $Var(\epsilon_i)$ 에서 $(\epsilon_i - 0)$가 나오는 이유는 오차항 $\epsilon$의 평균이기 때문에 0을 기준으로 $\pm$ 오차라 0 인 것 같다. 자유도 dof는 $n-2$인데 이유는 이후에 설명할 것이다. 
 
 정리하면 $b_1 \sim t_{n-2} \left( \beta_1, \frac{s^2}{\sum(x_i - \bar{x})^2} \right) \ where \ s^2=\frac{\sum \epsilon_i^2}{n-2}$ 가 된다. 추가적으로 T, R, E에서 $\sum \epsilon_i^2=SSE$이다. 따라서 SE는 $\sqrt{\frac{s^2}{\sum(x_i - \bar{x})^2}} = \sqrt{\frac{SSE/(n-2)}{\sum(x_i - \bar{x})^2}}$ 이다. 
+
+### $F$ test 
 
 
 
