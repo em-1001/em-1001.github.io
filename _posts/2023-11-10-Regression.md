@@ -273,7 +273,14 @@ $c_i$를 밖으로 빼면 제곱이 되고, 상수의 Var은 0이므로 $\sum \l
 $Var(y_i) = Var(b_0 + b_1x_i + \epsilon_i) = Var(\epsilon_i)$ 이다(Var(상수) = 0 이므로). 여기에서 모든 $i$에 대해 $Var(\epsilon_i)$는 가우시안을 따르는 오차항으로써 $\sum$과 관계없는 $Var(y_i) \triangleq \sigma^2$ (상수)로 정의할 수 있다. 
 결국 $\sum \left( \frac{\sigma^2}{c_i^2} \right) = \sum \left( \frac{\sigma^2}{(x_i - \bar{x})^2} \right) = \frac{\sigma^2}{\sum(x_i-\bar{x})^2}$$ 가 된다. 
 
-여기서 기울기는 y/x의 비(ratio)인데, $x$는 상수이고, $y_i$의 개별 분포가 
+여기서 기울기는 y/x의 비(ratio)인데, $x$는 상수이고, $y_i$는 개별 오차항 $\epsilon$이 가우시안이기 때문에 회귀계수는 다음의 가우시안 분포를 따른다. 
+
+$$b_1 \sim \mathcal{N} \left( \beta_1, \frac{\sigma^2}{\sum(x_i - \bar{x})^2} \right)$$
+
+여기서 우리는 가우시안을 따르는 모분산의 오차항의 분산을 모르고 표본의 분산밖에 모르기 때문에 $\sigma$ 대신 $s$를 구해야 한다. 
+$s$는 $s^2=Var(y_i)=Var(b_0+b_1x_i+\epsilon_i) = Var(\epsilon_i)=\frac{\sum(\epsilon_i - 0)^2}{dof} = \frac{\sum(\epsilon_i)^2}{dof}$ 가 된다. $Var(\epsilon_i)$ 에서 $(\epsilon_i - 0)$가 나오는 이유는 오차항 $\epsilon$의 평균이기 때문에 0을 기준으로 $\pm$ 오차라 0 인 것 같다. 자유도 dof는 $n-2$인데 이유는 이후에 설명할 것이다. 
+
+정리하면 $b_1 \sim t_{n-2} \left( \beta_1, \frac{s^2}{\sum(x_i - \bar{x})^2} \right) \ where \ s^2=\frac{\sum \epsilon_i^2}{n-2}$ 가 된다. 추가적으로 T, R, E에서 $\sum \epsilon_i^2=SSE$이다. 따라서 SE는 $\sqrt{\frac{s^2}{\sum(x_i - \bar{x})^2}} = \sqrt{\frac{SSE/(n-2)}{\sum(x_i - \bar{x})^2}}$ 이다. 
 
 
 
