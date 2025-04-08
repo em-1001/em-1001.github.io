@@ -273,7 +273,7 @@ $c_i$를 밖으로 빼면 제곱이 되고, 상수의 Var은 0이므로 $\sum \l
 $Var(y_i) = Var(b_0 + b_1x_i + \epsilon_i) = Var(\epsilon_i)$ 이다(Var(상수) = 0 이므로). 여기에서 모든 $i$에 대해 $Var(\epsilon_i)$는 가우시안을 따르는 오차항으로써 $\sum$과 관계없는 $Var(y_i) \triangleq \sigma^2$ (상수)로 정의할 수 있다. 
 결국 $\sum \left( \frac{\sigma^2}{c_i^2} \right) = \sum \left( \frac{\sigma^2}{(x_i - \bar{x})^2} \right) = \frac{\sigma^2}{\sum(x_i-\bar{x})^2}$$ 가 된다. 
 
-
+여기서 기울기는 y/x의 비(ratio)인데, $x$는 상수이고, $y_i$의 개별 분포가 
 
 
 
