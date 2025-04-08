@@ -273,7 +273,7 @@ $SE(b_1)$는 회귀계수 $b_1$의 표준오차인데 구하는 방법을 살펴
 $c_i$를 밖으로 빼면 제곱이 되고, 상수의 Var은 0이므로 $\sum \left( \frac{1}{c_i^2}Var(y_i - \bar{y}) \right) = \sum \left( 
 \frac{Var(y_i)}{c_i^2} \right)$ 가 된다.   
 $Var(y_i) = Var(b_0 + b_1x_i + \epsilon_i) = Var(\epsilon_i)$ 이다(Var(상수) = 0 이므로). 여기에서 모든 $i$에 대해 $Var(\epsilon_i)$는 가우시안을 따르는 오차항으로써 $\sum$과 관계없는 $Var(y_i) \triangleq \sigma^2$ (상수)로 정의할 수 있다. 
-결국 $\sum \left( \frac{\sigma^2}{c_i^2} \right) = \sum \left( \frac{\sigma^2}{(x_i - \bar{x})^2} \right) = \frac{\sigma^2}{\sum(x_i-\bar{x})^2}$$ 가 된다. 
+결국 $\sum \left( \frac{\sigma^2}{c_i^2} \right) = \sum \left( \frac{\sigma^2}{(x_i - \bar{x})^2} \right) = \frac{\sigma^2}{\sum(x_i-\bar{x})^2}$ 가 된다. 
 
 여기서 기울기는 y/x의 비(ratio)인데, $x$는 상수이고, $y_i$는 개별 오차항 $\epsilon$이 가우시안이기 때문에 회귀계수는 다음의 가우시안 분포를 따른다. 
 
@@ -285,6 +285,46 @@ $s$는 $s^2=Var(y_i)=Var(b_0+b_1x_i+\epsilon_i) = Var(\epsilon_i)=\frac{\sum(\ep
 정리하면 $b_1 \sim t_{n-2} \left( \beta_1, \frac{s^2}{\sum(x_i - \bar{x})^2} \right) \ where \ s^2=\frac{\sum \epsilon_i^2}{n-2}$ 가 된다. 추가적으로 T, R, E에서 $\sum \epsilon_i^2=SSE$이다. 따라서 SE는 $\sqrt{\frac{s^2}{\sum(x_i - \bar{x})^2}} = \sqrt{\frac{SSE/(n-2)}{\sum(x_i - \bar{x})^2}}$ 이다. 
 
 ### $F$ test 
+
+이제 F 검정을 다뤄볼 것이다. 회귀분석에서의 F 검정은 회귀모델이 유의한가, 유의하지 않은가를 따지는데 목적이 있다. 독립변수 ($x_i$)들이 종속변수 ($y_i$)를 설명하는데 있어서 계수가 의미가 있는지, 아니면 다중 회귀의 경우 한 개 이상의 독립변수가 종속변수를 설명하는 유의한 설명력을 가지는가를 본다. 
+
+이러한 의미로 귀무가설은 t 검정과 마찬가지로 $\beta_1 = 0$이다. 마찬가지로 종속변수가 영향을 끼치지 않는다는 의미이고, 이후에 $\hat{y} = b_0 + b_1x_1 + b_2x_2 + \cdots + b_ix_i$의 다중회귀에도 적용할 수 있다. 대립가설은 $\beta_1 \neq 0$이다. 
+
+ANOVA F 검정을 다시 살펴보면 F = 설명가능한 변량의 평균 / 설명하지 못하는 변량의 평균 = $\alpha / \beta$이다. 
+
+이를 다시 해석하면 $\alpha$는 효과의 분산 $\beta$는 오차의 분산 이라 할 수 있고, 회귀에서 다음과 같다. 
+ 
+$\alpha$: 회귀선을 찾았으므로 회귀선과 평균(엉망 회귀선)과의 차이의 평균 (R)    
+$\beta$: 회귀선을 찾았지만 여전히 있는 관측치와 회귀선과의 차이의 평균 (E)  
+
+ANOVA F 검정에 따라 $R^2$에서는 R/T를 보았다면, F 검정에서는 R/E 를 보는 느낌이다. F 검정을 위해서는 분산을 다뤄야 하는데, SSE, SSR는 평균을 내지 않고 합이므로, 차이 제곱의 합의 평균을 내어 분산으로 만든 뒤, 분산의 비로 $F = \frac{Mean(SSR)}{Mean(SSE)} = \frac{MSR}{MSE}$ 를 통해 검정한다. 분산의 비로 통제불능의 Residual에 비해 얼마나 Regression이 개선되었는가를 분산으로 측정한다. 
+비율을 보면 이 값이 클 때 Residual 제곱합(E)은 작거나, 회귀 개선의 제곱합(R)이 크다는 것인데, Residual(E)이 작다면 Regression 근처에 Data가 몰려있다는 뜻이고, 몰려 있다는 것은 Regression이 의미가 있다고 할 수 있다. 그러면 자연스럽게 $R^2$도 커진다. 
+
+분산의 비를 봐야 하기 때문에 SSR, SSE 각각을 평균내야 하는데, 평균을 내기 위해 각각의 자유도로 나누게 된다. T, R, E 각각의 자유도를 알아보면 T의 자유도는 n-1, R의 자유도는 1, E의 자유도는 n-2이다. R의 자유도 부터 이유를 살펴보면, R은 회귀선이 정해지자마자 모든 x에 대해서 1개의 값밖에 가질 수 없으므로 1이다. T의 자유도는 관측과 평균의 차이이므로 표본분산의 자유도이기 때문에 n-1이 되고, E의 자유도는 전체 n개로부터 R에서 1개, T에서 1개 도합 2개의 결정 값이 생기므로 n-2가 된다. 
+
+SST(관측 - 엉망), SSR(회귀 - 엉망), SSE(관측 - 회귀)인데, SSR은 엉망도 정해져있고, 회귀선도 정해져 있으므로 1 고정이고, SST, SSE는 각각 관측에서 오차항 $\epsilon$이 가우시안 분포를 따르므로 앞선 이유에 따라 각각 n-1, n-2가 되는 것 같다. 
+
+<p align="center"><img src="https://github.com/user-attachments/assets/99c0e582-c387-48fc-8fc4-195aea4c4580" height="" width=""></p>
+
+표로 정리하면 위와 같고 $F_0 > F(1, n-2; \alpha)$이면 귀무가설을 기각한다. 
+
+실제로 계산해보면 F 검정의 p value와 t 검정의 p value가 같은 것을 확인할 수 있다. t 검정의 검정 통계량을 제곱하면 F 검정 통계량이 되고, p value는 같다. 결국 단순 회귀 분석에서 F와 t의 검정이 같은데 이유는 t(dof=k)의 제곱은 F(dof1 = 1,dof2 = k)이기 때문이다. t 제곱이 F이기 때문에 p value가 동일하고 단순회귀분석 즉, 독립변수가 한 개 일때 그 계수에 대한 t 검정의 회귀모델이 유의한지 검정하는 F 검정과 동일하다. 실제 검정통계량도 t 검정 통계량을 제곱하면 F 검정 통계량과 동일하다. 
+
+마지막으로 앞서 ANOVA가 언급됐었는데, Regression의 F검정은 사실 ANOVA이다. 회귀를 위해 각 y의 분포를 3차원으로 표현하면 다음과 같다. 
+
+<p align="center"><img src="https://github.com/user-attachments/assets/604fed93-a58d-4787-a9ca-ef60a4b970b8" height="" width=""></p>
+
+이걸 오른쪽의 시선으로 바라보면 다음과 같이 ANOVA의 형태가 된다. 
+
+<p align="center"><img src="https://github.com/user-attachments/assets/7a706358-4776-4952-93c2-6af384ec860f" height="" width=""></p>
+
+결국 집단간의 차이를 보는 것과 똑같다. ANOVA의 입장에서 보면 집단내 분산 Within은 MSE가 되고, 집단간 분산 Between은 MSR이 된다. 따라서 ANOVA F 검정의 $F = \frac{Var_{Between}}{Var_{Within}} = \frac{MSR}{MSE}$가 된다. 결국 Regression의 F검정은 연속형 집단에서 집단간 최소한 1개의 집단은 차이가 있는가? 와 같다. 옆에서 바라본 것에 대하여 차이가 나면 기울기가 0이 아니라는 것과 같다. 
+
+
+
+
+
+
 
 
 
