@@ -105,7 +105,7 @@ SST, SSR, SSE도 계산해보면 다음과 같다.
 
 <p align="center"><img src="https://github.com/user-attachments/assets/a0c70bff-1c63-48a3-96e2-f9c185c6f360" height="" width=""></p>
 
-$R^2 = \frac{SSR}{SST}$이므로, 계산해보면 SSR/SST =  2370.07/2377.33=0.9969가 된다. 또한 이전에 알아보았듯이 $y, \hat{y} $의 상관계수가 $r_{y\hat{y}) = 0.9984703$ 가 되는데, 이 값을 제곱하면 0.9969427로 $R^2$와 동일하다. 
+$R^2 = \frac{SSR}{SST}$이므로, 계산해보면 SSR/SST =  2370.07/2377.33=0.9969가 된다. 또한 이전에 알아보았듯이 $y, \hat{y}$ 의 상관계수가 $r _{y\hat{y}) = 0.9984703$ 가 되는데, 이 값을 제곱하면 0.9969427로 $R^2$와 동일하다. 
 
 SST, SSR, SSE를 구한 것을 기반으로 F 검정까지 해보면 가설은 다음과 같다. 
 
