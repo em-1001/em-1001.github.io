@@ -33,17 +33,19 @@ y_2 &= b_0 + b_1x_{21} + b_2x_{22} + \cdots + b_kx_{2k} + \epsilon_1 \\
 y_n &= b_0 + b_1x_{n1} + b_2x_{n2} + \cdots + b_kx_{nk} + \epsilon_n
 \end{align}$$
 
-$$\begin{pmatrix}y_1 \\ y_2 \\ \vdots \\y_n\end{pmatrix} = 
+$$\begin{pmatrix}y_1 \\ y_2 \\ \vdots \\ y_n\end{pmatrix} = 
 \begin{pmatrix}
 1 & x_{11} & x_{12} \cdots x_{1k} \\ 
 1 & x_{21} & x_{22} \cdots x_{2k} \\  
 \vdots & \vdots & \vdots \\ 
 1 & x_{n1} & x_{n2} \cdots x_{nk}
 \end{pmatrix} 
-\begin{pmatrix}b_0 \\ b_1 \\ \vdots \\b_k\end{pmatrix} + 
+\begin{pmatrix}b_0 \\ b_1 \\ \vdots \\ b_k\end{pmatrix} + 
 \begin{pmatrix}\epsilon_1 \\ \epsilon_2 \\ \vdots \\\epsilon_n\end{pmatrix}$$
 
 $y = Xb + \epsilon$이 되고, $E$를 구하면 다음과 같다. 
+
+> 행렬미분: https://datascienceschool.net/02%20mathematics/04.04%20%ED%96%89%EB%A0%AC%EC%9D%98%20%EB%AF%B8%EB%B6%84.html
 
 $$\begin{align}
 E = \sum_{i=1}^n \epsilon_i^2 &= \epsilon^T \epsilon = (y - Xb)^T(y - Xb) \\  
