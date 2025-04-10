@@ -53,8 +53,72 @@ E = \sum_{i=1}^n \epsilon_i^2 &= \epsilon^T \epsilon = (y - Xb)^T(y - Xb) \\
 \end{align}$$
 
 $$\begin{align}
-\frac{\partial E}{\partial b} = 2
+\frac{\partial E}{\partial b} = 2X^TXb - 2X^Ty = 0 \\  
+X^TXb = X^Ty \\  
+b = (X^TX)^{-1}X^Ty
 \end{align}$$
+
+결과를 보면 $X^TX$의 역행렬이 존재해야 한다. 혹시라도 Full Rank가 안되어 행렬식이 존재하지 않는다면 b의 해가 무수히 많아져 특정할 수 없다. 이는 후에 설명할 다중공선성과 연관된다. 
+
+다중회귀의 검정은 각각의 계수에 대해 t검정을 하고 가설은 다음과 같다. 
+
+Null Hypothesis :  "해당" 회귀계수는 0이다.   
+Alternative Hypothesis : "해당" 회귀계수가 0은 아니다.   
+
+검정 통계량은 단순 회귀에서 보았듯이 각각의 계수에 대해서 $t_i = \frac{b_i}{SE(b_i)}$가 되고, 모든 회귀계수에 대해서 이 t 통계량을 이용해 p value가 계산된다. 
+
+F 검정의 경우 정의인 MSR/MSE 대로 구하면 된다. 실제 예를 들어서 아래와 같은 데이터가 있다고 하자. 
+
+<p align="center"><img src="https://github.com/user-attachments/assets/55e61c56-7a2b-4fde-a519-3def4cda5593" height="" width=""></p>
+
+음식 준비시간, 배달 숙련도, 배달 거리를 독립변수로, 배달 시간을 종속변수로 한다. 
+
+```py
+import statsmodels.formula.api as smf
+ 
+sales = smf.ols("배달시간 ~ 음식준비시간 + 배달숙련도 + 배달거리", data=df).fit()
+```
+
+<p align="center"><img src="https://github.com/user-attachments/assets/e3503b94-f320-412b-b3b5-689aaca54a25" height="" width=""></p>
+
+회귀분석 결과 위와 같다.
+
+➊: 각각의 독립변수에 대한 계수(b)값들이다. 회귀선으로 표현하면 다음과 같다. 
+
+y(배달시간)=-12.648223 + 0.7700365 음식준비시간 + 0.2802135 배달숙련도 + 1.105769 배달거리 
+
+배달거리가 단위 변화에 대해 가장 변화율이 크다는 것을 확인할 수 있다. 
+
+➋: R_squared값이 매우 큰 것으로 보아 회귀가 잘 된 것 같다. 
+
+➋: F검정에 의한 결과를 보면 p value가 0.00458로 유의한 결과가 나왔다. 
+
+➍: Double tail t 검정에 의한 각각의 계수에 대한 p value인데, 배달거리 빼고는 나머지가 유의하지 않다. 앞서 회귀결과가 잘 나온것으로 보아 나머지 계수들에 대해서도 유의한 값이 나와야 할 거 같은데 그렇지 않다. 이유는 이후에 다룰 것이다. 
+
+결국, 전체적인 해석을 해보자면, "배달시간은 음식준비시간이 0.77정도의 영향을 미치고, 배달숙련도가 0.28정도의 영향을, 그리고 배달거리가 1.10 정도의 영향을 미친다고 해석할 수 있고, 이 결과는 꽤나 괜찮은 R²적합도와 유의한 F검정의 결과를 보았을 때, 쓸만한 결과라 할 수 있다. 
+
+$b=(X^TX)^{-1}X^Ty$에 따라 계수들을 직접 구해보면 다음과 같다. 
+
+<p align="center"><img src="https://github.com/user-attachments/assets/4f060a15-f78b-4492-a9e8-e8973457a528" height="" width=""></p>
+
+SST, SSR, SSE도 계산해보면 다음과 같다. 
+
+<p align="center"><img src="https://github.com/user-attachments/assets/a0c70bff-1c63-48a3-96e2-f9c185c6f360" height="" width=""></p>
+
+$R^2 = \frac{SSR}{SST}$이므로, 계산해보면 SSR/SST =  2370.07/2377.33=0.9969가 된다. 또한 이전에 알아보았듯이 $y, \hat{y}$의 상관계수가 $r_{y\hat{y}) = 0.9984703$가 되는데, 이 값을 제곱하면 0.9969427로 $R^2$와 동일하다. 
+
+SST, SSR, SSE를 구한 것을 기반으로 F 검정까지 해보면 가설은 다음과 같다. 
+
+$H_0$: $b_1=b_2=b_3=\cdots=b_k=0$   
+$H_1$: $b_j \neq 0, \ for \ some \ j$  
+
+$F=\frac{\frac{SSR}{df_{SSR}}}{\frac{SSE}{df_{SSE}}} = \frac{MSR}{MSE}$이므로 $\frac{2370.07/3}{7.27/2} = 217.392$가 된다. 
+
+자유도를 보면 SSR의 경우 독립변수가 3개 이므로 3개 독립수들의 계수를 구하기 위해 3개 관측치를 사용하게 되고, 총 6개 중 3개를 사용한다. SST를 구하기 위해서는 관측치 1개만 있으면 되므로 1개를 사용하고, 
+
+추가적으로 $\frac{SSR}{SSE} = \frac{SSR}{SST - SSR} = \frac{\frac{SSR}{SST}}{1 - \frac{SSR}{SST}} = \frac{R^2}{1 - R^2} = F \frac{df_{SSR}}{df_{SSE}}$ 이므로 $F = \frac{R^2}{1 - R^2} \times \frac{df_{SSE}}{df_{SSR}}$가 된다. 즉, F 검정통계량을 $R^2$결정계수로도 구할 수 있다. 
+
+
 
 
 
