@@ -126,7 +126,7 @@ $F=\frac{\frac{SSR}{df_{SSR}}}{\frac{SSE}{df_{SSE}}} = \frac{MSR}{MSE}$이므로
 2. Non linear Correlation이 변수 사이에 존재한다.
 3. 어떤 독립변수가 collinearity (공선성)을 발생시킨다.
 
-1번의 경우 표본이 너무 적으므로 더 뽑으면 된다. 권장 표본 크기는 적어도 한 개의 독립변수 당 10~15개이다. 예를 들어 두 개의 독립변수에 대하여 다중회귀를 한다면 적어도 30~45 정도가 적당하다. 
+1번의 경우 표본이 너무 적으므로 더 뽑으면 된다. 권장 표본 크기는 적어도 한 개의 독립변수 당 10 ~ 15개이다. 예를 들어 두 개의 독립변수에 대하여 다중회귀를 한다면 적어도 30 ~ 45 정도가 적당하다. 
 
 2번의 경우 Non linear Polynomial Regression을 시도해 볼만 하다. (2차 이상의 다항식). 
 
@@ -138,7 +138,42 @@ $F=\frac{\frac{SSR}{df_{SSR}}}{\frac{SSE}{df_{SSE}}} = \frac{MSR}{MSE}$이므로
 
 $R^2$이 너무 크면 과적합이라고 하는데, Rsquared와 Radjsqaured로도 과적합을 판단할 수 있다. 둘의 차이가 많이 나면, 너무 많은 독립변수가 추가된 것이므로 과적합이라 할 수 있다. 
 
+$X^TX$에 대해 몇가지 사실이 있는데, 예를 들어 설명변수가 2개($x_1, x_2$)이고, 샘플 수가 $n$개라고 하면, 절편항을 포함한 $X$는 다음과 같다. 
 
+<p align="center"><img src="https://github.com/user-attachments/assets/75309733-f296-4b10-966e-236e6673276a" height="" width=""></p>
+
+여기서 $X^TX$를 계산해보면 Sum of square가 대각선에 있고, 나머지는 cross product가 된다. 
+
+<p align="center"><img src="https://github.com/user-attachments/assets/608b464e-ba10-47eb-899e-b2d802c00e9e" height="" width=""> <img src="https://github.com/user-attachments/assets/92176c49-e286-48e3-b549-cfa6e57cc8cd" height="" width=""></p>
+
+이것을 시작으로 다음의 사실들을 알 수 있다.
+
+1. $X$자체를 centering (평균을 0으로)해서 곱하고 n-1로 나누면 covariance matrix가 된다. 
+
+centering을 위한 평균값은 $\bar{X}_{ij} = x_ij - \bar{x}_j$라 할 수 있다. $X$의 각 요소에서 평균을 뺀 뒤 $X^TX$를 구하고 n-1로 나누면 다음과 같고 공분산 행렬이 된다. 
+
+$$Cov(X) = \frac{1}{n-1}(X - \bar{X})^T(X - \bar{X})$$
+
+<p align="center"><img src="https://github.com/user-attachments/assets/430cdfd6-a05a-4e37-a221-0fe2dfc4e168" height="" width=""></p>
+
+2. $X$컬럼들을 표준화하고 곱한 후 n-1로 나누면 Pearson correlation matrix가 된다. 
+
+각 변수 열을 다음과 같이 바꿔준다. 
+
+$$z_{ij} = \frac{x_{ij} - \bar{x}_j}{s_j}$$
+
+- $\bar{x}_j$: 변수 $j$의 평균  
+- $s_j$: 변수 $j$의 표준편차
+
+이렇게 만든 행렬 $Z$는 $\to$ **centered + scaled**된 형태이다. 
+
+$$\frac{1}{n-1}(X_{standardized}^T \cdot X_{standardized}) = \mathsf{Pearson Correlation Matrix}$$
+
+3. $X$ 컬럼들을 벡터로 보고 유닛 스케일링을 한 후에 곱하면(정규화와 같음) 코사인 유사도 matrix가 된다.
+
+이정도만 알아도 matrix를 좀 더 유용하게 쓸 수 있다. 
+
+어떤 행렬 $X$에 대하여 ...
 
 
 
