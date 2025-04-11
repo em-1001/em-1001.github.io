@@ -114,7 +114,11 @@ $H_1$: $b_j \neq 0, \ for \ some \ j$
 
 $F=\frac{\frac{SSR}{df_{SSR}}}{\frac{SSE}{df_{SSE}}} = \frac{MSR}{MSE}$이므로 $\frac{2370.07/3}{7.27/2} = 217.392$가 된다. 
 
-자유도를 보면 SSR의 경우 독립변수가 3개 이므로 3개 독립수들의 계수를 구하기 위해 3개 관측치를 사용하게 되고, 총 6개 중 3개를 사용한다. SST를 구하기 위해서는 관측치 1개만 있으면 되므로 1개를 사용하고, 
+자유도를 보면 우선 SST는 평균 $\bar{y}$를 구하는데 하나가 쓰이므로 $n-1$이다. SSR은 회귀선 $\hat{y}$를 만들 때 회귀계수 $\beta_0, \beta_1, \cdots, \beta_p$를 추정해야 한다. 이때 $p+1$개의 파라미터가 필요하지만 $\beta_0$ 절편은 $\bar{y}$를 통해 조정되는 구조라 설명변수의 개수 $p$ 만큼만 자유도로 사용한다. SSE는 관측치 $n$개 중 $p+1$개가 모델 추정에 쓰였으므로 남은 자유도 $n-p-1$이다. 
+
+따라서 $df_{SST} = n-1, \ df_{SSR} = p, \ df_{SSE} = n-p-1$ 이므로 $df_{SST} = df_{SSR} + df_{SSE}$의 관계가 성립한다. 
+
+
 
 추가적으로 $\frac{SSR}{SSE} = \frac{SSR}{SST - SSR} = \frac{\frac{SSR}{SST}}{1 - \frac{SSR}{SST}} = \frac{R^2}{1 - R^2} = F \frac{df_{SSR}}{df_{SSE}}$ 이므로 $F = \frac{R^2}{1 - R^2} \times \frac{df_{SSE}}{df_{SSR}}$가 된다. 즉, F 검정통계량을 $R^2$결정계수로도 구할 수 있다. 
 
