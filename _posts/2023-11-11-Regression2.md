@@ -148,7 +148,7 @@ $X^TX$에 대해 몇가지 사실이 있는데, 예를 들어 설명변수가 2�
 
 이것을 시작으로 다음의 사실들을 알 수 있다.
 
-1.$X$자체를 centering (평균을 0으로)해서 곱하고 n-1로 나누면 covariance matrix가 된다. 
+**1. $X$자체를 centering (평균을 0으로)해서 곱하고 n-1로 나누면 covariance matrix가 된다.**   
 
 centering을 위한 평균값은 $\bar{X}_{ij} = x_ij - \bar{x}_j$라 할 수 있다. $X$의 각 요소에서 평균을 뺀 뒤 $X^TX$를 구하고 n-1로 나누면 다음과 같고 공분산 행렬이 된다. 
 
@@ -156,7 +156,7 @@ $$Cov(X) = \frac{1}{n-1}(X - \bar{X})^T(X - \bar{X})$$
 
 <p align="center"><img src="https://github.com/user-attachments/assets/430cdfd6-a05a-4e37-a221-0fe2dfc4e168" height="" width=""></p>
 
-2.$X$ 컬럼들을 표준화하고 곱한 후 n-1로 나누면 Pearson correlation matrix가 된다. 
+**2. $X$ 컬럼들을 표준화하고 곱한 후 n-1로 나누면 Pearson correlation matrix가 된다.**   
 
 각 변수 열을 다음과 같이 바꿔준다. 
 
@@ -169,7 +169,7 @@ $$z_{ij} = \frac{x_{ij} - \bar{x}_j}{s_j}$$
 
 $$\frac{1}{n-1}(X_{standardized}^T \cdot X_{standardized}) = Pearson \ Correlation \ Matrix$$
 
-3.$X$ 컬럼들을 벡터로 보고 유닛 스케일링을 한 후에 곱하면(정규화와 같음) 코사인 유사도 matrix가 된다.
+**3. $X$ 컬럼들을 벡터로 보고 유닛 스케일링을 한 후에 곱하면(정규화와 같음) 코사인 유사도 matrix가 된다.**   
 
 이정도만 알아도 matrix를 좀 더 유용하게 쓸 수 있다. 
 
