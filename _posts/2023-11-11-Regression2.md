@@ -156,7 +156,7 @@ $$Cov(X) = \frac{1}{n-1}(X - \bar{X})^T(X - \bar{X})$$
 
 <p align="center"><img src="https://github.com/user-attachments/assets/430cdfd6-a05a-4e37-a221-0fe2dfc4e168" height="" width=""></p>
 
-2.$X$컬럼들을 표준화하고 곱한 후 n-1로 나누면 Pearson correlation matrix가 된다. 
+2.$X$ 컬럼들을 표준화하고 곱한 후 n-1로 나누면 Pearson correlation matrix가 된다. 
 
 각 변수 열을 다음과 같이 바꿔준다. 
 
