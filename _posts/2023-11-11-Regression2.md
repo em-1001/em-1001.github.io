@@ -167,7 +167,7 @@ $$z_{ij} = \frac{x_{ij} - \bar{x}_j}{s_j}$$
 
 이렇게 만든 행렬 $Z$는 $\to$ **centered + scaled**된 형태이다. 
 
-$$\frac{1}{n-1}(X_{standardized}^T \cdot X_{standardized}) = \mathsf{Pearson Correlation Matrix}$$
+$$\frac{1}{n-1}(X_{standardized}^T \cdot X_{standardized}) = \mathsf{Pearson \ Correlation \ Matrix}$$
 
 3.$X$ 컬럼들을 벡터로 보고 유닛 스케일링을 한 후에 곱하면(정규화와 같음) 코사인 유사도 matrix가 된다.
 
