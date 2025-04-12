@@ -173,7 +173,26 @@ $$\frac{1}{n-1}(X_{standardized}^T \cdot X_{standardized}) = Pearson \ Correlati
 
 이정도만 알아도 matrix를 좀 더 유용하게 쓸 수 있다. 
 
-어떤 행렬 $X$에 대하여 ...
+추가적으로 $X^TX$는 $X$의 각 column에 대한 Covariance 느낌이고, $XX^T$는 $X$의 row에 대한 Covariance 느낌이다. 느낌이라 표현한 이유는 Expection을 취하지 않았기 때문에 직접적으로 Covariance는 아니지만 실제로 Covariance와는 비례관계가 성립한다. 
+
+<p align="center"><img src="https://github.com/user-attachments/assets/a6a19d21-d374-4cb3-8791-8782c419fe03" height="" width=""> 　　<img src="https://github.com/user-attachments/assets/34709429-c657-461d-9c5a-9f65f596be40" height="" width=""></p>
+
+미분을 하지 않고도 회귀분석을 할 수 있다. 
+
+<p align="center"><img src="https://github.com/user-attachments/assets/1342431d-f65e-4243-81d9-9e4014d87315" height="" width=""></p>
+
+➊ 원래의 관측 벡터 y와 ➋ X의 컬럼으로 이루어진 평면 위에 ➌ 회귀를 통해 구한 y 즉, 벡터 (Xb) ➍  이 두 벡터의 차이, 즉 (Xb - y) 이것이 X의 컬럼으로 이루어진 평면과 직교하면 (X컬럼의 평면에 대한 정사영) 그 차이가 가장 작아지므로 관측치 y와 회귀로 구한 y가 가장 비슷한 관계가 된다는 아이디어를 이용한다. 
+
+따라서 $X$와 $Xb - y$의 내적이 0이 되면 되므로, $X^T(Xb - y) = 0$이 되면 된다. 이걸 풀면 다음과 같다. 
+
+$$\begin{align}
+X^TXb &= X^Ty \\  
+b &= (X^TX)^{-1}X^Ty 
+\end{align}$$
+
+결과를 보면 행렬로 연립방정식을 풀었을 때와 결과가 동일하다. 그리고 $(X^TX)^{-1}X^T$를 묶어서 의사 역행렬이라 한다. 
+또한 $hat{y} = Xb$ 이므로 여기에 구해진 $b$를 넣으면 $\hat{y} = X(X^TX)^{-1}X^Ty$가 되고, 이는 $X(X^TX)^{-1}X^T$를 $y$에 내적하면 $X$평면의 $y$ 추정치가 된다는 말이라, $X(X^TX)^{-1}X^T$를 $X$ 평면으로의 투영 행렬이라고도 부른다. 
+
 
 
 
