@@ -60,6 +60,8 @@ b = (X^TX)^{-1}X^Ty
 
 결과를 보면 $X^TX$의 역행렬이 존재해야 한다. 혹시라도 Full Rank가 안되어 행렬식이 존재하지 않는다면 b의 해가 무수히 많아져 특정할 수 없다. 이는 후에 설명할 다중공선성과 연관된다. 
 
+### $T$, $F$ test
+
 다중회귀의 검정은 각각의 계수에 대해 t검정을 하고 가설은 다음과 같다. 
 
 Null Hypothesis :  "해당" 회귀계수는 0이다.   
@@ -138,6 +140,8 @@ $F=\frac{\frac{SSR}{df_{SSR}}}{\frac{SSE}{df_{SSE}}} = \frac{MSR}{MSE}$이므로
 
 $R^2$이 너무 크면 과적합이라고 하는데, Rsquared와 Radjsqaured로도 과적합을 판단할 수 있다. 둘의 차이가 많이 나면, 너무 많은 독립변수가 추가된 것이므로 과적합이라 할 수 있다. 
 
+### $X^TX$
+
 $X^TX$에 대해 몇가지 사실이 있는데, 예를 들어 설명변수가 2개($x_1, x_2$)이고, 샘플 수가 $n$개라고 하면, 절편항을 포함한 $X$는 다음과 같다. 
 
 <p align="center"><img src="https://github.com/user-attachments/assets/75309733-f296-4b10-966e-236e6673276a" height="" width=""></p>
@@ -176,6 +180,8 @@ $$\frac{1}{n-1}(X_{standardized}^T \cdot X_{standardized}) = Pearson \ Correlati
 추가적으로 $X^TX$는 $X$의 각 column에 대한 Covariance 느낌이고, $XX^T$는 $X$의 row에 대한 Covariance 느낌이다. 느낌이라 표현한 이유는 Expection을 취하지 않았기 때문에 직접적으로 Covariance는 아니지만 실제로 Covariance와는 비례관계가 성립한다. 
 
 <p align="center"><img src="https://github.com/user-attachments/assets/a6a19d21-d374-4cb3-8791-8782c419fe03" height="" width=""> 　　<img src="https://github.com/user-attachments/assets/34709429-c657-461d-9c5a-9f65f596be40" height="" width=""></p>
+
+### Pseudo Inverse matrix
 
 미분을 하지 않고도 회귀분석을 할 수 있다. 
 
