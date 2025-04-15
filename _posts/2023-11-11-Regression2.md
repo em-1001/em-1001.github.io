@@ -243,7 +243,7 @@ $$= \frac{1}{\sigma_{22}^2 - \frac{\sigma_{12}^2}{\sigma_{11}^2}} = \frac{1}{\si
 
 여기서 결정계수의 식을 다시 살펴보면 $R^2 = \left( \frac{Cov(x, y)}{Var(x)Var(y)} \right)^2$ 이고, 이는 y를 종속변수, x를 독립변수로 놓았을 때의 결정계수이다. 이것을 $x_2$를 종속변수로, $x_1$을 독립변수로 두고 다시 생각해보면 다음과 같다.
 
-$$R_2^2 = \left( \frac{Cov(x_1, x_2)}{Var(x_1)Var(x_2)} \right)^2 = \frac{1}{1 - \frac{\sigma_{12}^2}{\sigma_{11}^2\sigma_{22}^2}}$$
+$$R_2^2 = \left( \frac{Cov(x_1, x_2)}{Var(x_1)Var(x_2)} \right)^2 = \frac{\sigma_{12}^2}{\sigma_{11}^2\sigma_{22}^2}$$
 
 
 
