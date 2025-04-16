@@ -245,9 +245,51 @@ $$= \frac{1}{\sigma_{22}^2 - \frac{\sigma_{12}^2}{\sigma_{11}^2}} = \frac{1}{\si
 
 $$R_2^2 = \left( \frac{Cov(x_1, x_2)}{Var(x_1)Var(x_2)} \right)^2 = \frac{\sigma_{12}^2}{\sigma_{11}^2\sigma_{22}^2}$$
 
+그러면 $(X^TX)^{-1}_{22} = \frac{1}{Var^2(x_2)} \frac{1}{1 - R_2^2}$ 이므로 $b_2$의 분산은 다음과 같다. 
 
+$$Var(b_2) = \frac{s^2}{\sigma_{22}^2} \frac{1}{1 - \frac{\sigma_{12}^2}{\sigma_{11}^2\sigma_{22}^2}} = \frac{s^2}{Var^2(x_2)} \frac{1}{1 - R_2^2}$$
 
+일반화하면 다음과 같다. 
 
+$$Var(b_j) = \frac{s^2}{Var^2(x_j)} \frac{1}{1 - R_j^2}$$ 
+
+이제 우리가 주의깊게 볼 부분은 분산을 크게 만드는 부분인 $\frac{1}{1 - R_j^2}$이다. $Var(b_j) \propto \frac{1}{1 - R_j^2}$ 이므로 이 부분을 VIF(Variance Inflation Factor)라 부른다. 여기서 $R_j$의 의미는 j번째 x를 y로 두고 나머지 x들로 회귀를 했을 때 결정계수이다. 이때 독립변수 간의 비슷한 정도를 측정하므로 진짜 종속변수 y는 판단에서 제외한다. 
+
+$$x_j = \beta_0x_0 + \beta_1x_1 + \cdots + \beta_nx_n \ : \ omit \ x_j \ term$$
+
+위와 같은 회귀식의 결정계수이고, j번째 x에 대하여 다른 x들에 의한 회귀 적합성을 판단한 것이니까 다른 x들과 선형적 관련이 클수록 큰 값이 나와서 계수 b의 분산을 크게 즉, VIF를 크게 만든다. 결정계수가 크다는 것은 다른 변수들과 선형적으로 잘 맞는다는 얘기이고, 다른 변수들이 변수j를 잘 설명할 수 있다는 얘기이다. 
+
+VIF를 이용하면 다중공선성의 심각성 정도를 측정할 수도 있고, 이걸 지표로 해서 중요한 독립변수를 선정하는 데에도 사용할 수 있다. 참고로 VIF의 역수를 tolerance(공차한계)라고도 부르는데, 대상 x의 결정계수가 클 수록 VIF는 커지고, tolerance는 작아진다. 또한 tolerance가 작을수록 해당 계수의 분산이 커진다. 
+
+그리고 , Acceptable VIF에 대한 현실적인 기준으로는 모형 자체의 결정계수와 비교하는 방법이 실무적으로 제안되기도 한다. 
+
+$$VIF_{j \ acceptable} < MAX \left( 15, \frac{1}{1 - R_{model}^2} \right)$$
+
+모형자체의 결정계수와 15중 더 큰 값이 어떤 j번째 변수의 Acceptable VIF보다 크다면 이 모형은 다중공선성이 있다고 판단할 수 있다. 
+
+나아가 Condition Number라고 VIF와 관계없이 모형자체에 다중공선성이 있는지 판단하는 기준이 있다. 이는 어떤 행렬의 가장 큰 Eigen Value와 가장 작은 Eigen Value의 비율을 말한다. 
+
+$$Condition \ Number = \frac{\lambda_{\max}}{\lambda_{\min}}$$ 
+
+회귀분석에서는 XᵀX (공분산행렬)의 최대 고유값 / 최소 고유값의 비율을 의미한다. 
+
+공분산행렬의 Condition Number가 클 때는 어떤 경우냐 하면, 다중공선성이 있는 경우인데, 다중공선성이 있을 때 아래와 같이 보인다. 
+
+<p align="center"><img src="https://github.com/user-attachments/assets/cdbc59a7-79b3-46bb-823c-1f6683941e5b" height="" width=""></p>
+
+위와 같이 얇게 보이며, 이렇게 얇아지면 공분산 행렬의 Determinant가 작아진다. 즉, 분산이 커지게 된다. 
+그래서 모형 자체의 Condition Number를 보면 VIF를 따지기 전에 다중공선성이 있는지 확인할 수 있는데, statsmodels의 ols는 이런 이상 시그널에 대해서 Condition Number가 30 이상이면 다중공선성으로 인한 문제가 있을 수 있다고 알려준다.
+
+그리고 이 현상과 비슷한 경우가, 변수끼리의 스케일 차이가 많이나는 경우 역시  Condition Number가 크게 나온다. 
+
+<p align="center"><img src="https://github.com/user-attachments/assets/706659a4-b159-47d6-bf59-cd30701728f6" height="" width=""></p>
+
+이런 경우는 Determinant가 작기도 하고, 사실상 컴퓨터의 floating 연산에 문제가 생겨서 계산에 문제가 있을 것이라는 시그널을 준다. 이런 경우는 다중공선성의 문제는 아니므로 정규화를 하면 문제가 해결된다. 
+
+모형에 다중공선성이 있다고 의심할 수 있는 경우를 정리하면 다음과 같다.
+
+1. Conditional Number가 30 이상인 경우 (사실상 30에 의미가 있다기보다는 꽤 큰 경우라는 것을 의미하는 것이니까 30에 너무 매몰되면 안 된다.)
+2.  각 변수들의 VIF를 보았더니, 15 이상으로 큰 변수가 있는 경우
 
 
 
