@@ -336,6 +336,82 @@ df_y = df_data.pop('배달시간')
 df_x = df_data.copy()
 ```
 
+표준화 계수를 구하기 위해 정규화를 하고 회귀를 하면 다음과 같다. 
+
+```py
+# x를 정규화
+from sklearn.preprocessing import StandardScaler
+ 
+sc = StandardScaler()
+df_x[df_x.columns] = sc.fit_transform(df_x[df_x.columns]) 
+ 
+# 정규화한 x와 원래 y를 붙여서 원상복구
+df_data['배달시간'] = df_y
+df_data[df_x.columns] = df_x[df_x.columns]
+```
+
+```py
+# 회귀
+import statsmodels.formula.api as smf
+ 
+sales = smf.ols("배달시간 ~ 음식준비시간 + 배달숙련도 + 배달거리", data=df_x).fit()
+sales.summary()  # 회귀결과
+```
+
+<p align="center"><img src="https://github.com/user-attachments/assets/2278c5f1-3932-4903-9268-2fcc1eb16a24" height="" width=""></p>
+
+배달 거리를 빼고는 모두 유의하지 않다. 또한 표준화 계수로는 배달 숙련도가 매우 영향력이 작다. 
+R_squared가 높고, F검정결과도 좋은데 비해, 음식준비시간, 배달숙련도는 유의하지 않고, 배달 거리만 유의하다. 우리가 관심있는 feature가 배달 거리 외에 다른 feature도 있다면 해당 feature가 유의하도록 Feature Selection을 해야 하고 Feature Selection전략은 다음과 같다. 다음 전략들이 무조건 정답인 것은 아니다.  
+
+1. p value가 큰 순서대로 유의하지 않은 변수가 어떤 것들인지 확인한다. 이유는 p value가 클 수록 계수의 분산이 크기 때문인데, 그렇다고 p value가 클 수록 나쁜 계수라고는 할 수 없다.
+2. 표준화 계수의 크기를 살펴본다. 이 중 영향력이 작은 변수는 모델에서 빠져도 문제가 안될 가능성이 크다.
+3. VIF를 큰 순서대로 본다. VIF가 크다는 것은 다은 feature로 설명이 되어서 계수의 분산이 커지게 된다.
+4. 종속변수 y를 포함하여 독립변수들과의 공분산을 본다. 종속변수와 correlation이 적은 변수는 졀정계수에 안 좋은 영향을 끼칠 수 있다. 이때 독립변수 x가 측정이 객관적이지 않고 부정확할 수도 있는지 검토해본다. 측정이 부정확하다면 당연히 계수의 분산을 키운다.
+5. 이러한 사항들을 고려한 변수 리스트를 보고 꼭 필요한 feature와 그렇지 않은 feature를 나누어 최종 모델을 고려한다.
+
+우선 y(배달시간)을 포함한 correlation과 y를 포함하지 않은 VIF를 구해보면 다음과 같다. 
+
+```py
+# VIF를 구해 봅시다. 
+from statsmodels.stats.outliers_influence import variance_inflation_factor
+ 
+x_cols = [col for col in df_x.columns if col!="배달시간"]
+df_x_only = df_x[x_cols]
+ 
+vif = pd.DataFrame()
+vif["VIF Factor"] = [variance_inflation_factor(df_x_only.values, i) for i in range(df_x_only.shape[1])]
+vif["features"] = df_x_only.columns # y를 제외하고 x들만으로 vif를 한번 보자
+```
+
+<p align="center"><img src="https://github.com/user-attachments/assets/7e0e0476-71a2-447c-a1b1-f1e7d5b13889" height="" width=""></p>
+
+배달거리는 VIF도 낮은것으로 보아 확실히 연관이 있는 변수인 것 같다. 나머지 음식 준비시간과 배달 숙련도는 조금 높게 나왔다. 이 두 feature가 종속변수와 어떤 선형관계를 갖는지 살펴보면 다음과 같다.
+
+```py
+df_data.corr()
+```
+
+<p align="center"><img src="https://github.com/user-attachments/assets/529f44ca-61db-493a-ba45-1c92d90108ef" height="" width=""></p>
+
+배달 숙련도가 종속변수인 배달 시간과 상관관계가 조금 낮다. 표준화 계수도 2.64로 영향력이 작다. 정리하면 배달 숙련도는 계수의 크기가 작고, VIF가 크고, 배달 숙련도 자체가 객관적이지 못할 가능성도 있다. 
+
+배달 숙련도를 빼고 회귀를 한 결과는 다음과 같다. 
+
+```py
+sales = smf.ols("배달시간 ~ 음식준비시간 + 배달거리", data=df_x).fit()
+```
+
+<p align="center"><img src="https://github.com/user-attachments/assets/39fb8cc3-e9aa-400a-8b16-505bc2a33e53" height="" width=""></p>
+
+이렇게 하니 회귀모델에 남아있는 모든 계수가 유의하게 되었다. 
+
+지금까지의 과정은 예시일 뿐 정답은 아니다. 데이터를 이용해 모형을 만드는 것은 정답은 없고 최선의 모델을 찾는 과정이다. 
+
+추가적으로 보통 매개변수는 관심 독립변수와 종속변수사이에 우회적인(인과적인) 경로로 종속변수에게 영향을 끼치게 되므로 보통 독립변수와 상관관계가 크거나 모형 안에서 다중공선성을 가지게 될 가능성이 크다. 그리고, 통제변수나 조절변수는 관심 독립변수의 종속변수에 대한 영향력이 과장되지 않도록 영향력을 분산하는 변수이므로 관심독립변수와 큰 상관관계가 없는 경우가 많고, 모형안에서 다중공선성을 가지는 경우가 많지 않다. 이것도 그럴 가능성이 큰 것이지 꼭 그런건 아니다. 
+
+
+
+
 
 
 
