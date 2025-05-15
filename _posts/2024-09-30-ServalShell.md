@@ -110,7 +110,7 @@ $$lp(Y) = \frac{(5 + |Y|)^{\alpha}}{(5 + 1)^{\alpha}}$$
 
 # Project: NL to Bash translation with Transformer
 
-```sh
+```
 /content# ./servalshell.sh
 Bashlint grammar set up (124 utilities)
 
