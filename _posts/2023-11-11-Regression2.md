@@ -13,6 +13,8 @@ last_modified_at: 2025-01-19T08:06:00-05:00
 
 > 데이터 사이언티스트 되기 책: https://recipesds.tistory.com/
 
+# Multiple Regression & Multicollinearity
+
 ## Multiple Regression
 
 지금까지 단순 회귀분석에 대해 알아보았다면 이제는 2개 이상의 독립변수에 의한 다중회귀를 알아볼 것이다. 
