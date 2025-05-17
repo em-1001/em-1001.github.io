@@ -93,5 +93,70 @@ $$y_{happy}=b_0+b_1x_{woman}+b_2x_{age30}+b_3x_{age40}+b_4x_{dating}+b_5x_{frien
 
 ## Logistic Regression
 
+### log-transformation
+
+데이터를 로그 변환하는 경우는 분포가 치우쳐져 있는 경우 매우 유용하다. 
+
+<p align="center"><img src="https://github.com/user-attachments/assets/27bff698-d6cc-4f40-82cf-68ed96f2f439" height="" width=""></p>
+
+위 이미지의 경우 왼쪽으로 치우친 분포에 로그를 씌우면 운이 좋은 경우 정규성을 보일 수도 있다. 
+
+<p align="center"><img src="https://github.com/user-attachments/assets/1088adae-33f1-41dc-bfc1-fcacc4bc7188" height="" width=""></p>
+
+반대로 오른쪽으로 몰린 경우 로그의 역함수인 지수함수를 이용할 수 있다. 
+
+<p align="center"><img src="https://github.com/user-attachments/assets/835ab894-8a29-442d-bac5-725efc4d8b68" height="" width=""></p>
+
+이렇게 하면 로그나 지수함수를 썼으니 해석이 달라지는데, 다음 3가지 경우의 변환이 있다. (로그가 취해진 변수는 %단위로 변화한다고 생각한다.)
+
+1. 독립변수에만 로그가 취해진 경우
+2. 종속변수에만 로그가 취해진 경우
+3. 둘 다 로그가 취해진 경우
+
+구체적인 예를 들어보면 독립변수에만 로그가 취해진 경우     
+회귀) y = 상수항 + 1234*ln(x)     
+해석) x가 1% 변화할 때 y의 변화량은 12.34이다.  
+
+종속변수에만 로그가 취해진 경우     
+회귀) ln(y) = 상수항 + 0.1234*(x)    
+해석) x가 1 증가할 때 y는 12.34%증가한다.   
+
+둘 다 로그가 취해진 경우    
+회귀) ln(y) = 상수항 + 0.413*ln(x)  
+해석) x가 1%증가할 때 y는 0.4%증가한다. 
+
+이렇게 해석되는 이유를 살펴보면, 
+
+**1. 독립변수에 로그를 취하게 되면**, $y=Constant+bln(x)$ 이므로, 양변을 미분하면  
+
+$$dy=b\frac{dx}{x}$$ 
+
+위와 같이 되고, 우변은 x에 대하여 dx만큼 변화하는 변화율이 된다. 이걸 퍼센트로 표시하기 위해 100을 곱하면 y의 변화는 b/100이 된다. 
+
+$$dy=\frac{b}{100} \cdot \left(100 \frac{dx}{x} \% \right)$$
+
+따라서 x가 1%변할 때 y는 b/100만큼 변한다. 
+
+**2. 종속변수에 로그를 취하면**, $ln(y)=Constant+bx$ 이므로, 같은 식으로 미분하면
+
+$$\frac{dy}{y}=bdx$$
+
+위와 같이 되고, 이것도 y변화율 퍼센트로 나타내면 
+
+$$\left( \frac{dy}{y} \cdot 100\% \right) = bdx \cdot 100$$ 
+
+x가 1변할 때 $100 \cdot b\%$만큼 변한다. 
+
+**3. 둘 다에 로그가 취해졌을 때**, $ln(y)=Constant+bln(x)$이므로 미분하여 퍼센트로 바꾸면 다음과 같다. 
+
+$$100 \frac{dy}{y}=100b\frac{dx}{x}$$
+
+따라서 x가 1%변할 때, y는 b%변하게 된다. 
+
+매번 이렇게 미분해서 생각하기 쉽지 않으므로 쉽게 생각하는 방법은 로그가 붙은 변수는 퍼센트로 생각하고 $ln=\frac{1}{100}$으로 생각하면 빠르게 읽을 수 있다. 
+
+로그를 씌우는 것은 정리하면 큰 값을 매우 작게, 작은 값은 조금 작게 바꾸는 것이라 생각하면 된다. 
+
+### Logistic Regression & Sigmoid
 
 
