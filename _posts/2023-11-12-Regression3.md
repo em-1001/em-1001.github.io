@@ -159,4 +159,34 @@ $$100 \frac{dy}{y}=100b\frac{dx}{x}$$
 
 ### Logistic Regression & Sigmoid
 
+종속 변수가 연속인 경우의 회귀를 해 보았다면, 종속 변수가 1, 0만 갖는 binary의 경우를 살펴보자. 
+종속 변수가 binary라면 회귀 모형 출력이 1, 0으로 나올 것 같지만 실제 결과는 확률이다. 
+
+종속 변수가 1, 0으로 이루어진 로지스틱 회귀를 할 때는 시그모이드를 사용한다. 시그모이드는 S자 곡선을 그리면서 a~b사이의 한정된 값을 갖고, 항상 Monotonically 증가하는 함수를 통칭한다. 시그모이드에 해당하는 함수는 Logistic함수, tanh(x), Smoothstep, algebraic 등이 있다. 지금은 logistic함수를 시그모이드로 하여 예를 들어보자. 
+
+<p align="center"><img src="https://github.com/user-attachments/assets/551d2b33-f611-4fdf-b42d-2515e9092e56" height="" width=""></p>
+
+<p align="center"><img src="https://github.com/user-attachments/assets/2aa9fa35-34b9-492a-b176-c58604dca889" height="" width=""></p>
+
+x를 구획을 나눠서 각각의 구획에서 $\frac{\#1}{\#1+\#0}$을 이용해 각 구획의 1의 비율을 구한다. 여기서 #은 개수라는 뜻이다. 결국 1이 나올 확률이고 따라서 실제로는 y가 1,0값을 갖는 것에 대해 회귀하는 것이 아니라, y가 갖는 확률값을 회귀하는 것이다. 
+
+<p align="center"><img src="https://github.com/user-attachments/assets/a6fcff3f-3c38-4305-b08e-f3d4eb5aa479" height="" width=""></p>
+
+이렇게 하면 실제로 확률값에 대한 회귀식을 구하는 것이기 때문에 Sigmoid의 출력값은 확률이 된다. 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
