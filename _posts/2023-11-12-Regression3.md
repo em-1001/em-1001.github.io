@@ -174,7 +174,51 @@ x를 구획을 나눠서 각각의 구획에서 $\frac{\#1}{\#1+\#0}$을 이용�
 
 이렇게 하면 실제로 확률값에 대한 회귀식을 구하는 것이기 때문에 Sigmoid의 출력값은 확률이 된다. 
 
+이제 Sigmoid를 Logistic함수로 특정하여 예를 들어보자. Logistic함수는 다음과 같다.
 
+$$f(x)=\frac{1}{1+e^{-x}}$$
+
+<p align="center"><img src="https://github.com/user-attachments/assets/74085ba9-1b81-462d-9e8c-2fa8eb0d4707" height="" width=""></p>
+
+이제 P(x)를 Logistic함수를 이용해 회귀 분석하여 표현할 수 있다. 이때 Logistic 함수의 가파른 정도와 꺾이는 시점이 여러가지 있다. 이를 감안하여 분모의 $e^{-1}$를 조금 더 여러 모양새의 시그모이드 형태가 가능하도록 $f(x)=b_0+b_1x$같은 식으로 대체를 하면 $b_1$에 의해 가파른 정도를 결정하고, $b_0$에 의해 어디서 부터 꺾이기 시작할지의 모양새를 결정할 수 있다. $b_1$이 클수록 Logistic함수가 가파르게 되고, $b_0$값이 양수로 클수록 왼쪽으로 shift된다. 이렇게 하면 종속변수가 1,0인 것에 대해서는 어떤 모양이라도 종속변수가 확률인 것에 대한 회귀를 할 수 있다. 
+
+최종적인 식을 정리하면 우선 회귀식을 우변에 두고 $P(x)=\frac{1}{1+e^{-(b_0+b_1x)}}$를 정리하면 다음과 같다. 
+
+$$\frac{P(x)}{1-P(x)}=e^{b_0+b_1x}$$
+
+여기서 Odds가 나오는데 Odds는 1을 성공, 0을 실패라 했을 때, 성공과 실패의 비율 즉, P(1)/P(0)를 말한다. 실패에 비해서 얼마나 성공 확률이 큰가를 따지는 것이다. 
+
+다음으로 Exponential이 나왔으므로 양변에 로그를 취하면 우변에 선형회귀식과 비슷한 꼴이 남는다. 
+
+$$ln\left(\frac{P(x)}{1-P(x)}\right)=b_0+b_1x$$
+
+따라서 ln(Odds)가 우변의 선형회귀처럼 된다. 이렇게 함으로써, Logistic함수의 모양새를 결정하는 선형회귀식을 구할 수 있게된다. 
+
+<p align="center"><img src="https://github.com/user-attachments/assets/0244e84e-e74a-483c-a3ae-bcbeaa6be11c" height="" width=""></p>
+
+결국 log(Odds)가 오른쪽 처럼 직선이 되고, 이렇게 되면 지금까지 했던 선형회귀를 그대로 적용해서 분석할 수 있다. 또한 이 log(Odds)를 **Logit**이라 부르고 Logit을 선형회귀하는 것이 로지스틱회귀이다. 
+
+<p align="center"><img src="https://github.com/user-attachments/assets/2b206bda-4f49-460a-a7ee-1bb4e32660b3" height="" width=""></p>
+
+참고로 Logit은 Log + Probit이라는 말의 합성어인데, probit은 Probability Unit의 합성어로 나중에 다룰 것이다. 
+
+<p align="center"><img src="https://github.com/user-attachments/assets/4200ab01-3c05-4382-bf17-d87cbe8f2c17" height="" width=""></p>
+
+이제 종속변수를 p/(1-p)로 생각하면 이전에 살펴보았던 로그를 적용한 종속변수의 해석 그대로 독립변수 x가 1단위 변하면 P/(1-P) 즉, 성공/실패 활률의 값이 $(100 \cdot b_1)%$ 만큼 변하게 된다. 
+
+로지스틱 회귀도 다중회귀가 가능한데 일반화 하면 다음과 같다. 
+
+$$ln \left( \frac{P(y=1 \vert \boldsymbol{x})}{1-P(y=1 \vert \boldsymbol{x})} \right) = b_0 + b_1x_1 + \cdots + b_ix_i$$
+
+자세히 보면 x가 여러 종류 즉, $x_1, x_2, x_3, \cdots, x_i$라는 의미에서 bold이다. 
+
+$$\therefore \frac{P(y=1 \vert \boldsymbol{x})}{1-P(y=1 \vert \boldsymbol{x})} = e^{(b_0 + b_1x_1 + \cdots + b_ix_i)}$$
+
+만약 j번째 x를 1만큼 증가시키면 다중회귀에서 j번째 계수가 얼마나 영향을 미치는지 알 수 있다. 
+
+$$\frac{e^{(b_0 + b_1x_1 + \cdots + b_j(x_j+1) + \cdots + b_ix_i)}}{e^{(b_0 + b_1x_1 + \cdots + b_j(x_j) + \cdots + b_ix_i)}} = e^{b_j}$$
+
+이것은 $odds_{new}=odds_{old} \cdot e^{b_j}$라 해석할 수 있다. 원래 odds에 비해 $e^{b_j}$배가 된다는 의미이다. 예를 들어 원래 odds ratio가 1이었고, $b_j=0.3 \to e^{0.3} \approx 1.34$일 때, $x_j$를 1만큼 올리면 odd는 1.34배가 된다는 뜻이다. 이를 로그를 씌운 변수에 대해서 대략적으로 읽어도 j번째 x가 1변할 때, 계수가 0.3이라면 종속변수 odds는 30%정도 늘어난다고 읽을 수 있다. 
 
 
 
