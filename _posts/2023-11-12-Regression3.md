@@ -220,6 +220,60 @@ $$\frac{e^{(b_0 + b_1x_1 + \cdots + b_j(x_j+1) + \cdots + b_ix_i)}}{e^{(b_0 + b_
 
 이것은 $odds_{new}=odds_{old} \cdot e^{b_j}$라 해석할 수 있다. 원래 odds에 비해 $e^{b_j}$배가 된다는 의미이다. 예를 들어 원래 odds ratio가 1이었고, $b_j=0.3 \to e^{0.3} \approx 1.34$일 때, $x_j$를 1만큼 올리면 odd는 1.34배가 된다는 뜻이다. 이를 로그를 씌운 변수에 대해서 대략적으로 읽어도 j번째 x가 1변할 때, 계수가 0.3이라면 종속변수 odds는 30%정도 늘어난다고 읽을 수 있다. 
 
+다중회귀의 독립변수와 계수를 $\hat{y}=\frac{1}{1+e^{-W^TX}}$ 형태로 행렬을 이용해 표현할 수 있다. 
+
+로지스틱 회귀의 예를 들어서 데이터는 아래와 같다고 하자. 129개의 데이터가 있고, 각 x에 대하여 1/0의 데이터가 있다. 
+
+<p align="center"><img src="https://github.com/user-attachments/assets/1547c9e6-764a-4d6c-a401-110c1caaeeb7" height="" width=""></p>
+
+로지스틱 회귀를 위해 확률과 logit($ln\frac{P}{1-P}$)을 계산하면 다음과 같다. 
+
+<p align="center"><img src="https://github.com/user-attachments/assets/5247f3c3-30bb-451d-a4c4-4c2c32b61ef9" height="" width=""></p>
+
+각 x에 대하여 y=0인 경우와 y=1인 경우를 세었고, 이때의 prob, odds, logit을 각각 계산하였다. label은 성공 label을 1, 실패를 0으로 하였다. 
+
+이제 $ln \left(\frac{p}{1-p} \right) = b_0+b_1x$를 단순회귀 해보자. 종속변수는 logit(x)이고, 독리변수는 x이다. 
+
+```py
+import statsmodels.formula.api as ols
+ 
+model_ols = smf.ols("logit ~ x", data=df_raw_data_prob).fit()
+model_ols.summary()
+```
+
+<p align="center"><img src="https://github.com/user-attachments/assets/124c2844-9b61-49c0-8f09-92e9819d7782" height="" width=""></p>
+
+결과를 회귀식으로 표현하면 다음과 같다. 
+
+$$y=Logit(x)=ln\frac{P(x)}{1-P(x)}=-1.3+0.63x$$
+
+결국 로지스틱 회귀식은 $P(x)=\frac{1}{1+e^{-(-1.3+0.63x)}}$가 된다. 
+
+이번에는 Logit모델을 활용해서 Logistic 회귀를 해보자. 종속변수는 마찬가지로 1/0데이터인 Label이고, 독립변수는 x이다. 이렇게 데이터를 넣어주면 자동으로 확률을 계산해 회귀를 해 주는데, 주의할 점은 x에 상수항을 추가해줘야 한다는 점이다. 즉, intercept=0이 아닌 회귀식을 구하기 위해서 x의 첫 열에 1을 추가해서 회귀를 해야한다. 따라서 $w^T$에 상수항이 포함되어 있기 때문에 아래와 같이 그대로 만들어 줘야 한다. 
+
+<p align="center"><img src="https://github.com/user-attachments/assets/79d7391b-ab45-4add-8c5c-ac4a0025e38d" height="" width=""></p>
+
+```py
+import statsmodels.api as sm
+ 
+X = df_raw_data[['x']]
+Y = df_raw_data['y']
+ 
+X = sm.add_constant(X)  # 상수항 추가 → 이게 자동으로 1을 첫열에 넣어줍니다.
+ 
+model = sm.Logit(Y,X).fit() # 자동으로 종속변수의 확률을 계산하여 회귀를 해 줍니다. 
+model.summary()
+```
+
+<p align="center"><img src="https://github.com/user-attachments/assets/019184c5-49b5-45d7-95fd-08d34140c7c7" height="" width=""></p>
+
+단순회귀와 로지스틱 회귀의 계수를 보면 0.63으로 동일하다. 차이가 있다면 logit 단순회귀에서는 계수가 유의하였는데, 로지스틱에서는 그렇지 않다. 이는 로지스틱 회귀에서는 표본의 수가 너무 작기 때문이다. 
+
+계수를 해석해보면 종속변수인 odds에 로그를 취했으므로 x가 1 늘어날 때마다 성공 확률이 63% 늘어난다고 해석할 수 있다. 
+
+
+
+
 
 
 
