@@ -52,7 +52,7 @@ $$IV_{total}=\sum((Event_i\%-NonEvent_i\%) \times WoE_i)$$
 
 <p align="center"><img src="https://github.com/user-attachments/assets/f5e8828e-ec84-424e-bfe9-a1c4a2a9e8ed" height="" width=""></p>
 
-
+참고: https://datapilots.tistory.com/92
 
 
 
