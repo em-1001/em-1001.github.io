@@ -168,7 +168,7 @@ $$100 \frac{dy}{y}=100b\frac{dx}{x}$$
 
 <p align="center"><img src="https://github.com/user-attachments/assets/2aa9fa35-34b9-492a-b176-c58604dca889" height="" width=""></p>
 
-x를 구획을 나눠서 각각의 구획에서 $\frac{\#1}{\#1+\#0}$을 이용해 각 구획의 1의 비율을 구한다. 여기서 #은 개수라는 뜻이다. 결국 1이 나올 확률이고 따라서 실제로는 y가 1,0값을 갖는 것에 대해 회귀하는 것이 아니라, y가 갖는 확률값을 회귀하는 것이다. 
+x를 구획을 나눠서 각각의 구획에서 $\frac{\diamondsuit 1}{\diamondsuit 1+\diamondsuit0}$을 이용해 각 구획의 1의 비율을 구한다. 여기서 $\diamondsuit$은 개수라는 뜻이다. 결국 1이 나올 확률이고 따라서 실제로는 y가 1,0값을 갖는 것에 대해 회귀하는 것이 아니라, y가 갖는 확률값을 회귀하는 것이다. 
 
 <p align="center"><img src="https://github.com/user-attachments/assets/a6fcff3f-3c38-4305-b08e-f3d4eb5aa479" height="" width=""></p>
 
