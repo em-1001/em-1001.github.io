@@ -56,11 +56,88 @@ $$IV_{total}=\sum((Event_i\%-NonEvent_i\%) \times WoE_i)$$
 
 참고: https://datapilots.tistory.com/92
 
+## Logistic Classification
 
+Logistic Regression은 확률 회귀선의 회귀식을 구한 후 그 결과를 이용하여 각 독립변수의 영향력을 분석하는 것이 목적이라면, Classification은 분류 예측에 가깝다. 이때, 이 모형에 어떤 Decision Rule을 적용한 후, Logistic Regression의 확률을 이용하여 분류를 할 수 있다. Decision Rule은 결정경계로 1, 0을 구분하는 Decision Boundary를 고려하는 걸 말한다. Logistic Classification은 1/0만 구분해서 Binary Classification이라 부르기도 한다. 
 
+보통은 Decision Boundary을 0.5로 잡지만 상황에 따라 다르다. 
 
+<p align="center"><img src="https://github.com/user-attachments/assets/5905dc17-34e0-46bf-a1f0-e8fd1a2f7bc6" height="" width=""></p>
 
+Threshold를 0.5 즉, 1/2로 본다면 Logistic Regression 회귀식 $P=\frac{1}{1+e^{-(b_0+b_1x)}}$에서 $(b_0+b_1x)=0$이 되면, p=1/2가 된다. 따라서 $x=-\frac{b_0}{b_1}$보다 오른쪽에 있으면 1, 왼쪽에 있으면 0으로 판단한다. 
 
+<p align="center"><img src="https://github.com/user-attachments/assets/83cf40a0-6953-4e6d-bff7-c3c3134119dd" height="" width=""></p>
+
+이때, $-b_0+b_1x$를 0으로 만드는 $x=-\frac{b_0}{b_1}$직선을 Decision Boundary결정경계라고 한다. 
+
+더 복잡한 경우를 다뤄보면, 여러개의 Feature가 있을 때 어떻게 해야 하는가도 표현할 수 있다. 
+
+$P=\frac{1}{1+e^{-(b_0+b_1x_1+\cdots+b_ix_i)}}$에서 $b_0+b_1x_1+\cdots+b_ix_i=0$이 되면 threshold는 P=1/2가 된다. 
+
+간단한 예시로 $x_1, x_2$ 분포가 다음과 같을 때, $b_0+b_1x_1+b_2x_2=0$을 생각해보자. 
+
+<p align="center"><img src="https://github.com/user-attachments/assets/2f53f47a-30af-4f84-bf5c-2fa80fcd386d" height="" width=""></p>
+
+이 분포에서 직선을 그어서 두 개의 class를 구분해야 한다. 마찬가지로 $b_0+b_1x_1+b_2x_2=0$인 선을 그으면 로짓이 0이므로 확률이 1/2인 선이 된다. $x_2$를 세로축으로 하여 정리하면  $x_2=-\frac{b_1}{b_2}x_1-\frac{b_0}{b_2}$ 직선이 된다. 
+
+예를 들어 $b_0=-3, b_1=1, b_2=1$인 경우라면 $x_2=-x_1+3$을 경계로 하고 이 상태의 결정경계는 다음과 같다. 
+
+<p align="center"><img src="https://github.com/user-attachments/assets/62280268-ec91-466b-9438-916ca4a35cbd" height="50%" width="50%"></p>
+
+이 Decision Boundary에서 어떻게 Class를 판단하는 방식은 다음과 같다. 
+
+$$b_0+b_1x_1+b_2x_2 \geq 0 \to P \geq 1/2 \to y=1$$
+
+$$b_0+b_1x_1+b_2x_2 < 0 \to P < 1/2 \to y=0$$
+
+이 같은 Decision Boundary를 설정하여 확률이 0.5를 기준으로 1, 0을 구분할 수 있다. 
+
+$x_1, x_2$의 2차원에 대한 로지스틱 회귀는 실제로 아래와 같은 식으로 생겼다. 
+
+<p align="center"><img src="https://github.com/user-attachments/assets/e0ffa0a8-341a-4a45-b956-8b4dd2a7ccf5" height="" width=""></p>
+
+여기서 두 $x$에 대한 평면에 있는 $b_0+b_1x_1+b_2x_2=0$직선이 확률 세로축(z축)으로 그리면 다음과 같은 Decision Boudary 평면이 된다. 
+
+<p align="center"><img src="https://github.com/user-attachments/assets/7621fbb5-666d-4a0b-91f6-25f923074d28" height="" width=""></p>
+
+이런 경우에 Logit을 단순회귀로 풀 수도 있겠지만, Polynomial로 할 수도 있다. 이는 Logistic 함수에서의 Logit을 여러가지 형태로 둘 수 있다는 말인데, Logit(x)를 다음과 같이 변형할 수 있다. 
+
+1. 단순 직선
+
+$$\frac{1}{1+e^{-(b_0+b_1x_1+b_2x_2)}}$$
+
+2. 2차식 곡선
+
+$$\frac{1}{1+e^{-(b_0+b_1x_1+b_2x_2+b_3x_1^2+b_4x_2^2+b_5x_1x_2)}}$$
+
+3. n차식 곡선
+
+$$\frac{1}{1+e^{-(b_0+b_1x_1+b_2x_1^2+b_3x_1^2x_2+b_4x_1^2x_2^2 \cdots)}}$$
+
+이런 식으로 Logit을 비선형으로 표현할 수도 있다. $S(z)=\frac{1}{1+e^{-z}}$라 정의하고 1/2인 z=0인 선을 그림으로 표현하면 다음과 같다. 
+
+<p align="center"><img src="https://github.com/user-attachments/assets/96592d28-169a-4029-a778-9e3184093b6c" height="" width=""></p>
+
+이런 식으로 Logit을 Polynomial로 표현할 수 있다. 심지어는 Decision Boudary가 원으로도 가능하다. 
+
+<p align="center"><img src="https://github.com/user-attachments/assets/0deabc12-d3c7-4fac-a307-5ce5a9f3d9c3" height="" width=""></p>
+
+$$y=\frac{1}{1+e^{-(x_1^2+x_2^2-1)}}$$
+
+이런 식이면 반지름이 1인 원의 바깥과 안쪽으로 결정경계를 그릴 수도 있다.
+
+이번에는 종속변수가 다중클래스인 경우에 Classification을 어떻게 할 수 있는지 살펴보자. 예를 들어 3개 class가 있다고 하자. 
+
+<p align="center"><img src="https://github.com/user-attachments/assets/c29f74ef-b40c-4e71-bb1e-14ba9517db22" height="" width=""></p>
+
+다중클래스인 경우 1개 클래스와 나머지 클래스를 묶어서 2개 클래스를 나누듯이 여러 번 나누면 된다. 
+
+<p align="center"><img src="https://github.com/user-attachments/assets/ddb7cb59-f0ff-4413-a0c2-556c05668e3b" height="" width=""></p>
+
+이런 경우라면 3번을 시행할 수 있다. 종속변수가 Multi Class인 경우에는 Logisitc 회귀를 두 개씩 짝지은 만큼 시행하는 것이다. 
+판단 기준은 어떤 새로운 입력값 x가 있을 때 x에 대해 이 3번의 시행 후 나오는 경우 중 가장 높은 확률이 나온 클래스를 선택한다. 
+
+추가적으로 단층신경망(로지스틱회귀)으로 분류 문제를 풀 수 있는가 없는가?를 판단할 때에는 시각화한 후에 Decision Boundary를 그릴 수 있는가 없는가로 판단할 수 있다. XOR문제 같은 경우에는 단순하게 Boundary를 그릴 수 없기 때문에 다층신경망을 이용해서 공간을 Non Linear 하게 뒤틀어 버린 후에 Classification을 하게 된다. 
 
 
 
