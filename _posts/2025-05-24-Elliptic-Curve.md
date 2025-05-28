@@ -50,13 +50,23 @@ $P + Q + R = 0, P + Q = -R$
 -> Tangency    
 
 
-## Algebraic Addition 
+## Algebraic Addition (Weierstrass model)
 
-1. $P + 0 = P$, $-Q + Q = 0$    
-2. Points $P$, $Q$, $R$  
+$$P + 0 = P,\  -Q + Q = 0$$      
+
+$$
+\begin{align}
+x_R = λ^2-x_P-x_Q \\
+y_R = λ(x_P-x_R)-y_P
+\end{align}
+$$
+
+$$ where \ λ = \begin{cases}
+\frac{y_P - y_Q} {x_P - x_Q} &if \ (x_P, y_P) \neq (x_Q, \pm y_Q), \\  
+\frac{3x_P^2 + a} {2y_P} &if \  (x_P, y_P)=(x_Q, y_Q). 
+\end{cases}$$
  
- $$λ = \frac{y_p - y_q} {x_p - x_q}$$    
- $if(P == Q)$ -> $tangency$    
+ ### (Proof) $if(P == Q)$ -> $tangency$    
  $y^2 = x^3 + ax + b$      
  $f(x)^2 = x^3 + ax + b$    
  $f(x)^2 - x^3 - ax - b = 0$    
@@ -64,9 +74,9 @@ $P + Q + R = 0, P + Q = -R$
  
  $λ = \frac{3x^2 + a} {2y}$  
 
- 
+ $λ = \frac{y_P - y_Q} {x_P - x_Q}$  
  $y - y_P = λ(x - x_P)$     
- ∴ $y_R = y_P + λ(x_R - x_P)$  
+ ∴ $y_R = λ(x_P - x_R) - y_P \because P+Q=-R$  
  
  $y^2 = x^3 + ax + b$    
  $y = λ(x - x_P) + y_P$    
