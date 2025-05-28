@@ -86,26 +86,7 @@ $$ where \ λ = \begin{cases}
  $using$ $Viète’s$ $theorem$ $on$ $cubic$ $equation$    
  $x_P + x_Q + x_R = λ^2$    
  ∴ $x_R = λ^2 - x_P - x_Q$  
- 
 
-## Elliptic Curves Over Galois Field
-
-GF stands for Finite Field, a sieve with finite elements.  
-It exists in infinitely finite places in x, y and coordinate systems, using Modular to create GFs.
-
-$E : y^2 = x^3 + x$ $over$ $Z_{23}$
-
-<img width="50%" height="50%" src="/assets/images/elliptic/3.png">
-
-
-The figure above shows all the coordinates that exist on the GF when p is 23.  
-$If$ $x = 11,$    
-$y^2mod$ $23 ≡ (1331+11)mod$ $23 ≡ 1342mod$ $23 ≡ 8$   
-to find a value of $y$ that satisfies  
-$y^2mod$ $23 ≡ 8$  
-We need to get the expression above, and what can be the value of y is 10 and 13.  
-
-At this time, if the p in the field of GF becomes larger, it becomes difficult to find y, which can be used to perform encryption.
 
 ## Double and Add Algorithm
 
@@ -126,6 +107,26 @@ $$Q_i = 2^iP$$
 These points are referred to as 2-power multiples of $P$, and computing them requires r doublings. Finally, we compute $nP$ using at most $r$ additional additions,
 
 $$nP = n_0Q_0 + n_1Q_1 + n_2Q_2 + ··· + n_rQ_r$$
+
+
+## Elliptic Curves Over Galois Field
+
+GF stands for Finite Field, a sieve with finite elements.  
+It exists in infinitely finite places in x, y and coordinate systems, using Modular to create GFs.
+
+$E : y^2 = x^3 + x$ $over$ $Z_{23}$
+
+<img width="50%" height="50%" src="/assets/images/elliptic/3.png">
+
+
+The figure above shows all the coordinates that exist on the GF when p is 23.  
+$If$ $x = 11,$    
+$y^2mod$ $23 ≡ (1331+11)mod$ $23 ≡ 1342mod$ $23 ≡ 8$   
+to find a value of $y$ that satisfies  
+$y^2mod$ $23 ≡ 8$  
+We need to get the expression above, and what can be the value of y is 10 and 13.  
+
+At this time, if the p in the field of GF becomes larger, it becomes difficult to find y, which can be used to perform encryption.
 
 ## Elliptic curve encryption algorithm
 
