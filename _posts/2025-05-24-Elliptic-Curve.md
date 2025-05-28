@@ -10,6 +10,7 @@ tags:
 last_modified_at: 2025-04-18T08:06:00-05:00
 ---
 
+# Weierstrass Curve
 ## Elliptic Curve
 
 An elliptic curve is a graph of a curve showing a set of $x$ and $y$ that satisfy the equation below.
@@ -21,7 +22,7 @@ $$\lbrace (x, y) ∈ ℝ^2 \vert y^2 = x^3 + ax + b, 4a^3 + 27b^2 \neq 0 \rbrace
 The shape of the above elliptic curve is called the **Weierstrass elliptic curve**, and there are other types of elliptic curves such as **Montgomery, Edwards, Jacobi, and Hessian**.     
   
    
-## Elliptic Curve over Group  
+## Elliptic Curve over Group 
      
 1. Elements : Points of an curve      
 2. Identity element : Point at infinity or ideal point -> 0    
@@ -29,7 +30,7 @@ The shape of the above elliptic curve is called the **Weierstrass elliptic curve
 4. Addition : Given aligned three points $P$, $Q$, $R$ -> $P + Q + R = 0$ (abelian group)       
   
   
-## Geometric Addition   
+## Geometric Addition 
   
 $P + Q + R = 0, P + Q = -R$
    
@@ -50,7 +51,7 @@ $P + Q + R = 0, P + Q = -R$
 -> Tangency    
 
 
-## Algebraic Addition (Weierstrass model)
+## Algebraic Addition 
 
 $$P + 0 = P,\  -Q + Q = 0$$      
 
@@ -106,6 +107,26 @@ We need to get the expression above, and what can be the value of y is 10 and 13
 
 At this time, if the p in the field of GF becomes larger, it becomes difficult to find y, which can be used to perform encryption.
 
+## Double and Add Algorithm
+
+in order to efficiently compute $nP$ from the known values $n$ and $P$ we use **Double and Add Algorithm**.
+
+We first write $n$ in binary form as
+
+$$n = n_0 + n_1·2 + n_2·4 + n_3·8 + ··· + n_r·2^n \ with \ n_0, n_1, ···, n_r ∈ {0, 1}$$
+
+(We also assume that $n_r = 1$.) Next we compute the following quantities:
+
+$$Q_0 = P, Q_1 = 2Q_0, Q_2 = 2Q_1, ..., Q_r = 2Q_{r-1}$$
+
+Notice that $Q_i$ is simply twice the previous $Q_{i−1}$ so
+
+$$Q_i = 2^iP$$
+
+These points are referred to as 2-power multiples of $P$, and computing them requires r doublings. Finally, we compute $nP$ using at most $r$ additional additions,
+
+$$nP = n_0Q_0 + n_1Q_1 + n_2Q_2 + ··· + n_rQ_r$$
+
 ## Elliptic curve encryption algorithm
 
 G: constructor, any point on the elliptic curve  
@@ -152,235 +173,7 @@ You can use this method to obtain $α, 2α, ..., kα$.
 
 $Private$ $key(x)*α=Public$ $key(Q)$
 
-
-## ECDLP (Elliptic Curve Discrete Logarithm Problem)
-
-the elliptic curve discrete logarithm problem is: given points $P$ and $Q$ in the group, find a number that $Pk = Q$ k is called the discrete logarithm of $Q$ to the base $P$. When the elliptic curve group is described using additive notation, the elliptic curve discrete logarithm problem is: given points $P$ and $Q$ in the group, find a number $k$ such that $Pk = Q$ 
-
-It is of cryptographic interest because its apparent intractability is the basis for the security of elliptic curve cryptography.
-
-### Double and Add Algorithm
-
-in order to efficiently compute $nP$ from the known values $n$ and $P$ we use **Double and Add Algorithm**.
-
-We first write $n$ in binary form as
-
-$$n = n_0 + n_1·2 + n_2·4 + n_3·8 + ··· + n_r·2^n \ with \ n_0, n_1, ···, n_r ∈ {0, 1}$$
-
-(We also assume that $n_r = 1$.) Next we compute the following quantities:
-
-$$Q_0 = P, Q_1 = 2Q_0, Q_2 = 2Q_1, ..., Q_r = 2Q_{r-1}$$
-
-Notice that $Q_i$ is simply twice the previous $Q_{i−1}$ so
-
-$$Q_i = 2^iP$$
-
-These points are referred to as 2-power multiples of $P$, and computing them requires r doublings. Finally, we compute $nP$ using at most $r$ additional additions,
-
-$$nP = n_0Q_0 + n_1Q_1 + n_2Q_2 + ··· + n_rQ_r$$
-
-
-### Anomalous Elliptic Curve
-
-Anomalous elliptic curve has a curve of defined above $F_p$, it means a curve whose **order** is $p$.
-Defining an elliptical curve determines the number of points that can exist on that curve, which is called an **order**.
-
-Let's say that the order of the curve is the composite number $n$ and the factorization is possible, and the result is $n=p_1p_2..P_k$. Then we can split the entire group of points into subgroups of $p_i$ points for each prime factor $p_i$.
-The size of this subgroup is smaller than $n$, making it easier to attack, and the results for each subgroup can be combined into one. Therefore, if the curve defined for $F_p$ of prime $p$ has $order \ p$, it is considered relatively less vulnerable to attack because it is equally prime.
-
-One where $𝐸(𝐹𝑝)$ which mean The **order** doesnot have sufficiently large prime subgroups and is subject to the **Pohlig-Hellman attack**, and another
-where $𝐸(𝐹𝑝) = 𝑝$ allowing an **Smart’s Attack**
-
-### Smart’s Attack 
-
-Smart describes a linear time method of computing the ECDLP in curves over a field $𝐹𝑝$
-such that **#** $𝐸(𝐹𝑝) = p$ However describing this attack first requires some additional background.  
-(**#** $𝐸(𝐹𝑝)$ is the number of elements in $𝐸(𝐹𝑝)$ )
-
-1. **Lifts and Hensel's Lemma**  
-using Hensel's Lemma, given a root of $f$ modulo $p^s$ we can computes a root of $f$ modulo $p^{s+1}$.   
-Hensel's Lemma is as follows:  
-For $f(x) ∈ ℤ[x]$ let $x$ be a root of $f$ modulo $p^s$ and let $f'(x)$ be invertible modulo 𝑝 and let   
-that inverse be $u$ such that $uf'(x) ≡ 1\mod{p}$. Let $x'$ be  
-$$x' = x - uf'(x)$$   
-then $x' ≡ x\mod{p^s}$ and $f(x') ≡ 0 \mod{p^{s+1}}$. 
-Here $x'$ is referred to as a lift of $x$ modulo $p^{s+1}$. We will be using this theorem to lift element from $F_p$ to the field of $p-adic$ number $Q_p$ described next.
-
-2. **P-adic Numbers**   
-A p-adic number can be represented by an infinite series with the form  
-$$c_{-n}p^{-n} + ... + c_0 + c_1p + ... + c_mp^m + ...$$  
-The field of p-adic numbers are represented by $Q_p$ and the number that have no negative powers of $p$ are known as the p-adic integers and are represented as $ℤ_p$.
-We can define elliptic curves over the field of p-adic numbers and we use the lifts described above to lift our points of interest into the elliptic curve over $Q_p$.
-This allows us to reduce the ECDLP to the group $pℤ_p$where it is easily computable.
-
-3. **Curve Reduction Modulo P**  
-Let $E(Q_p)$be an elliptic curve over the p-adic field, we create a curve over $F_p$ by reducing the coefficients of the curve $E(Q_p): y^2 = x^3 + ax + b \mod{p}$
-such that $E(F_p): y^2 = x^3 + \tilde{a}x + \tilde{b}$. To be complete we should check ensure that this new curve isn't singular by checking that the discriminate is non-zero, but for our purposes here I'm just going assume it is non-singular.   
-Now we follow a similar process to map a point $P = (x, y) ∈ E(Q_p)$ to another point $\tilde{P} = (\tilde{x}, \tilde{y}) ∈ E(F_p)$
-where $\tilde{x} = x\mod{p}$ and $\tilde{y} = y\mod{p}$.  
-This mapping is a group homomorphism from $E(Q_p)$ to $E(F_p)$, and let $E_1(Q_p)$ be defined as the kernel of this homomorphism, so $E_1(Q_p)$ contains all the points in $E(Q_p)$ that reduce to the point at infinity in $E(F_p)$.
-
-4. **P-adic Elliptic Logarithm**  
-The P-adic Elliptic Logarithm $\psi_p$ provides a isomorphism from $E_1(Q_p) to $pℤ_p$.   
-For a point $S ∈ E_1(Q_p)$ we compute
- 
-$$\psi_p(S) = - \frac{x(S)}{y(S)}$$  
-
-By reducing the problem of finding 𝑘 where $Q = kP$ to $pℤ_p$, we can directly compute $k$ as we see in the description of the attack itself.
-
-6. **Attack**  
-to find $k$, Our first step is to lift these points to $E(Q_p)$ to get two new points $P', Q'$. We do this by setting the $x$ component of $P'$
-equal to the x component of $P$. We then use Hensel's Lemma described above to compute $y$ in $Q_p$ by using the curve equation with $x$ fixed. 
-We know that $Q = kP$ in $E(F_p)$ so thus the value $Q' - kP'$ in $E(Q_p)$ goes to the point at infinity by the Reduction Modulo P map and is thus in the kernel of that homomorphism.  
-$$Q' - kP' ∈ E_1(Q_p)$$  
-Now we rely on the fact that the order of $E(F_p)$ is $p$, which ensures that multiplying any element in $E(Q_p)$ by $p$ maps the element into $E_1(Q_p)$ 
-since for any point $R ∈ E(Q_p)$ the point $pR$ 𝑅 will map via Reduction Modulo P to $0$ in $E(F_p)$.  So multiply through by $𝑝$ and we get   
-$$pQ' - k(pP') ∈ E_2(Q_p)$$  
-with $pQ' ∈ E_1(Q_p)$ and $pP' ∈ E_1(Q_p)$. We can now apply the P-Adic Elliptic Log to get  
-$$\psi_p(pQ') - k\psi_p(pP') ∈ pℤ_p$$  
-and thus  
-$$k = \frac{\psi_p(pQ')}{\psi_p(pP')}$$  
-and then reduce $k$ modulo $p$ to return to $F_p$ solving the ECDLP.
-
-code for the attack is:
-```py
-from sage.all import EllipticCurve
-from sage.all import Qp
-from sage.all import ZZ
-
-
-# Lifts a point to the p-adic numbers.
-def _lift(E, P, gf):
-    x, y = map(ZZ, P.xy())
-    for point_ in E.lift_x(x, all=True):
-        _, y_ = map(gf, point_.xy())
-        if y == y_:
-            return point_
-
-
-def attack(G, P):
-    """
-    Solves the discrete logarithm problem using Smart's attack.
-    More information: Smart N. P., "The discrete logarithm problem on elliptic curves of trace one"
-    :param G: the base point
-    :param P: the point multiplication result
-    :return: l such that l * G == P
-    """
-    E = G.curve()
-    gf = E.base_ring()
-    p = gf.order()
-    assert E.trace_of_frobenius() == 1, f"Curve should have trace of Frobenius = 1."
-
-    E = EllipticCurve(Qp(p), [int(a) + p * ZZ.random_element(1, p) for a in E.a_invariants()])
-    G = p * _lift(E, G, gf)
-    P = p * _lift(E, P, gf)
-    Gx, Gy = G.xy()
-    Px, Py = P.xy()
-    return int(gf((Px / Py) / (Gx / Gy)))
-```
-
-
-## ECDH(Elliptic Curve Diffie Hellman)
-
-ECDH is a method of applying Diffie–Hellman key exchange to the Elliptic Curve.   
-
-The ECDH algorithm is as follows:
-1. Alice and Bob each create a (public key, private key) pair. Let's say Alice and Bob's key pair is $(d_A, H_A), (d_B, H_B)$ and b, respectively. $H_A = d_AG, H_B = d_BG$.
-2. Alice and Bob exchange each other's public keys. $(H_A, H_B)$
-3. Alice calculates $S=d_AH_B$, Bob calculates $S=d_BH_A$.   
-The formula $S=d_AH_B=d_A(d_BG)=d_B(d_AG)=d_BH_A$ calculated by Alice and Bob are the same. Alice and Bob share a secret key.
-
-
-## ECDSA (Elliptic Curve Digital Signature Algorithm)
-
-ECDSA is a cryptographic algorithm that incorporates elliptic curve ciphers into electronic signatures.
-In Bitcoin and Ethereum, ECDSA is being used as SECP256K1.
-The private key and the public key have a pair.
-
-The elliptic curve function used in Ethereum and Bitcoin is SECP256K1, which is as follows.
-
-$$ y^2 = x^3 + 7$$
-
-SECP256K1 is an elliptical curve with $a$ of $0$ and $b$ of $7$ and a reference point $G$ of (0x79be667ef9dcbbac55a06295ce870b07029bfcdb2dce28d959f2815b16f81798, 0x483ada7726a3c4655da4fbfc0e1108a8fd17b448a68554199c47d08ffb10d4b8).
-
-```
-p : 0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffefffffc2f
-a : 0x0000000000000000000000000000000000000000000000000000000000000000
-b : 0x0000000000000000000000000000000000000000000000000000000000000007
-G : (0x79be667ef9dcbbac55a06295ce870b07029bfcdb2dce28d959f2815b16f81798, 0x483ada7726a3c4655da4fbfc0e1108a8fd17b448a68554199c47d08ffb10d4b8)
-n : 0xfffffffffffffffffffffffffffffffebaaedce6af48a03bbfd25e8cd0364141
-h : 0x1
-
-https://neuromancer.sk/std/
-```
-
-
-
-### 1. Private Key
-
-A Private Key is one of the integers in $1$ ~ $n-1$.
-
-Here, n is defined as $1.157920892373162e+77$ under the SECP256K1 elliptic curve, expressed in hexadecimal as `FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFEFEBAEDCE6AF48A03BFD25E8CD0364141`.
-
-In other words, the private key is to obtain a value between `1` and `FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFEBAEDCE6AF48A03BBFD25E8CD0364141`.
-
-Outside of this range, Ethereum sends an error saying it is an invalid private key.
-
-
-### 2. Signature $r$
-
-Choose $1$ to $n - 1$ integers randomly, as in obtaining a Private Key. While the private key is used only once selected, this value must be obtained each time a transaction is sent. This value becomes $k$.
-
-1. Generate an arbitrary value $k$ (20 bytes). Calculate $P = k$ x $G$ using the multiplication of points.
-2. The $x$ value of the point $P$ represents $r$. (20 bytes)
-
-### 3. Signature $s$
-
-$$s = k^{-1}(z + r * Private \ Key)\mod{n}$$
-
-z : Value containing transaction information(hash)  
-At this time, if the calculation value is $0$, the random number $K$ must be newly generated and recalculated.
-
-When transmitting a transaction, you can send a transaction containing the contents and signatures $r$ and $s$.
-
-### 4. Verification
-
-$$U1 = z * w \mod{n}$$  
-
-$$U2 = r * w \mod{n}$$  
-
-$$w = s^{-1} \mod{n}$$  
-
-$$U1 * G + U2 * Private \ Key$$  
-
-The public key is the recovery key, and Ethereum uses an integer 27 or 28, not a signature value.
-
-The above equation is an operation of the elliptic curve, and the result is a point on the elliptic curve. And you can compare whether the $x-coordinate$ of that point is the same as the signature $r$ that I received.
-
-
-### 5. Public Key
-
-The public key can be sent by the person who sends the transaction, but it does not do so in Ethereum. The original public key can be obtained using the recovery key. In Ethereum, this recovery key is promised at the value of 27 or 28, so you can extract the sender's public key using the recovery key only with a signature.
-
-In summary, public keys can be extracted from signatures $v$, $r$, and $s$ in the transaction. In solidity, there is a function called ecrecover.
-
-The public key can be obtained from the private key. You can multiply the secret key by the reference point $G$ set in Ethereum.
-
-As mentioned above, the secret key is a simple integer, so it is only a constant, and the point $G$ is a point on the elliptical curve, so the public key is also a point on the elliptical curve.
-
-$$Public \ Key = Private \ Key * G$$
-
-### 6. Address
-
-The address can be obtained from the public key. The address is hexadecimal and the last 20 bytes of the public key's Keccak-256 hash are obtained.
-
-```py
-function publicKeyToAddress(pubKey: Buffer): Buffer {
-  return keccak256(pubKey).slice(-20)
-}
-```
-
-## Edwards curve
+# Edwards curve
 
 <p align="center"><img width="50%" height="50%" src="/assets/images/elliptic/5.png"></p>
 
@@ -389,7 +182,7 @@ The equation of an Edwards curve over a field K which does not have characterist
 
 $$x^2 + y^2 = 1 + dx^2y^2 \ where \ c, d ∈ K \ with \ cd(1 − c^4·d) ≠ 0$$
 
-### Edwards addition law
+## Edwards addition law
 
 the sum of the points $(x_1, y_1)$ and $(x_2, y_2)$ is given by the formula
 
@@ -399,7 +192,7 @@ The opposite of any point $(x, y)$ is $(-x, y)$. The point $(0, -1)$ has order 2
 
 One of the attractive feature of the Edwards Addition law is that it is strongly unified i.e. it can also be used to double a point, simplifying protection against side-channel attack. The addition formula above is faster than other unified formulas and has the strong property of completeness
 
-### An analogue on the circle
+## An analogue on the circle
 
 <p align="center"><img width="35%" height="35%" src="/assets/images/elliptic/6.png"></p>
 
@@ -425,7 +218,7 @@ In this way, the addition formula for points on the circle of radius 1 is:
 $$(x_1, y_1) + (x_2, y_2) = (x_1y_2 + x_2y_1, y_1y_2 - x_1x_2)$$
 
 
-### Doubling
+## Doubling
 
 Doubling can be performed with exactly the same formula as addition. Doubling refers to the case in which the inputs $(x_1, y_1)$ and $(x_2, y_2)$ are equal.
 
@@ -441,8 +234,125 @@ Further speedup is achieved by computing $2xy$ as $(x+y)^2 - x^2 - y^2$.
 This reduces the cost of doubling in homomorphic coordinates to $3M + 4S + 3C + 6a$.
 Here $M$ is field multiplications, $S$ is field squarings, $D$ is the cost of multiplying by the curve parameter $d$, and $a$ is field addition.
 
-## Reference 
 
+# ECDLP (Elliptic Curve Discrete Logarithm Problem)
+
+the elliptic curve discrete logarithm problem is: given points $P$ and $Q$ in the group, find a number that $Pk = Q$ k is called the discrete logarithm of $Q$ to the base $P$. When the elliptic curve group is described using additive notation, the elliptic curve discrete logarithm problem is: given points $P$ and $Q$ in the group, find a number $k$ such that $Pk = Q$ 
+
+It is of cryptographic interest because its apparent intractability is the basis for the security of elliptic curve cryptography.
+
+## Anomalous Elliptic Curve
+
+Anomalous elliptic curve has a curve of defined above $F_p$, it means a curve whose **order** is $p$.
+Defining an elliptical curve determines the number of points that can exist on that curve, which is called an **order**.
+
+Let's say that the order of the curve is the composite number $n$ and the factorization is possible, and the result is $n=p_1p_2..P_k$. Then we can split the entire group of points into subgroups of $p_i$ points for each prime factor $p_i$.
+The size of this subgroup is smaller than $n$, making it easier to attack, and the results for each subgroup can be combined into one. Therefore, if the curve defined for $F_p$ of prime $p$ has $order \ p$, it is considered relatively less vulnerable to attack because it is equally prime.
+
+One where $𝐸(𝐹𝑝)$ which mean The **order** doesnot have sufficiently large prime subgroups and is subject to the **Pohlig-Hellman attack**, and another
+where $𝐸(𝐹𝑝) = 𝑝$ allowing an **Smart’s Attack**
+
+
+# ECDH(Elliptic Curve Diffie Hellman)
+
+ECDH is a method of applying Diffie–Hellman key exchange to the Elliptic Curve.   
+
+The ECDH algorithm is as follows:
+1. Alice and Bob each create a (public key, private key) pair. Let's say Alice and Bob's key pair is $(d_A, H_A), (d_B, H_B)$ and b, respectively. $H_A = d_AG, H_B = d_BG$.
+2. Alice and Bob exchange each other's public keys. $(H_A, H_B)$
+3. Alice calculates $S=d_AH_B$, Bob calculates $S=d_BH_A$.   
+The formula $S=d_AH_B=d_A(d_BG)=d_B(d_AG)=d_BH_A$ calculated by Alice and Bob are the same. Alice and Bob share a secret key.
+
+
+# ECDSA (Elliptic Curve Digital Signature Algorithm)
+
+ECDSA is a cryptographic algorithm that incorporates elliptic curve ciphers into electronic signatures.
+In Bitcoin and Ethereum, ECDSA is being used as SECP256K1.
+The private key and the public key have a pair.
+
+The elliptic curve function used in Ethereum and Bitcoin is SECP256K1, which is as follows.
+
+$$ y^2 = x^3 + 7$$
+
+SECP256K1 is an elliptical curve with $a$ of $0$ and $b$ of $7$ and a reference point $G$ of (0x79be667ef9dcbbac55a06295ce870b07029bfcdb2dce28d959f2815b16f81798, 0x483ada7726a3c4655da4fbfc0e1108a8fd17b448a68554199c47d08ffb10d4b8).
+
+```
+p : 0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffefffffc2f
+a : 0x0000000000000000000000000000000000000000000000000000000000000000
+b : 0x0000000000000000000000000000000000000000000000000000000000000007
+G : (0x79be667ef9dcbbac55a06295ce870b07029bfcdb2dce28d959f2815b16f81798, 0x483ada7726a3c4655da4fbfc0e1108a8fd17b448a68554199c47d08ffb10d4b8)
+n : 0xfffffffffffffffffffffffffffffffebaaedce6af48a03bbfd25e8cd0364141
+h : 0x1
+
+https://neuromancer.sk/std/
+```
+
+## 1. Private Key
+
+A Private Key is one of the integers in $1$ ~ $n-1$.
+
+Here, n is defined as $1.157920892373162e+77$ under the SECP256K1 elliptic curve, expressed in hexadecimal as `FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFEFEBAEDCE6AF48A03BFD25E8CD0364141`.
+
+In other words, the private key is to obtain a value between `1` and `FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFEBAEDCE6AF48A03BBFD25E8CD0364141`.
+
+Outside of this range, Ethereum sends an error saying it is an invalid private key.
+
+
+## 2. Signature $r$
+
+Choose $1$ to $n - 1$ integers randomly, as in obtaining a Private Key. While the private key is used only once selected, this value must be obtained each time a transaction is sent. This value becomes $k$.
+
+1. Generate an arbitrary value $k$ (20 bytes). Calculate $P = k$ x $G$ using the multiplication of points.
+2. The $x$ value of the point $P$ represents $r$. (20 bytes)
+
+## 3. Signature $s$
+
+$$s = k^{-1}(z + r * Private \ Key)\mod{n}$$
+
+z : Value containing transaction information(hash)  
+At this time, if the calculation value is $0$, the random number $K$ must be newly generated and recalculated.
+
+When transmitting a transaction, you can send a transaction containing the contents and signatures $r$ and $s$.
+
+## 4. Verification
+
+$$U1 = z * w \mod{n}$$  
+
+$$U2 = r * w \mod{n}$$  
+
+$$w = s^{-1} \mod{n}$$  
+
+$$U1 * G + U2 * Private \ Key$$  
+
+The public key is the recovery key, and Ethereum uses an integer 27 or 28, not a signature value.
+
+The above equation is an operation of the elliptic curve, and the result is a point on the elliptic curve. And you can compare whether the $x-coordinate$ of that point is the same as the signature $r$ that I received.
+
+
+## 5. Public Key
+
+The public key can be sent by the person who sends the transaction, but it does not do so in Ethereum. The original public key can be obtained using the recovery key. In Ethereum, this recovery key is promised at the value of 27 or 28, so you can extract the sender's public key using the recovery key only with a signature.
+
+In summary, public keys can be extracted from signatures $v$, $r$, and $s$ in the transaction. In solidity, there is a function called ecrecover.
+
+The public key can be obtained from the private key. You can multiply the secret key by the reference point $G$ set in Ethereum.
+
+As mentioned above, the secret key is a simple integer, so it is only a constant, and the point $G$ is a point on the elliptical curve, so the public key is also a point on the elliptical curve.
+
+$$Public \ Key = Private \ Key * G$$
+
+## 6. Address
+
+The address can be obtained from the public key. The address is hexadecimal and the last 20 bytes of the public key's Keccak-256 hash are obtained.
+
+```py
+function publicKeyToAddress(pubKey: Buffer): Buffer {
+  return keccak256(pubKey).slice(-20)
+}
+```
+
+
+# Reference 
 ECC : https://developer-mac.tistory.com/83 , https://www.youtube.com/watch?v=_GOmrsCbNss ,   
 　　&nbsp;&nbsp;https://andrea.corbellini.name/2015/05/17/elliptic-curve-cryptography-a-gentle-introduction/       
 ECDLP : https://rbtree.blog/posts/2020-05-19-anomalous-elliptic-curve/    
@@ -450,6 +360,8 @@ ECDLP : https://rbtree.blog/posts/2020-05-19-anomalous-elliptic-curve/
 　　　&nbsp;&nbsp;https://github.com/jvdsn/crypto-attacks/blob/master/attacks/ecc/smart_attack.py   
 ECDH : https://velog.io/@dohoon8/Cryptography-4.-ECDH%EC%99%80-ECDSA%EC%97%90-%EB%8C%80%ED%95%98%EC%97%AC-pgbr3e5a   
 ECDSA : https://www.jongho.dev/blockchain/ethereum-sign-and-ecdsa/   
-Edwards curve : https://en.wikipedia.org/wiki/Edwards_curve
+Edwards curve : https://en.wikipedia.org/wiki/Edwards_curve    
+Curve Attacks : https://eprint.iacr.org/2015/1233.pdf
+
 
 
