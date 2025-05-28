@@ -128,7 +128,7 @@ $$y=\frac{1}{1+e^{-(x_1^2+x_2^2-1)}}$$
 
 이번에는 종속변수가 다중클래스인 경우에 Classification을 어떻게 할 수 있는지 살펴보자. 예를 들어 3개 class가 있다고 하자. 
 
-<p align="center"><img src="https://github.com/user-attachments/assets/c29f74ef-b40c-4e71-bb1e-14ba9517db22" height="" width=""></p>
+<p align="center"><img src="https://github.com/user-attachments/assets/c29f74ef-b40c-4e71-bb1e-14ba9517db22" height="50%" width="50%"></p>
 
 다중클래스인 경우 1개 클래스와 나머지 클래스를 묶어서 2개 클래스를 나누듯이 여러 번 나누면 된다. 
 
