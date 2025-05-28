@@ -258,7 +258,7 @@ It is of cryptographic interest because its apparent intractability is the basis
 Anomalous elliptic curve has a curve of defined above $F_p$, it means a curve whose **order** is $p$.
 Defining an elliptical curve determines the number of points that can exist on that curve, which is called an **order**.
 
-Let's say that the order of the curve is the composite number $n$ and the factorization is possible, and the result is $n=p_1p_2..P_k$. Then we can split the entire group of points into subgroups of $p_i$ points for each prime factor $p_i$.
+Let's say that the order of the curve is the composite number $n$ and the factorization is possible, and the result is $n=p_1p_2..p_k$. Then we can split the entire group of points into subgroups of $p_i$ points for each prime factor $p_i$.
 The size of this subgroup is smaller than $n$, making it easier to attack, and the results for each subgroup can be combined into one. Therefore, if the curve defined for $F_p$ of prime $p$ has $order \ p$, it is considered relatively less vulnerable to attack because it is equally prime.
 
 One where $𝐸(𝐹𝑝)$ which mean The **order** doesnot have sufficiently large prime subgroups and is subject to the **Pohlig-Hellman attack**, and another
