@@ -362,7 +362,7 @@ ECDLP : https://rbtree.blog/posts/2020-05-19-anomalous-elliptic-curve/
 ECDH : https://velog.io/@dohoon8/Cryptography-4.-ECDH%EC%99%80-ECDSA%EC%97%90-%EB%8C%80%ED%95%98%EC%97%AC-pgbr3e5a   
 ECDSA : https://www.jongho.dev/blockchain/ethereum-sign-and-ecdsa/   
 Edwards curve : https://en.wikipedia.org/wiki/Edwards_curve    
-Curve Attacks : https://eprint.iacr.org/2015/1233.pdf
+Elliptic Curve Models & Curve Attacks(*) : https://eprint.iacr.org/2015/1233.pdf
 
 
 
