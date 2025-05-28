@@ -261,7 +261,7 @@ Defining an elliptical curve determines the number of points that can exist on t
 Let's say that the order of the curve is the composite number $n$ and the factorization is possible, and the result is $n=p_1p_2..p_k$. Then we can split the entire group of points into subgroups of $p_i$ points for each prime factor $p_i$.
 The size of this subgroup is smaller than $n$, making it easier to attack, and the results for each subgroup can be combined into one. Therefore, if the curve defined for $F_p$ of prime $p$ has $order \ p$, it is considered relatively less vulnerable to attack because it is equally prime.
 
-One where $𝐸(𝐹𝑝)$ which mean The **order** doesnot have sufficiently large prime subgroups and is subject to the **Pohlig-Hellman attack**, and another
+One where $𝐸(𝐹𝑝)$ which mean The **order** does not have sufficiently large prime subgroups and is subject to the **Pohlig-Hellman attack**, and another
 where $𝐸(𝐹𝑝) = 𝑝$ allowing an **Smart’s Attack**
 
 
