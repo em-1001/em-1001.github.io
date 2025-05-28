@@ -236,6 +236,16 @@ Further speedup is achieved by computing $2xy$ as $(x+y)^2 - x^2 - y^2$.
 This reduces the cost of doubling in homomorphic coordinates to $3M + 4S + 3C + 6a$.
 Here $M$ is field multiplications, $S$ is field squarings, $D$ is the cost of multiplying by the curve parameter $d$, and $a$ is field addition.
 
+## Edwards -> Montgomery -> Weierstrass 
+Edwards, Montgomery, and Weierstrass are Equivalences, so Curve transformation and Points mapping are possible through the relationship below. 
+
+1. Edwards -> Montgomery   
+When the form of Edwards curves is $\mathcal{E}_{e}^{a, d} : ax^2 + y^2 = 1 + dx^2y^2$ and the form of Montgomery curves is $\mathcal{E}_m^{A, B}: By^2 = x^3 + Ax^2 + x$, 
+$\mathcal{E}_e^{a, d}$ is converted to Montgomery curves $\mathcal{E}_m^{2(a + d)/(a - d), 4/(a - d)}$, and the Point map is $(x, y) \mapsto \left(\frac{1 + y}{1 - y}, \frac{1 + y}{x - xy}\right)$. 
+
+2. Montgomery -> Weierstrass    
+When the form of Montgomery curves is $\mathcal{E}_ m^{A, B}: By^2 = x^3 + Ax^2 + x$ and the form of Weierstrass curves is $\mathcal{E}_{w}^{a, b} : y^2 = x^3 + ax + b$, 
+$\mathcal{E}_m^{A, B}$ is converted to Weierstrass curve $\mathcal{E}_w^{1/B^2-A^2/3B^2,A(2A^2 - 9)/27B^3}$, and the Point map is $(x, y) \mapsto \left(x+\frac{A}{3}, \frac{y}{B} \right)$.
 
 # ECDLP (Elliptic Curve Discrete Logarithm Problem)
 
