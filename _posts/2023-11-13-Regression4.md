@@ -139,5 +139,74 @@ $$y=\frac{1}{1+e^{-(x_1^2+x_2^2-1)}}$$
 
 추가적으로 단층신경망(로지스틱회귀)으로 분류 문제를 풀 수 있는가 없는가?를 판단할 때에는 시각화한 후에 Decision Boundary를 그릴 수 있는가 없는가로 판단할 수 있다. XOR문제 같은 경우에는 단순하게 Boundary를 그릴 수 없기 때문에 다층신경망을 이용해서 공간을 Non Linear 하게 뒤틀어 버린 후에 Classification을 하게 된다. 
 
+## Generalized Linear Model
+
+GLM(Generalized Linear Model)은 일반형 회귀를 말한다. 일반형 회귀를 시작할 때 나오는 설명들로, 종속변수가 정규분포할 때는 선형회귀를, 종속변수가 Binary일 때는 Logistic 회귀를, 종속변수가 Poisson일 때에는 Poisson회귀를 한다며 당므과 같은 Link 함수를 소개하는 경우가 많다. 
+
+<p align="center"><img src="https://github.com/user-attachments/assets/42917cf6-b56f-43c0-ba1c-5da11d91779f" height="" width=""></p>
+
+여기에서 Link함수라는 건 Link함수를 이용하면 독립변수와 종속변수가 선형관계를 갖지 않는 경우, 로지스틱 회귀에서 보았던 것처럼 선형회귀로 문제를 풀 수 있다는 의미이다. 따라서 Link함수는 종속변수에 적용하는 함수이다. 이 Link함수라는 것을 이해하기 위해서는 회귀를 할 때 모회귀선에 대한 가정을 이해하는 것이 중요하다. 이를 더 자세하게 알아보기 위해서 선형회귀, 로지스틱회귀, 포아송회귀, 그리고 일반적인 회귀 순서로 살펴보자. 
+
+먼저 선형회귀부터 살펴보면 선형회귀에서 회귀분석을 할 때에는 어떤 가정을 만족해야 하는데, 그 가정은 첫 번째로 독립변수와 종속변수가 선형관계이고, 회귀선이 지나는 y의 값은 각 xᵢ에서의 모집단 yᵢ의 추정 평균(True Estimated Mean)을 지나게 된다는 것이다. 그리고, 모집단 yᵢ는 가우시안 분포를 한다는 것이다. 
+
+<p align="center"><img src="https://github.com/user-attachments/assets/5a0f9995-0412-4ffa-ac26-8e3cb3b4a277" height="" width=""></p>
+
+따라서 선형회귀의 경우, x와 y가 선형관계이고, 각 x에서의 회귀선상의 각 y의 의미는 가우시안 분포를 가지는 y에 대한 모평균 추정값(Estimated True Mean)을 의미한다. 
+
+이를 표현하면 다음과 같다. 
+
+$$\mu_i = b_0+b_1x_i$$
+
+각 관측점의 종속변수의 모분포를 표현하면 다음과 같다. 
+
+$$y_i \sim \mathcal{N}(\mu_i, \epsilon)$$
+
+다음으로 로지스틱 회귀이다. 같은 의미로 로지스틱회귀에서 회귀분석을 할 때 만족해야 하는 가정은 독립변수와 종속변수, 즉 xᵢ와 Odds $\frac{P_i}{1-P_i}$가 지수관계이고, 회귀선이 지나는 y의 값은 각 xᵢ에서의 모집단 yᵢ의 추정 확률(True Estimated Probability)을 지나게 된다는 것이다. 그리고, 모집단 yᵢ는 베르누이 분포를 한다는 것이다. 
+
+회귀선을 찾기 위한 각 xᵢ에서의 표본 확률을 이용한다. 이를 수식으로 풀어쓰면 다음과 같다. 
+
+$$\ln \left(\frac{P_i}{1-P_i} \right) = b_0 + b_1x_i$$
+
+이걸 선형회귀의 경우와 똑같이 각 관측점 xᵢ에서의 종속변수의 모분포는 베르누이 분포니까 종속변수의 모분포가 다음과 같이 표현된다. 
+
+$$y_i \sim Ber(P_i)$$
+
+다음으로 포아송 회귀이다. 포아송회귀에서 회귀분석을 할 때 만족해야 하는 가정은 독립변수와 종속변수가 지수관계를 가지고, 회귀선이 지나는 y의 값은 각 xᵢ에서의 모집단 yᵢ의 추정 평균 발생률(True Estimated Mean Number of Event)을 지나게 된다는 것이다. 그리고 각 xᵢ에서의 종속변수인 모집단 yᵢ는 포아송분포를 한며 다음과 같이 표현한다. 
+
+$$\lambda_i = e^{(b_0+b_1x_i)}$$
+
+그리고, 각 관측점 xᵢ에서 관측된 종속변수 yᵢ의 분포는 모평균발생률을 모수로 한 Poisson 분포를 갖는다. 각 xᵢ에서의 표본 yᵢ의 표본평균발생률을 이용해서 선형회귀선을 찾는다. 
+
+$$y_i \sim Poisson(\lambda_i)$$
+
+<p align="center"><img src="https://github.com/user-attachments/assets/1bc849e9-e9e7-4602-90a0-10d5b261ae0a" height="" width=""></p>
+
+위 포아송 분포 데이터를 보면 선형은 아닌 것 같은데, Exponential이 강하게 든다. 그리고 각 관측점에서 yᵢ의 분산이 점점 더 커지는 느낌이다. 
+
+포아송 분포는 $x$가 발생 횟수, $\lambda$가 평균 발생률일 때 다음과 같다. 
+
+$$P(X=x)=\frac{\lambda^xe^{-\lambda}}{x!}$$ 
+
+이때 평균 발생률에 따라 모양이 다음과 같이 바뀐다. 
+
+<p align="center"><img src="https://github.com/user-attachments/assets/84d0f9da-4420-4d31-a03a-f8c9206e6d0f" height="" width=""></p>
+
+이걸 돌려서 보면 다음과 같다. 
+
+<p align="center"><img src="https://github.com/user-attachments/assets/0ba2ac96-e4b8-4b67-816f-afa163d83c9b" height="" width=""></p>
+
+이걸 해석해보면 $\lambda_i$가 평균 발생률 이므로 평균 발생률이 $\lambda_i$일 때, $y_i$번 발생할 확률을 의미한다. 
+이 데이터 분포를 Poisson 분포와 겹쳐서 그리면 다음과 같다. 
+
+<p align="center"><img src="https://github.com/user-attachments/assets/3ee77d0b-141f-4e37-9d89-3b118245a67c" height="" width=""></p>
+
+
+
+
+
+
+
+
+
 
 
