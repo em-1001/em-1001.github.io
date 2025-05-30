@@ -189,7 +189,7 @@ $$P(X=x)=\frac{\lambda^xe^{-\lambda}}{x!}$$
 
 이때 평균 발생률에 따라 모양이 다음과 같이 바뀐다. 
 
-<p align="center"><img src="https://github.com/user-attachments/assets/84d0f9da-4420-4d31-a03a-f8c9206e6d0f" height="" width=""></p>
+<p align="center"><img src="https://github.com/user-attachments/assets/84d0f9da-4420-4d31-a03a-f8c9206e6d0f" height="50%" width="50%"></p>
 
 이걸 돌려서 보면 다음과 같다. 
 
