@@ -200,8 +200,55 @@ $$P(X=x)=\frac{\lambda^xe^{-\lambda}}{x!}$$
 
 <p align="center"><img src="https://github.com/user-attachments/assets/3ee77d0b-141f-4e37-9d89-3b118245a67c" height="" width=""></p>
 
+y축이 실제 발생 횟수이다. 이 확률 분포를 바라보면 다음과 같이 해석할 수 있다. 각 xᵢ에서 관찰된 발생 횟수는 yᵢ로 관찰되고 관찰된 yᵢ에 대하여 계산한 평균 발생률 λᵢ에 따라서 발생 횟수의 yᵢ모분포가 결정된다. 회귀선을 보면 지수함수처럼 늘어난다. 따라서 다음과 같은 형태가 된다. 
 
+$$\lambda_i = e^{(b_0+b_1x_i)}$$
 
+결국 $\ln \lambda_i = b_0+b_1x_i$가 되고 $y_i \sim Poisson(\lambda_i)$이다. 그렇다면 λᵢ값들을 어떻게 변환해야 직선처럼까? 각 xᵢ에서의 λᵢ를 활용해서 회귀를 하고 λᵢ가 지수형태를 가지니까, 로그를 취해서 다음과 같이 정리할 수 있다. 
+
+$$\ln(\lambda_i) = b_0+b_1x_i$$
+
+$$y_i \sim Poisson(\lambda_i)$$
+
+이렇게 하면 선형회귀로 고쳐서 회귀를 할 수 있다. 로지스틱 회귀의 링크함수가 logit이라면 포아송의 경우는 $\ln$이다. 
+
+지금까지가 link함수를 선정하는 원리인데, 이런 경우도 있을 수 있다. 데이터가 지수함수처럼 늘어나는데, 각 관찰점에서의 종속변수는 포아송이 아닌 가우시안 분포를 따르는 것이다. 
+
+<p align="center"><img src="https://github.com/user-attachments/assets/9b6170aa-0af3-47f5-aedb-d06587289f7a" height="" width=""></p>
+
+이런 식으로 생긴 데이터에 대해서 link 함수를 정한다면 yᵢ는 어떤 분포를 갖는가? 와 전체 추세가 어떤가?를 생각했을 때, 전체 추세가 지수함수 꼴이니까, 로그를 씌워서 선형회귀처럼 만들 수 있다. 또한 각 관측점 xᵢ에서의 종속변수의 모분포는 가우시안 이니까 다음과 같이 표현할 수 있다. 
+
+$$\ln(\mu_i) = b_0+b_1x$$
+
+$$y_i \sim \mathcal{N}(\mu_i, \epsilon)$$
+
+이런 식으로 로그함수를 링크 함수로 정해서 회귀하면 된다. 
+
+어떤 식으로 Poisson 회귀를 하는지 한번 statsmodel의 코드 예시를 살펴보고, 마지막에 봤던 지수느낌의 Gaussian도 확인해보자. 
+
+```py
+# Poisson 회귀 
+import statsmodels.api as sm 
+ 
+exog, endog = sm.add_constant(x), y 
+ 
+model = sm.GLM(endog, exog, sm.families.Poisson(link=sm.families.links.log)) 
+ 
+reg = model.fit()  # link함수는 log, yi의 분포는 Poisson이라는 의미입니다.
+```
+
+exog는 exogenous라고 해서 독립변수 x를 의미하고, endog는 endogenous라고 해서 종속변수 y를 의미한다. 
+exog는 외생변수, endog는 내생변수를 의미하고, 독립변수는 모형에 외부에서 영향을 주는 변수, 종속변수는 모형 내부에서 독립변수의 영향을 받는 변수라는 느낌으로 알아두면 된다. 코드의 의미는 특정 분포의 종속변수에 link함수를 씌우듯이 같은 순서로 종속변수 포아송에, 링크 함수는 log로 정해주면 자동으로 회귀 분석을 해준다. 
+
+가우시안의 경우 다음과 같다. 
+
+```py
+model = sm.GLM(endog, exog, family=sm.families.Gaussian(sm.families.links.log)) # link함수는 log, yi의 분포는 Gaussian이라는 이야기입니다. 
+ 
+reg = model.fit()
+```
+
+종속변수 가우시안에, 링크함수 log로 해서 회귀 분석 결과를 알려준다. 
 
 
 
