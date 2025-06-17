@@ -115,7 +115,7 @@ FAT32는 보통 다음과 같은 영역으로 나눠진다.
 +------------------------+
 ```
 
-## Reserved Region
+### Reserved Region
 
 Reserved Region에는 주로 Boot Sector (VBR — Volume Boot Record), FSInfo(파일 시스템 정보 섹터), 기타 예약된 섹터로 이루어져 있다. 
 
@@ -185,7 +185,7 @@ Offset(h)  00 01 02 03 04 05 06 07 08 09 0A 0B 0C 0D 0E 0F
 6. Volume Label (0x47 ~ 0x51): `NO NAME`
 7. File System Type (0x52 ~ 0x5A): `FAT32`
 
-# FAT Area(FAT #1, FAT #2)
+### FAT Area(FAT #1, FAT #2)
 
 앞서 살펴본 FAT32 VBR영역 중 Reserved Sector에는 FAT Area 이전에 존재하는 섹터 수가 담겨 있기 때문에 이 값을 이용해 FAT Area의 시작 주소를 찾을 수 있다. `FAT offset = VBR offset + Reserved Sector * 0x200` 위의 경우 `0 + 0x24 * 0x200 = 0x4800`이다. 
 
