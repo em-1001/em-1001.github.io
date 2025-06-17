@@ -236,6 +236,8 @@ Root Directory 내에는 32바이트의 Directory Entry 구조가 반복되어 �
 12. Low 16 bits of First Cluster (0x1A ~ 0x1B): 클러스터 번호 하위 16비트
 13. File Size (0x1C ~ 0x1F): 파일 크기(byte)
 
+----- LFN 구조 
+
 이 정보를 이용해 디스크 내 임의의 PNG파일을 찾아보자. 
 
 ```
