@@ -15,7 +15,7 @@ last_modified_at: 2023-10-18T08:06:00-05:00
 
 ## MBR & VBR 
 
-HxD를 통해 MBR와 VBR의 구조를 살펴보자. `도구->디스크 열기`를 통해 조사할 물리 디스크를 선택한다. 
+HxD를 통해 MBR와 VBR의 구조를 살펴보자. `도구 -> 디스크 열기`를 통해 조사할 물리 디스크를 선택한다. 
 
 ```
 Offset(h)   00 01 02 03 04 05 06 07 08 09 0A 0B 0C 0D 0E 0F
@@ -189,7 +189,7 @@ Offset(h)  00 01 02 03 04 05 06 07 08 09 0A 0B 0C 0D 0E 0F
 
 앞서 살펴본 FAT32 VBR영역 중 Reserved Sector에는 FAT Area 이전에 존재하는 섹터 수가 담겨 있기 때문에 이 값을 이용해 FAT Area의 시작 주소를 찾을 수 있다. `FAT offset = VBR offset + Reserved Sector * 0x200` 위의 경우 `0 + 0x24 * 0x200 = 0x4800`이다. 
 
-FAT Area는 여러 개의 엔트리로 구성되며 각 엔트리는 Data Area의 클러스터 할당 상태를 나타낸다. FAT Area 엔트리는 4바이트의 값이고, Data Area의 클러스터는 0x1000바이트 크기를 갖는다. 
+FAT Area는 여러 개의 엔트리로 구성되며 각 엔트리는 Data Area의 클러스터 할당 상태를 나타낸다. FAT Area 엔트리는 4바이트의 값이고, Data Area의 클러스터는 0x1000바이트 크기를 가지며 FAT Area의 하나의 엔트리는 하나의 클러스터와 일대일 대응된다. 
 
 ```
 Offset(h)  00 01 02 03 04 05 06 07 08 09 0A 0B 0C 0D 0E 0F
@@ -217,6 +217,47 @@ Offset(h)  00 01 02 03 04 05 06 07 08 09 0A 0B 0C 0D 0E 0F
 ## Data Area
 
 Data Area는 FAT Area 주소에서 FAT 크기 2개(FAT #1, FAT #2)를 더한 값으로 찾을 수 있다. `Data Area offset = VBR offset + Reserved Sector * 0x200 + FAT Size * 0x200 * 2` 이므로 계산해보면 `0+ 0x4800 + 0x1DCE * 0x200 * 2 = 0x778000`이다. 
+
+`0x778000`주소에는 FAT32의 Root Directory가 위치하고, 이는 2번 클러스터에 해당하며 FAT 테이블의 2번 엔트리에 대응된다. 
+
+Root Directory 내에는 32바이트의 Directory Entry 구조가 반복되어 저장되며 구조는 다음과 같다. 
+
+1. File Name (0x00 ~ 0x07)
+2. Extension (0x08 ~ 0x10): 파일 확장자
+3. Attributes (0x0B ~ 0x0B): 속성 플래그
+4. Reserved (0x0C ~ 0x0C)
+5. Creation Time(ms) (0x0D ~ 0x0D)
+6. Created Time (0x0E ~ 0x0F): 생성 시간
+7. Created Date (0x10 ~ 0x11): 생성 날짜
+8. Last Access Date (0x12 ~ 0x13): 마지막 접근 날짜
+9. High 16 bits of First Cluster (0x14 ~ 0x15): 클러스터 번호 상위 16비트
+10. Last Write Time (0x16 ~ 0x17): 마지막 수정 시간
+11. Last Write Date (0x18 ~ 0x19): 마지막 수정 날짜
+12. Low 16 bits of First Cluster (0x1A ~ 0x1B): 클러스터 번호 하위 16비트
+13. File Size (0x1C ~ 0x1F): 파일 크기(byte)
+
+이 정보를 이용해 디스크 내 임의의 PNG파일을 찾아보자. 
+
+```
+Offset(h)  00 01 02 03 04 05 06 07 08 09 0A 0B 0C 0D 0E 0F
+
+000778380  41 44 46 53 46 53 7E 31 50 4E 47 20 00 08 AF BD  ADFSFS~1PNG ..¯½
+000778390  78 4E D1 5A 00 00 B0 BD 78 4E 07 00 B2 18 0A 00  xNÑZ..°½xN..²...
+```
+
+Directory Entry 구조들을 살펴보다 PNG파일을 발견하였다. Directory Entry 구조에 대응하여 몇가지 정보를 확인하면 확장자가 PNG임을 알 수 있고, 클러스터 번호 하위 16비트가 `0x07`임을 알 수 있다. 앞서 Root Directory가 2번 엔트리라 하였으므로 png파일의 데이터는 Root Directory 주소에서 5개 클러스터만큼 이동한 offset 즈음에 있을 것이다. `0x778000 + cluster(0x1000) * 5 = 0x77D000` 해당 offset 이후부터 png파일의 시그니처 헤더와 푸터를 찾아 추출해보면 원래 디스크에 있던 png파일과 동일한 파일을 얻을 수 있다. 
+
+```
+Offset(h)  00 01 02 03 04 05 06 07 08 09 0A 0B 0C 0D 0E 0F
+
+00078C000  89 50 4E 47 0D 0A 1A 0A 00 00 00 0D 49 48 44 52  ‰PNG........IHDR
+00078C010  00 00 01 B6 00 00 02 48 08 06 00 00 00 0D 79 C1  ...¶...H......yÁ
+00078C020  84 00 00 00 01 73 52 47 42 00 AE CE 1C E9 00 00  „....sRGB.®Î.é..
+00078C030  00 04 67 41 4D 41 00 00 B1 8F 0B FC 61 05 00 00  ..gAMA..±..üa...
+00078C040  00 09 70 48 59 73 00 00 0E C3 00 00 0E C3 01 C7  ..pHYs...Ã...Ã.Ç
+00078C050  6F A8 64 00 00 FF A5 49 44 41 54 78 5E 74 FD 87  o¨d..ÿ¥IDATx^tý‡
+...
+```
 
 
 
