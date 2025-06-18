@@ -180,7 +180,7 @@ Offset(h)  00 01 02 03 04 05 06 07 08 09 0A 0B 0C 0D 0E 0F
 1. OEM ID (0x03 ~ 0x0A)
 2. Reserved Sector (0x0E ~ 0x0F): `24 00`
 3. Total Sector 32 (0x20 ~ 0x23)
-4. FAT Size 32 (0x24 ~ 0x27): `CE 1D 00 00` Size of one FAT Area
+4. FAT Size 32 (0x24 ~ 0x27): `CE 1D 00 00` (Size of one FAT Area)
 5. Volume Serial Number (0x43 ~ 0x46)
 6. Volume Label (0x47 ~ 0x51): `NO NAME`
 7. File System Type (0x52 ~ 0x5A): `FAT32`
