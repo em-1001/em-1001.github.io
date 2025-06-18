@@ -214,13 +214,13 @@ Offset(h)  00 01 02 03 04 05 06 07 08 09 0A 0B 0C 0D 0E 0F
 
 3번 ~ 6번 엔트리를 보면 5번까지는 해당 엔트리 값으로 다음 엔트리 값을 가지고 있다. 그리고 6번에서 EOF가 있는 것으로 보아 3 ~ 6 엔트리들이 하나의 파일에 할당되어 있는 것을 알 수 있다. 
 
-## Data Area
+### Data Area
 
 Data Area는 FAT Area 주소에서 FAT 크기 2개(FAT #1, FAT #2)를 더한 값으로 찾을 수 있다. `Data Area offset = VBR offset + Reserved Sector * 0x200 + FAT Size * 0x200 * 2` 이므로 계산해보면 `0+ 0x4800 + 0x1DCE * 0x200 * 2 = 0x778000`이다. 
 
 `0x778000`주소에는 FAT32의 Root Directory가 위치하고, 이는 2번 클러스터에 해당하며 FAT 테이블의 2번 엔트리에 대응된다. 
 
-Root Directory 내에는 32바이트의 Directory Entry 구조가 반복되어 저장되며 구조는 다음과 같다. 
+Root Directory 내에는 32바이트의 Directory Entry 구조가 반복되어 저장되며 구조는 다음과 같고, 이를 SFN 구조라고 한다. 
 
 1. File Name (0x00 ~ 0x07)
 2. Extension (0x08 ~ 0x10): 파일 확장자
@@ -236,18 +236,58 @@ Root Directory 내에는 32바이트의 Directory Entry 구조가 반복되어 �
 12. Low 16 bits of First Cluster (0x1A ~ 0x1B): 클러스터 번호 하위 16비트
 13. File Size (0x1C ~ 0x1F): 파일 크기(byte)
 
------ LFN 구조 
+File Name을 보면 최대 8바이트까지만 저장이 가능하다. 파일이름이 8바이트를 초과하게 되면 SFN이  아닌 LFN 구조를 이용한다. 
+
+```diff
++------------------------+
+| LFN Entry (N번째)      |
+| - Sequence Number (N)  |
+| - Name (부분문자 1~5)  |
+| - Attribute: 0x0F      |
+| - Checksum            |
+| - Name (부분문자 6~11) |
+| - Name (부분문자 12~13)|
++------------------------+
+| ... (다수의 LFN Entry) |
++------------------------+
+| LFN Entry (1번째)      |
++------------------------+
+| SFN Entry     |
+| - Short Name (8.3)     |
+| - Attributes           |
+| - Cluster, Size 등     |
++------------------------+
+```
+
+LFN의 구조는 위와 같은 형태로 파일의 이름이 길어질수록 추가되는 형태이다. 또한 LFN 엔트리 내부의 구조는 다음과 같다.
+
+1. Seq Num (0x00 ~ 0x00): LFN 엔트리 순서
+2. File Name (0x01 ~ 0x0A)
+3. Attr(0x0B ~ 0x0B)
+4. Reserved (0x0C ~ 0x0C)
+5. Check Sum (0x0D ~ 0x0D)
+6. File Name (0x0E ~ 0x19)
+7. First Cluster Low (0x1A ~ 0x1B): 항상 0
+8. File Name (0x1C ~ 0x1F)
+
 
 이 정보를 이용해 디스크 내 임의의 PNG파일을 찾아보자. 
 
 ```
 Offset(h)  00 01 02 03 04 05 06 07 08 09 0A 0B 0C 0D 0E 0F
 
+000778340  42 64 00 66 00 2E 00 50 00 4E 00 0F 00 8F 47 00  Bd.f...P.N....G.
+000778350  00 00 FF FF FF FF FF FF FF FF 00 00 FF FF FF FF  ..ÿÿÿÿÿÿÿÿ..ÿÿÿÿ
+000778360  01 61 00 64 00 66 00 73 00 66 00 0F 00 8F 73 00  .a.d.f.s.f....s.
+000778370  64 00 64 00 66 00 73 00 64 00 00 00 61 00 73 00  d.d.f.s.d...a.s.
 000778380  41 44 46 53 46 53 7E 31 50 4E 47 20 00 08 AF BD  ADFSFS~1PNG ..¯½
 000778390  78 4E D1 5A 00 00 B0 BD 78 4E 07 00 B2 18 0A 00  xNÑZ..°½xN..²...
+
 ```
 
-Directory Entry 구조들을 살펴보다 PNG파일을 발견하였다. Directory Entry 구조에 대응하여 몇가지 정보를 확인하면 확장자가 PNG임을 알 수 있고, 클러스터 번호 하위 16비트가 `0x07`임을 알 수 있다. 앞서 Root Directory가 2번 엔트리라 하였으므로 png파일의 데이터는 Root Directory 주소에서 5개 클러스터만큼 이동한 offset 즈음에 있을 것이다. `0x778000 + cluster(0x1000) * 5 = 0x77D000` 해당 offset 이후부터 png파일의 시그니처 헤더와 푸터를 찾아 추출해보면 원래 디스크에 있던 png파일과 동일한 파일을 얻을 수 있다. 
+Directory Entry 구조들을 살펴보다 PNG파일을 발견하였다. 파일 이름이 길어서 LFN 구조로 쌓여있는 것 같다. offset `0x000778340`와 `0x000778360`를 보면 0x42와 0x01이라 되어있는데, LFN 구조의 Seq Num은 마지막 LFN 구조에만 0x40과 OR을 한다. 따라서 `0x000778360`가 첫 번째 LFN 엔트리, `0x000778340`가 2번째 이자 마지막 LFN 엔트리, `0x000778380`는 바로 파일 이름이 있는 것으로 보아 SFN 엔트리 인것 같다. 
+
+SFN 엔트리 부분을 Directory Entry 구조에 대응하여 몇가지 정보를 확인하면 확장자가 PNG임을 알 수 있고, 클러스터 번호 하위 16비트가 `0x07`임을 알 수 있다. 앞서 Root Directory가 2번 엔트리라 하였으므로 png파일의 데이터는 Root Directory 주소에서 5개 클러스터만큼 이동한 offset 즈음에 있을 것이다. `0x778000 + cluster(0x1000) * 5 = 0x77D000` 해당 offset 이후부터 png파일의 시그니처 헤더와 푸터를 찾아 추출해보면 원래 디스크에 있던 png파일과 동일한 파일을 얻을 수 있다.
 
 ```
 Offset(h)  00 01 02 03 04 05 06 07 08 09 0A 0B 0C 0D 0E 0F
