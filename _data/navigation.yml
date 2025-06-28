@@ -8,11 +8,33 @@ main:
     url: /about/
 
 docs:
+  - title: Cryptography
+    children:
+      - title: "Lattice"
+        url: /tags/#lattice
+      - title: "Elliptic Curve"
+        url: /tags/#elliptic-curve
   - title: Computer Vision
     children:
-      - title: "Computer Vision"
-        url: /categories/Computer Vision
+      - title: "CS231n"
+        url: /tags/#cs231n
+      - title: "Object Detection"
+        url: /tags/#object-detection
+      - title: "Adversarial Attack"
+        url: /tags/#adversarial-attack
+      - title: "Segmentation"
+        url: /tags/#segmentation
+      - title: "Generative AI"
+        url: /tags/#generative-ai
+  - title: Natural Language Processing
+    children:
+      - title: "Transformer "
+        url: /tags/#transformer
   - title: Statistics
     children:
       - title: "Statistics"
-        url: /categories/Statistics
+        url: /tags/#statistics
+  - title: Algorithm
+    children:
+      - title: "Algorithm"
+        url: /tags/#algorithm
