@@ -6,3 +6,13 @@ main:
     url: /tags/
   - title: "About"
     url: /about/
+
+docs:
+  - title: Computer Vision
+    children:
+      - title: "Computer Vision"
+        url: /categories/Computer Vision
+  - title: Statistics
+    children:
+      - title: "Statistics"
+        url: /categories/Statistics
