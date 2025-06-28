@@ -5,7 +5,6 @@ excerpt: "Elliptic Curve"
 categories:
   - Cryptography
 tags:
-  - Algorithm
   - Cryptography
   - Elliptic Curve
 last_modified_at: 2025-04-18T08:06:00-05:00
