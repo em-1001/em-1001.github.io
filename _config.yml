@@ -284,6 +284,8 @@ defaults:
       toc: true
       toc_sticky: true
       toc_label: "TOC"
+      sidebar:
+        nav: "docs"
 
   # _pages
   - scope:
