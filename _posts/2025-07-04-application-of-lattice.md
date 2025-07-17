@@ -48,7 +48,7 @@ $c$는 0에 매우 가깝다. 즉, 이 벡터가 우리가 Lattice Reduction을 
 
 $$\lVert b_1 \rVert \leq \left( \frac{2}{\sqrt{4 \delta -1}} \right)^{n-1} \sqrt{n} \cdot \vert \det(\mathcal{L}) \vert^{1/n} \approx 2868$$
 
-즉, LLL 알고리즘이 $\lVert b_1 \rVert \leq 2868$을 보장하는데, 이는 우리가 설정한 target vector의 upper bound 629보다 크므로 LLL이 target vector를 찾아줄 가능성이 있다. 
+즉, LLL 알고리즘이 $\lVert b_1 \rVert \leq 2868$을 보장하는데, 이는 우리가 설정한 target vector의 upper bound $629$보다 크므로 LLL이 target vector를 찾아줄 가능성이 있다. 
 
 위 식은 이론적인 upper bound일 뿐이고, 실제 LLL을 적용하면 이보다 훨씬 짧은 벡터가 나올 때도 많다. [LLL on the Average](https://link.springer.com/chapter/10.1007/11792086_18) 논문에서는 LLL-reduced basis의 first vector에 대한 heuristic 값을 제안하는데 random bases에 대해 $\frac{\lVert b_1 \rVert}{\vert det(\mathcal{L})\vert^{1/n}} \approx 1.02^n$를 만족한다고 한다. 
 
