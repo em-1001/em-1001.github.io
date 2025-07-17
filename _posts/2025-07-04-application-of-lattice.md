@@ -50,7 +50,27 @@ $$\lVert b_1 \rVert \leq \left( \frac{2}{\sqrt{4 \delta -1}} \right)^{n-1} \sqrt
 
 즉, LLL 알고리즘이 $\lVert b_1 \rVert \leq 2868$을 보장하는데, 이는 우리가 설정한 target vector의 upper bound 629보다 크므로 LLL이 target vector를 찾아줄 가능성이 있다. 
 
--0.000000058568341059939416
+위 식은 이론적인 upper bound일 뿐이고, 실제 LLL을 적용하면 이보다 훨씬 짧은 벡터가 나올 때도 많다. [LLL on the Average](https://link.springer.com/chapter/10.1007/11792086_18) 논문에서는 LLL-reduced basis의 first vector에 대한 heuristic 값을 제안하는데 random bases에 대해 $\frac{\lVert b_1 \rVert}{\vert det(\mathcal{L})\vert^{1/n}} \approx 1.02^n$를 만족한다고 한다. 
+
+다시 돌아와서 앞서 세운 lattice에 대해 LLL algorithm을 돌리면 다음의 basis $B^{\prime}$을 얻는다. 
+
+$$
+\mathbf{B}^{\prime} = 
+\begin{bmatrix}
+5 & -348 & 147 & -21 \\
+438 & -75 & 116 & 188 \\
+109 & -214 & -563 & -159 \\
+357 & 136 & 220 & -419
+\end{bmatrix}
+$$
+
+첫 행으로 shortest vector를 주고 있고, first entry가 5로 0에 가까운 것으로 보아 우리가 찾는 해임을 알 수 있다. 즉, 이를 통해 coefficients $a_0=-384, a_1=147, a_2=-21$을 얻을 수 있고 최종 $f$는 다음과 같다. 
+
+$$f(x) = x^3 - 21x^2 + 147x - 348$$
+
+$\7 + \sqrt[3]{5} \approx 8.70997594$로 직접 계산해보면 $f(8.70997594) \approx -0.000000058568341059939416$로 0에 매우 가까운 것을 확인할 수 있다. 
+
+아래 Lattice Reduction 적용 예시 몇 가지를 더 살펴보자. 
 
 ## Subset Sum Problem
 
