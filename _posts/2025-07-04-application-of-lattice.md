@@ -10,9 +10,47 @@ tags:
 last_modified_at: 2025-04-18T08:06:00-05:00
 ---
 
-# Lattices configuration by type
+# An Application of Lattice Reduction
 
-LLL을 사용해 해결할 수 있는 문제들과 각 상황에 따른 격자를 어떻게 구성해야 하는지 예시를 몇가지 살펴보자. 
+Lattice Reduction을 암호학에 적용하기 전에 이를 이용한 문제 해결 예시 몇 가지를 살펴보자. 지금 살펴볼 문제는 유리수 계수의 다항식의 근(해)인 수(algebraic number)가 주어졌을 때, 그 수를 만족하는 유일한 차수가 가장 낮은 정수계수 다항식인 최소 다항식(minimal polynomial) 을 복원하는 문제이다. 이 문제는 격자 축소로 해결이 가능하며 문제를 살펴보면 다음과 같다. 
+
+**Definition (Minimal Polynomial)**. Let $\alpha \in F$ where $F$ is a field. The minimal polynomial of $\alpha$ is the monic polynomial of lowest degree in $F[x]$ such that $\alpha$ is a root. 
+
+우리는 $\alpha = 7 + \sqrt[3]{5}$ 일 때 minimal polynomial $f(x)$를 구하기 위해 lattice reduction을 이용할 것이다. 계산할 때 $\alpha$는 $\beta = 7 + \sqrt[3]{5} \approx 8.70997594$로 근사하여 구할 것이다. 우선 $f$의 degree가 3차라고 가정해보자. $f$의 형태는 $f(x) = a_0 + a_1x + a_2x^2 + a_3x^3 \ a_i \in \mathbb{R}$ 가 된다. $\alpha$가 root이므로 $f(\alpha) = 0$ 즉, $f(\beta) \approx 0$ 이다. lattice reduction을 통해 우리는 $a_0, a_1, a_2, \cdot$을 구해야 한다. 정수상에서 계산해야 하므로 $\beta$에 $10^8$을 곱해여 다음과 같이 계산한다. 
+
+$$10^8a_0 +  + \lfloor 10^8\beta \rfloor a_1 + \lfloor 10^8\beta^2 \rfloor a_2 + \lfloor 10^8\beta^3 \rfloor a_3 \approx 0$$ 
+
+이제 이를 바탕으로 격자를 구성하면 다음과 같다. 
+
+$$
+\mathbf{B} =
+\begin{bmatrix}
+10^8 & 1 & 0 & 0 \\
+\lfloor 10^8 \beta \rfloor & 0 & 1 & 0 \\
+\lfloor 10^8 \beta^2 \rfloor & 0 & 0 & 1 \\
+\lfloor 10^8 \beta^3 \rfloor & 0 & 0 & 0
+\end{bmatrix}
+= \begin{bmatrix}
+100000000 & 1 & 0 & 0 \\
+870997594 & 0 & 1 & 0 \\
+758636087 & 0 & 0 & 1 \\
+6607703514 & 0 & 0 & 0
+\end{bmatrix}
+$$
+
+이 격자에 대해 $t=(a_0, a_1, a_2, 1)$ 라 할 때 $tB$를 계산하면 다음과 같다. 
+
+$$tB = (10^8a_0 +  + \lfloor 10^8\beta \rfloor a_1 + \lfloor 10^8\beta^2 \rfloor a_2 + \lfloor 10^8\beta^3 \rfloor, a_0, a_1, a_2) = (c, a_0, a_1, a_2)$$ 
+
+$c$는 0에 매우 가깝다. 즉, 이 벡터가 우리가 Lattice Reduction을 통해 찾고자 하는 작은 벡터임을 알 수 있고 이를 통해 $a_0, a_1, a_2$를 구할 수 있다. 
+
+이 문제에서 LLL이 성공적으로 minimal polynomial의 coefficients를 찾을 수 있음을 정당화해보자. 먼저 coefficients의 upper bound $M=400$이라고 하자. 이는 우리의 target vector에 대한 rough upper bound $\lVert (0, M, M, M) \rVert \approx 629$를 준다. 이전에 살펴보았던 LLL-reduced basis의 first vector bounds에 대한 정리를 이용하면 다음을 얻는다. 
+
+$$\lVert b_1 \rVert \leq \left( \frac{2}{\sqrt{4 \delta -1}} \right)^{n-1} \sqrt{n} \cdot \vert \det(\mathcal{L}) \vert^{1/n} \approx 2868$$
+
+즉, LLL 알고리즘이 $\lVert b_1 \rVert \leq 2868$을 보장하는데, 이는 우리가 설정한 target vector의 upper bound 629보다 크므로 LLL이 target vector를 찾아줄 가능성이 있다. 
+
+-0.000000058568341059939416
 
 ## Subset Sum Problem
 
