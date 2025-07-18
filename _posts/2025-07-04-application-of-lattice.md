@@ -129,7 +129,7 @@ print(L)
 
 ## Polynomial Coefficient Estimation
 
-이번엔 반대로 아래 합동식에서 다항식의 $x$와 $N$이 주어지고, 계수 $c_i$가 작다고 가정할 때 이 값들을 찾는 문제를 살펴보자.
+이번엔 아래 합동식에서 다항식의 $x$와 $N$이 주어지고, 계수 $c_i$가 작다고 가정할 때 이 값들을 찾는 문제를 살펴보자.
 
 $$\sum_{i=1}^n c_ix^i \equiv 0 \pmod{N}$$
 
