@@ -22,7 +22,7 @@ Coppersmith’s method의 핵심 아이디어는 modular root-finding problem을
 1. $h(x_0) = 0 \pmod{N}$ ($x_0$ is a root of $h$ modulo $N$, just like it is for $f$)
 2. $h(x_0) = 0$ as an integer (i.e. the value of $h(x_0)$ is literally zero, not just divisible by $N$)
 
-만약 $x_0$를 actual root로 갖는 $h(x)$를 찾을 수 있다면, $h(x)$는 small coefficients에 대부분 small degree이므로 $h(x)=0$의 해 $x_0$는 이미 알려진 다항식의 해 알고리즘(factoring the polynomial, using rational root tests) 등을 통해 쉽게 찾을 수 있다. 중요한 건 $h(x)$의 해 $x_0$가 곧 원래 찾고자 했던 $f(x) = 0 \pmod{N}$의 해와 동일하다는 것이다. 
+만약 $x_0$를 actual root로 갖는 $h(x)$를 찾을 수 있다면, $h(x)$는 small coefficients에 대부분 small degree이므로 $h(x)=0$의 해 $x_0$는 이미 알려진 다항식의 해 알고리즘(factoring the polynomial, using rational root tests) 등을 통해 쉽게 찾을 수 있다. 중요한건 $h(x)$의 해 $x_0$가 곧 원래 찾고자 했던 $f(x) = 0 \pmod{N}$의 해와 동일하다는 것이다. 
 
 $h(x_0)=0$의 해 $x_0$가 modular root에서 integer root가 되도록 하기 위해선 $h(x_0)$가 $N$보다 작도록 하면 된다. $x_0$는 $\bmod N$ 상에서의 root이므로 $h(x_0)$의 값은 $N$의 배수이다. 여기서 $\vert h(x_0) \vert < N$라면 $N$의 integer multiple이 될 수 있는 값은 0밖에 없고, 결국 $h(x_0) = 0$인 integer root문제가 된다. 
 
