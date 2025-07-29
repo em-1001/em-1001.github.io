@@ -26,11 +26,14 @@ Coppersmith’s method의 핵심 아이디어는 modular root-finding problem을
 
 $h(x_0)=0$의 해 $x_0$가 modular root에서 integer root가 되도록 하기 위해선 $h(x_0)$가 $N$보다 작도록 하면 된다. $x_0$는 $\bmod N$ 상에서의 root이므로 $h(x_0)$의 값은 $N$의 배수이다. 여기서 $\vert h(x_0) \vert < N$라면 $N$의 integer multiple이 될 수 있는 값은 0밖에 없고, 결국 $h(x_0) = 0$인 integer root문제가 된다. 
 
-Coppersmith’s method는 $h(x)$를 만들기 위해 lattice-based techniques을 이용한다. $x_0 \bmod N$에서 모든 다항식의 근이 되도록 격자를 구성하고, 이 다항식들의 short (small-coefficient) combination을 찾음으로 써 $\vert h(x_0) \vert < N$를 만족시킬 수 있다. 만약 $x_0$가 $N$에 비해 충분히 작다면, 이러한 combination은 반드시 존재하며 lattice reduction을 통해 효율적으로 찾아낼 수 있다. 
+Coppersmith’s method는 $h(x)$를 만들기 위해 lattice-based techniques을 이용한다. $x_0 \bmod N$에서 모든 다항식의 근이 되도록 격자를 구성하고, 이 다항식들의 short (small-coefficient) combination을 찾음으로써 $\vert h(x_0) \vert < N$를 만족시킬 수 있다. 즉, $x_0 \bmod N$를 근으로 갖는 다항식들을 많이 만들어 격자를 구성하는 것인데, 이렇게 하는 이유는 $f(x)$ 하나만으로는 격자상에서 short vector를 찾기 어렵기 때문이다. 만약 $x_0$가 $N$에 비해 충분히 작다면, $h(x)$를 만드는 combination은 반드시 존재하며 lattice reduction을 통해 효율적으로 찾아낼 수 있다. 
 
 ## Constructing Polynomials that Share the Root Mod N
 
+앞서 언급했듯이 $h(x)$를 만들기 위해선 $x_0 \bmod N$를 근으로 갖는 다항식들로 격자를 구성해야 한다. $x_0 \bmod N$를 근으로 갖는 다항식들을 생각해보면 다음의 방벙들이 있다. 
 
+- Multiplying by Powers of $x$ : $f(x_0) \equiv 0 \pmod{N}$ 이므로 $i \geq 0$에 대해 $x_0^i \cdot f(x_0) \equiv 0 \pmod{N}$ 역시 성립한다. 즉, $x_if(x)$ 도 $x_0 \bmod N$를 해로 갖는 다항식이 될 수 있다.
+- Multiplying by Powers of $N$ : $N$의 배수는 modulo $N$ 에서 0 이다. 따라서 임의의 다항식 $g(x)$에 대해 $N \cdot g(x)$ 역시 $N$을 factor로 갖기 때문에 $N \cdot g(x_0) \equiv 0 \pmod{N}$가 성립한다. $N \cdot x^i$와 같은 단순한 monomials도 $x_0 \bmod N$를 근으로 갖고 이러한 monomials은 격자의 기저 다항식(basis polynomials)으로 사용될 수 있다. 
 
 
 
