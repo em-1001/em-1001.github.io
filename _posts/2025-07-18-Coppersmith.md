@@ -30,7 +30,7 @@ Coppersmith’s method는 $h(x)$를 만들기 위해 lattice-based techniques을
 
 ## Constructing Polynomials that Share the Root Mod N
 
-앞서 언급했듯이 $h(x)$를 만들기 위해선 $x_0 \bmod N$를 근으로 갖는 다항식들로 격자를 구성해야 한다. $x_0 \bmod N$를 근으로 갖는 다항식들을 생각해보면 다음의 방벙들이 있다. 
+앞서 언급했듯이 $h(x)$를 만들기 위해선 $x_0 \bmod N$를 근으로 갖는 다항식들로 격자를 구성해야 한다. $x_0 \bmod N$를 근으로 갖는 다항식들을 생각해보면 다음의 방법들이 있다. 
 
 - Multiplying by Powers of $x$ : $f(x_0) \equiv 0 \pmod{N}$ 이므로 $i \geq 0$에 대해 $x_0^i \cdot f(x_0) \equiv 0 \pmod{N}$ 역시 성립한다. 즉, $x_if(x)$ 도 $x_0 \bmod N$를 해로 갖는 다항식이 될 수 있다.
 - Multiplying by Powers of $N$ : $N$의 배수는 modulo $N$ 에서 0 이다. 따라서 임의의 다항식 $g(x)$에 대해 $N \cdot g(x)$ 역시 $N$을 factor로 갖기 때문에 $N \cdot g(x_0) \equiv 0 \pmod{N}$가 성립한다. $N \cdot x^i$와 같은 단순한 monomials도 $x_0 \bmod N$를 근으로 갖고 이러한 monomials은 격자의 기저 다항식(basis polynomials)으로 사용될 수 있다. 
