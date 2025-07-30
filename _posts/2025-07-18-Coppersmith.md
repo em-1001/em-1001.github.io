@@ -35,8 +35,25 @@ Coppersmith’s method는 $h(x)$를 만들기 위해 lattice-based techniques을
 - Multiplying by Powers of $x$ : $f(x_0) \equiv 0 \pmod{N}$ 이므로 $i \geq 0$에 대해 $x_0^i \cdot f(x_0) \equiv 0 \pmod{N}$ 역시 성립한다. 즉, $x_if(x)$ 도 $x_0 \bmod N$를 해로 갖는 다항식이 될 수 있다.
 - Multiplying by Powers of $N$ : $N$의 배수는 modulo $N$ 에서 0 이다. 따라서 임의의 다항식 $g(x)$에 대해 $N \cdot g(x)$ 역시 $N$을 factor로 갖기 때문에 $N \cdot g(x_0) \equiv 0 \pmod{N}$가 성립한다. $N \cdot x^i$와 같은 단순한 monomials도 $x_0 \bmod N$를 근으로 갖고 이러한 monomials은 격자의 기저 다항식(basis polynomials)으로 사용될 수 있다. 
 
+위 아이디어를 통해 다음의 basis polynomials을 고려할 수 있다. 
 
+$$g_i(x) = N \cdot x^i, \text{ for } i = 0, 1, 2, \cdots, t$$ 
 
+$f(x)$와 마찬가지로 각각의 $g_i(x)$역시 $g_i(x_0) = Nx_0^i \equiv 0 \pmod{N}$를 만족한다. 이렇게 만들어진 basis polynomials의 linear combination역시 $x_0 \bmod N$를 해로 갖는다. 왜냐하면 $p(x)$와 $q(x)$가 모두 $x_0 \bmod N$를 해로 가지면, $ap(x) + bq(x)$ 역시 그렇기 때문이다. 
+
+그렇다면 $x_0 \bmod N$을 해로 갖는 다항식들로 격자를 구성하는 것이 목적이라면 왜 단순히 $f(x)$의 multiples of $x^i$로 격자를 구성하지 않는 것일까? 이유는 격자를 통해 얻고자 하는 궁극적인 목적이 $x_0 \bmod N$을 해로 갖는 것과 동시에 $\vert h(x_0) \vert < N$를 만족할 정도로 작은 다항식 $h(x)$를 찾아야 하기 때문이다. 만약 $f(x)$가 large coefficients를 갖고 있다면 integer combination을 통해 large coefficients을 cancellation할 수 있어야 우리가 원하는 small coefficients를 갖는 다항식을 얻을 수 있다. 이러한 점에서 monomials $Nx^i$는 $f(x)$의 large term을 cancel out시키는데 도움을 준다. 
+
+참고로 이 방법에서 좀 더 확장하여 Coppersmith’s method를 일반화하면, $f(x)$ 뿐만 아니라 $f(x)^2, f(x)^3, \cdots$도 함께 고려해 볼 수 있다. 지금까지의 아이디어가 $f(x)$와 $N \cdot x^i$의 단항식들이 모두 $x_0 \bmod N$를 근으로 공유한다는 점을 이용해 격자를 세웠다면, $f(x)$ 뿐만 아니라 $f(x)^j \cdot x^i$와 같은 다항식들을 이용해 격자차원을 늘리고 보다 넓은 해 공간을 커버하도록 할 수 있다. 
+
+$f(x_0) \equiv 0 \pmod{N}$이면 $f(x_0)^j \equiv 0 \pmod{N^j}$ 역시 만족한다. 
+따라서 다항식 $f(x_0)^j \cdot x^i$는 $x_0$을 $\pmod{N^j}$에서의 근으로 공유하기 때문에 격자 구성에 포함시킬 수 있다. 
+결과적으로 $f(x)$의 degree가 $d$라 할 때, $\bmod N$에서 $f(x)$의 roots를 $\bmod N^m$ 상에서 모두 포함하는 아래의 다항식 $g_{u,v}(x)$를 고려할 수 있다. 
+
+$$g_{u, v}(x) = N^{m-v} f(x)^vx^u, \text{ for } u \in \lbrace 0, \cdots, d-1 \rbrace, v \in \lbrace 0, \cdots, m \rbrace$$
+
+$f(x_0) \equiv 0 \pmod{N}$이면 $N^{m-v} f(x_0)^v$가 $N^m$에 의해 나눠지기 때문에 모든 $u, v$에 대해서 $g_{u,v}(x_0) \equiv 0 \pmod{N^m}$이 성립한다. 이러한 확장은 격자의 차원을 늘려 LLL의 정확도와 안정성을 향상시킬 수 있다. Coppersmith’s method의 확장에 대해서는 여기까지만 설명하고 이 글에서는 one power of $f(x)$인 case에 대해 자세히 살펴볼 것이다.  
+
+## Lattice Construction with the $x = Bx^{\prime}$ Scaling
 
 
 
