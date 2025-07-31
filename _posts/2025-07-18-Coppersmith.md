@@ -63,7 +63,6 @@ $f(x_0) \equiv 0 \pmod{N}$이면 $N^{m-v} f(x_0)^v$가 $N^m$에 의해 나눠지
 - coefficients에 powers of $B$를 곱하는 것은 integer lattice를 구성하는데 있어 각 엔트리들이 적절히 scaled되도록 한다. $x=Bx^{\prime}$ 치환을 하게되면 각 단항식 $x^i$는 $B^ix^{{\prime}^i}$가 된다. 따라서 $Nx^i$ polynomial은 $NB^ix^{{\prime}^i}$가 되고 즉, $x^{{\prime}^i}$의 coefficient는 $NB^i$가 된다. 이 치환을 통해 basis vector들이 powers of $B$에 대해 계층적 구조를 갖게 된다. higher-degree terms은 coefficient로 larger power of $B$를 갖게 되는데, 이게 갖는 의미는 LLL에서 고차항들을 억제(베제)하는 것이다. higher-degree terms에 larger power of $B$인 $B^i$를 곱하게 되면, LLL은 short-vector를 찾기 위해 즉, norm을 줄이기 위해 larger power of $B$로 크기가 커져버린 고차항 계수 $h_i$들을 작게 하려 할 것이고 결국 고차항의 계수가 거의 0이 되어 저차항 중심의 짧은 벡터가 나오게 된다. 
 
 
-
 $$
 \mathbf{B} = 
 \begin{bmatrix}
