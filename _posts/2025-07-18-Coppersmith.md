@@ -55,6 +55,8 @@ $f(x_0) \equiv 0 \pmod{N}$이면 $N^{m-v} f(x_0)^v$가 $N^m$에 의해 나눠지
 
 ## Lattice Construction with the $x = Bx^{\prime}$ Scaling
 
+우리가 찾고자 하는 small-coefficient를 갖는 $h(x)$를 얻기 위해, 위에서 구성한 다항식들의 coefficient vectors로 이루어진 lattice basis를 사용한다. 각 다항식은 그 coefficient들을 같은 크기로 padding하여 vector로 표현되고, 그 coefficient vectors의 linear combination은 다항식들의 정수 계수 선형 결합과 동일하다. 즉, 이러한 coefficient vector들이 span하는 lattice 내의 integer vector 하나가 다항식을 의미하게 된다. 따라서 이 lattice에서 short vector를 찾는다는 것은 곧 small-coefficient를 갖는 다항식을 찾는 것과 같은 의미이다. 
+
 
 
 
