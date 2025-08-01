@@ -62,6 +62,10 @@ $f(x_0) \equiv 0 \pmod{N}$이면 $N^{m-v} f(x_0)^v$가 $N^m$에 의해 나눠지
 - root의 크기를 정규화할 수 있다. 우리가 찾고자 하는 근 $x_0$는 $\vert x_0 \vert < B$라는 제한된 범위를 가지므로 $x = Bx^{\prime}$이라 치환하면, $x_0 = Bx_0^{\prime} \to x_0^{\prime} = \frac{x_0}{B} < 1$이 되어 모든 해가 $[-1, 1]$구간에 있도록 한다. 이는 수치적으로 안정적이며 LLL reduction을 할 때 각 항의 기여도와 계수 크기 분석이 쉬워진다.
 - coefficients에 powers of $B$를 곱하는 것은 integer lattice를 구성하는데 있어 각 엔트리들이 적절히 scaled되도록 한다. $x=Bx^{\prime}$ 치환을 하게되면 각 단항식 $x^i$는 $B^ix^{\prime^i}$가 된다. 따라서 $Nx^i$ polynomial은 $NB^ix^{\prime^i}$가 되고 즉, $x^{\prime^i}$의 coefficient는 $NB^i$가 된다. 이 치환을 통해 basis vector들이 powers of $B$에 대해 계층적 구조를 갖게 된다. higher-degree terms은 coefficient로 larger power of $B$를 갖게 되는데, 이게 갖는 의미는 LLL에서 고차항들을 억제(베제)하는 것이다. higher-degree terms에 larger power of $B$인 $B^i$를 곱하게 되면, LLL은 short-vector를 찾기 위해 즉, norm을 줄이기 위해 larger power of $B$로 크기가 커져버린 고차항 계수 $h_i$들을 작게 하려 할 것이고 결국 고차항의 계수가 거의 0이 되어 저차항 중심의 짧은 벡터가 나오게 된다. 
 
+이제 Coppersmith’s method에서 lattice basis $B$ (여기선 bound $B$가 아닌 basis $B$이다.)가 어떻게 구성되는지 알아보자. $f(x)$가 monic of degree $d$ $f(x) = x^d + a_{d-1}x^{d-1} + \cdots + a_1x + a_0$로 표현된다고 할 때, 다음과 같이 $B$로 scaled된 $d+1$ polynomials가 basis matrix의 행이 된다. 
+
+- 각 i = $0, 1, \cdots, d-1$에 대해 polynomial $g_i(Bx^{\prime}) = N \cdot (Bx^{\prime})^i = NB^ix^{\prime^i}$ 이다. 이 polynomial은 matrix에서 $x^{\prime^i}$에 해당하는 position에서 single nonzero entry $NB^i$를 갖는 coefficient vector가 된다.
+- The polynomial $f(Bx^{\prime})$의 경우 $f(Bx^{\prime}) = (Bx^{\prime})^d + a_{d-1}(Bx^{\prime})^{d-1} + \cdots + a_1(Bx^{\prime}) + a_0$ 이므로 coefficient vector $[a_0, a_1B, a_2B^2, \cdots, a_{d-1}B^{d-1}, B^d]$가 된다.
 
 $$
 \mathbf{B} = 
