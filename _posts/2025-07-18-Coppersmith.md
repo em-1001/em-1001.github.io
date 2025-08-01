@@ -81,7 +81,7 @@ $$
 
 첫 $d$개의 rows는 $g_i(Bx) = NB^ix^{\prime^i} \ 0 \leq i < d$의 coefficient vectors이고, 마지막 row는 $f(Bx)$의 coefficient vectors임을 알 수 있다. 이 모든 polynomials은 $x_0$ modulo $N$을 근으로 공유한다. 이 lattice basis들이 의미하는 coefficient를 정리하면 다음과 같다. 
 
-- The first row has $[N, 0, 0, \cdots, 0] corresponding to $N$.
+- The first row has $[N, 0, 0, \cdots, 0]$ corresponding to $N$.
 - The second row corresponds to $NBx^{\prime}$ with coefficients $[0, NB, 0, \cdots, 0]$.
 - Similarly, the $i$th row (for $i=0$ indexing) has $NB^i$ in the $x^{\prime^i}$ column.
 - The last row (degree $d$ of $f(Bx^{\prime})$) has entries $[a_0, a_1B, a_2B^2, \cdots, a_{d-1}B^{d-1}, B^d]$.
