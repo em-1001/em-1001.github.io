@@ -90,8 +90,17 @@ $$
 
 ## Using LLL to Find a Short Vector (Polynomial) in the Lattice
 
-이제 앞서 설계한 lattice basis $B$에 대해 LLL을 돌려서 reduced basis를 얻을 수 있다. $\mathbf{b}_1 = (b_0, b_1, \cdots, b_d)$ 
+이제 앞서 설계한 lattice basis $B$에 대해 LLL을 돌려서 reduced basis를 얻을 수 있다. LLL-reduced basis의 first vector가 $\mathbf{b}_1 = (b_0, b_1, \cdots, b_d)$라 하자. 이 $\mathbf{b}_1$는 combination polynomial $h(Bx^{\prime})$의 coefficient vector가 된다. 따라서 $\mathbf{b}_1$을 다음 polynomial의 coefficients $[h_0, h_1, \cdots, h_d]$라 해석할 수 있다. 
 
+$$h(Bx^{\prime}) = h_0 + h_1x^{\prime} + h_2x^{\prime^2} + \cdots + h_dx^{\prime^d}$$
+
+이때 $x^{\prime} = x/B$ 이므로 다음과 동일하다. 
+
+$$h(x) = h_0 + \frac{h_1}{B}x + \frac{h_2}{B^2}x^2 + \cdots + \frac{h_d}{B^d}x^d$$
+
+$f(x)$가 monic이므로 lattice basis를 통해 나오는 combination역시 degree $d$에 leading coefficient $b_d=1$인 monic $h(x)$가 된다. 
+
+앞서 lattice basis $B$를 보면 lower-triangular의 형태이므로 determinant는 $det(\mathcal{L}(B)) = det(B) = B^{d(d+1)/2}N^d$로 쉽게 구해진다.   
 
 
 
