@@ -125,7 +125,7 @@ $$\vert h(x_0) \vert = \vert \sum_{i=0}^d h_ix_0^i \vert \leq \sum_{i=0}^d \vert
 
 따라서 $\vert h(x_0) \vert < N$을 만족하므로 $h(x_0) \equiv 0 \pmod{N}$에서 $h(x_0) = 0$이 된다. 
 
-정리하면 LLL을 통해 찾은 $h(Bx^{\prime})$의 coefficients $\mathbf{b}_1 = (b_0, b_1, \cdots, b_d)$를 $B^i$로 각각 나눠주면 원래 찾고자 했던 $h(x)$의 coefficients $h_0, h_1, \cdots, h_d$를 찾을 수 있고, 이렇게 얻은 polynomial $h(x)$는 $\vert h(x_0) \vert < N$을 만족하므로 $h(x) = 0$을 만족하는 해 $x_0$를 기존에 잘 알려진 다항식에서의 root-finding algorithms을 통해 찾아낸다면 $f(x) \equiv 0 \pmod{N}$을 만족하는 해를 찾을 수 있다. 
+정리하면 LLL을 통해 찾은 $h(Bx^{\prime})$의 coefficients $\mathbf{b}_1 = (b_0, b_1, \cdots, b_d)$를 $B^i$로 각각 나눠주면 원래 찾고자 했던 $h(x)$의 coefficients $h_0, h_1, \cdots, h_d$를 찾을 수 있고, 이렇게 얻은 polynomial $h(x)$는 $\vert h(x_0) \vert < N$이므로 $h(x) = 0$을 만족하는 해 $x_0$를 기존에 잘 알려진 다항식에서의 root-finding algorithms을 통해 찾아낸다면 $f(x) \equiv 0 \pmod{N}$의 해를 찾을 수 있다. 
 
 
 
