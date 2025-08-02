@@ -90,17 +90,43 @@ $$
 
 ## Using LLL to Find a Short Vector (Polynomial) in the Lattice
 
-이제 앞서 설계한 lattice basis $B$에 대해 LLL을 돌려서 reduced basis를 얻을 수 있다. LLL-reduced basis의 first vector가 $\mathbf{b}_1 = (b_0, b_1, \cdots, b_d)$라 하자. 이 $\mathbf{b}_1$는 combination polynomial $h(Bx^{\prime})$의 coefficient vector가 된다. 따라서 $\mathbf{b}_1$을 다음 polynomial의 coefficients $[h_0, h_1, \cdots, h_d]$라 해석할 수 있다. 
+이제 앞서 설계한 lattice basis $B$에 대해 LLL을 돌려서 reduced basis를 얻을 수 있다. LLL-reduced basis의 first vector가 $\mathbf{b}_1 = (b_0, b_1, \cdots, b_d)$라 하자. 이 $\mathbf{b}_1$는 combination polynomial $h(Bx^{\prime})$의 coefficient vector가 된다.
 
-$$h(Bx^{\prime}) = h_0 + h_1x^{\prime} + h_2x^{\prime^2} + \cdots + h_dx^{\prime^d}$$
+$$h(Bx^{\prime}) = b_0 + b_1x^{\prime} + b_2x^{\prime^2} + \cdots + b_dx^{\prime^d}$$
 
-이때 $x^{\prime} = x/B$ 이므로 다음과 동일하다. 
+이때 $x^{\prime} = x/B$ 이므로 다음과 동일하다. ($b_i = h_iB^i$)
 
-$$h(x) = h_0 + \frac{h_1}{B}x + \frac{h_2}{B^2}x^2 + \cdots + \frac{h_d}{B^d}x^d$$
+$$\begin{align}
+h(x) &= b_0 + \frac{b_1}{B}x + \frac{b_2}{B^2}x^2 + \cdots + \frac{b_d}{B^d}x^d \\ 
+&= h_0 + h_1x + h_2x^2 + \cdots + h_dx^d
+\end{align}$$
 
 $f(x)$가 monic이므로 lattice basis를 통해 나오는 combination역시 degree $d$에 leading coefficient $b_d=1$인 monic $h(x)$가 된다. 
 
-앞서 lattice basis $B$를 보면 lower-triangular의 형태이므로 determinant는 $det(\mathcal{L}(B)) = det(B) = B^{d(d+1)/2}N^d$로 쉽게 구해진다.   
+앞서 lattice basis $B$를 보면 lower-triangular의 형태이므로 determinant는 $det(\mathcal{L}(B)) = det(B) = B^{d(d+1)/2}N^d$로 쉽게 구해진다. 이전에 LLL Algorithm에서 살펴보았던 Proposition $\lVert b_1 \rVert \leq \left( \frac{2}{\sqrt{4 \delta -1}} \right)^{n-1} \sqrt{n} \cdot \vert \det(\mathcal{L}) \vert^{1/n}$ (using $\delta = 3/4$)을 이용하면 다음이 성립한다. 
+
+$$\begin{align}
+\lVert b_1 \rVert &\leq \left( \frac{2}{\sqrt{4 \delta -1}} \right)^{d} \sqrt{d+1} \vert \det(\mathcal{L}) \vert^{1/(d+1)} \\ 
+&= 2^{d/2} \sqrt{d+1} \cdot B^{d/2} N^{d/(d+1)} \\ 
+&= 2^{d/2} \sqrt{d+1} \cdot N N^{-1/(d+1)}
+\end{align}$$
+
+Bound $B$를 다음과 같이 설정한다고 하자. 
+
+$$B < \frac{N^{2/d(d+1)}}{2(d+1)^{3/d}}$$
+
+이 부등식을 위 부등식에 대입하면 $h_i$에 대한 다음의 bound를 얻는다. 
+
+$$\vert h_i B^i \vert = \vert b_i \vert \leq \lVert \mathbf{b}_1 \rVert < N/(d+1)$$ 
+
+이때 $\vert x_0 \vert < B$이므로 $\vert h_ix_0^i \vert < N/(d+1)$를 만족하며 $\vert h(x_0) \vert$는 다음을 만족한다. 
+
+$$\vert h(x_0) \vert = \vert \sum_{i=0}^d h_ix_0^i \vert \leq \sum_{i=0}^d \vert h_ix_0^i \vert < (d+1) \cdot \frac{N}{d+1} = N$$ 
+
+따라서 $\vert h(x_0) \vert < N$을 만족하므로 $h(x_0) \equiv 0 \pmod{N}$에서 $h(x_0) = 0$이 된다. 
+
+정리하면 LLL을 통해 찾은 $h(Bx^{\prime})$의 coefficients $\mathbf{b}_1 = (b_0, b_1, \cdots, b_d)$를 $B^i$로 각각 나눠주면 원래 찾고자 했던 $h(x)$의 coefficients $h_0, h_1, \cdots, h_d$를 찾을 수 있고, 이렇게 얻은 polynomial $h(x)$는 $\vert h(x_0) \vert < N$을 만족하므로 $h(x) = 0$을 만족하는 해 $x_0$를 기존에 잘 알려진 다항식에서의 root-finding algorithms을 통해 찾아낸다면 $f(x) \equiv 0 \pmod{N}$을 만족하는 해를 찾을 수 있다. 
+
 
 
 
