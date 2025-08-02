@@ -90,5 +90,15 @@ $$
 
 ## Using LLL to Find a Short Vector (Polynomial) in the Lattice
 
+이제 앞서 설계한 lattice basis $B$에 대해 LLL을 돌려서 reduced basis를 얻을 수 있다. $\mathbf{b}_1 = (b_0, b_1, \cdots, b_d)$ 
+
+
+
+
+
+
+
+
+
 
 
