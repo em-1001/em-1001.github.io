@@ -127,10 +127,50 @@ $$\vert h(x_0) \vert = \vert \sum_{i=0}^d h_ix_0^i \vert \leq \sum_{i=0}^d \vert
 
 정리하면 LLL을 통해 찾은 $h(Bx^{\prime})$의 coefficients $\mathbf{b}_1 = (b_0, b_1, \cdots, b_d)$를 $B^i$로 각각 나눠주면 원래 찾고자 했던 $h(x)$의 coefficients $h_0, h_1, \cdots, h_d$를 찾을 수 있고, 이렇게 얻은 polynomial $h(x)$는 $\vert h(x_0) \vert < N$이므로 $h(x) = 0$을 만족하는 해 $x_0$를 기존에 잘 알려진 다항식에서의 root-finding algorithms을 통해 찾아낸다면 $f(x) \equiv 0 \pmod{N}$의 해를 찾을 수 있다. 
 
-**Example** $N = 23 \cdot 29 = 667$, $f(x)=x^2+6x+352 \in \mathbb{Z}[x]$라 하자. $f$가 $x_0=15$ modulo $N$인 작은 해 즉, $f(15) \neq 0$이지만 $f(15) = 0 \pmod{N}$인 해를 갖는다고 할 때,
+**Example** $N = 23 \cdot 29 = 667$, $f(x)=x^2+6x+352 \in \mathbb{Z}[x]$라 하자. $f$가 $x_0=15$ modulo $N$인 작은 해 즉, $f(15) \neq 0$이지만 $f(15) = 0 \pmod{N}$인 해를 갖는다고 할 때, Coppersmith’s method를 통해 이 해를 찾아내는 과정을 살펴보자. 
+이때 Bound $B=20$으로 설정한다고 하면, lattice는 다음과 같이 구성할 수 있다. 
 
+$$
+\mathbf{B} = 
+\begin{bmatrix}
+N & & & & & \\
+ & BN & & & & \\
+ & & B^2N & & & \\
+ & & & \ddots & & \\
+ & & & & B^{d-1}N & \\
+a_0 & a_1 B & a_2 B^2 & \cdots & a_{d-1}B^{d-1} & B^d \\ 
+\end{bmatrix} =
+\begin{bmatrix}
+667 & 0 & 0 \\ 
+0 & 20 \cdot 667 & 0 \\ 
+352 & 6 \cdot 20 & 20^2
+\end{bmatrix} =
+\begin{bmatrix}
+667 & 0 & 0 \\ 
+0 & 13340 & 0 \\ 
+352 & 120 & 400
+\end{bmatrix}
+$$
 
+이 lattice에 LLL을 돌려 생성된 reduced basis $\mathbf{B}^{\prime}$은 다음과 같다. 
 
+$$\mathbf{B}^{\prime}=
+\begin{bmatrix}
+−315 & 120 & 400 \\ 
+352 & 120 & 400 \\ 
+167 & 12260 & −3600
+\end{bmatrix}
+$$
+
+first row가 polynomial $h(Bx^{\prime})$의 coefficients가 되고 $h(x)$를 구하면 다음과 같다. 
+
+$$\begin{align}
+h(Bx^{\prime}) &= 400x^{\prime^2} + 120x^{\prime} - 315 \\ 
+h(x) &= \left( \frac{400}{20^2} \right) x^2 + \left( \frac{120}{20} \right) x -315 \\ 
+&= x^2 + 6x - 315
+\end{align}$$
+
+이제 이렇게 얻은 $h(x)$에 대해 잘 알려진 근의 공식(quadratic formula)이나, 뉴턴의 근사 방법(Newton’s method)을 통해 $x_0$를 찾으면 $x_0=15$를 얻을 수 있다. $x_0=-21$도 나오지만 이 값은 Bound $B$의 범위를 벗어난다. 
 
 
 
