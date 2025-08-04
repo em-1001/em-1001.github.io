@@ -127,8 +127,7 @@ $$\vert h(x_0) \vert = \vert \sum_{i=0}^d h_ix_0^i \vert \leq \sum_{i=0}^d \vert
 
 정리하면 LLL을 통해 찾은 $h(Bx^{\prime})$의 coefficients $\mathbf{b}_1 = (b_0, b_1, \cdots, b_d)$를 $B^i$로 각각 나눠주면 원래 찾고자 했던 $h(x)$의 coefficients $h_0, h_1, \cdots, h_d$를 찾을 수 있고, 이렇게 얻은 polynomial $h(x)$는 $\vert h(x_0) \vert < N$이므로 $h(x) = 0$을 만족하는 해 $x_0$를 기존에 잘 알려진 다항식에서의 root-finding algorithms을 통해 찾아낸다면 $f(x) \equiv 0 \pmod{N}$의 해를 찾을 수 있다. 
 
-
-
+**Example** $N = 23 \cdot 29 = 667$, $f(x)=x^2+6x+352 \in \mathbb{Z}[x]$라 하자. $f$가 $x_0=15$ modulo $N$인 작은 해 즉, $f(15) \neq 0$이지만 $f(15) = 0 \pmod{N}$인 해를 갖는다고 할 때,
 
 
 
