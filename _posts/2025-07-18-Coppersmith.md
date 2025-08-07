@@ -172,7 +172,14 @@ h(x) &= \left( \frac{400}{20^2} \right) x^2 + \left( \frac{120}{20} \right) x -3
 
 이제 이렇게 얻은 $h(x)$에 대해 잘 알려진 근의 공식(quadratic formula)이나, 뉴턴의 근사 방법(Newton’s method)을 통해 $x_0$를 찾으면 $x_0=15$를 얻을 수 있다. $x_0=-21$도 나오지만 이 값은 Bound $B$의 범위를 벗어난다. 
 
+# Reference
 
+1. https://eprint.iacr.org/2023/032.pdf
+2. https://en.wikipedia.org/wiki/Coppersmith_method
+3. https://www.math.auckland.ac.nz/~sgal018/crypto-book/ch19.pdf
+4. https://www.cits.ruhr-uni-bochum.de/imperia/md/content/may/paper/intro_to_coppersmiths_method.pdf
+5. https://www.ias.edu/sites/default/files/Heninger-Coppersmith_1.pdf
+6. https://web.eecs.umich.edu/~cpeikert/lic13/lec04.pdf
 
 
 
