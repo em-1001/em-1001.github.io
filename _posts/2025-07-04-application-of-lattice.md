@@ -247,3 +247,8 @@ def disp():
 x = cpm_array(list(intvar(-99999, 99999, 23)) + [1]) @ m.LLL()[:,:-1]
 Model([x >= 48, x <= 122]).solveAll(display=disp)
 ```
+
+# Reference
+
+https://eprint.iacr.org/2023/032.pdf
+
