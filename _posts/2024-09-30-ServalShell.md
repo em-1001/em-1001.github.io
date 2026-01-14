@@ -48,7 +48,7 @@ Positional Encoding은 네트워크가 각 단어의 상대적 위치를 파악�
 
 <p align="center"><img src="https://github.com/user-attachments/assets/b589dd53-7d2f-4e15-8b68-32c7d3d65e82"></p>
 
-Attention 기법은 어떤 단어들이 또 다른 단어들과 어떠한 연관성을 갖는지를 알아내기 위한 기법이다. 이 Attnetion 값을 계산하기 위해서 Query, Key, Value라는 3가지 정보가 필요한데 Query는 각 단어들에 대한 연관성에 대한 값을 알아내기 위해 넣는 값이고, 연관성을 계산하는데 쓰인느 단어들이 Key이다. 이렇게 Query와 Key로 Attention 가중치를 구하면 여기에 실제 Value값을 곱해서 최종 값을 산출한다. 이 과정이 Scaled Dot-Product Attention이고, 실제 모델에 학습시킬 때는 h개의 head로 구분하여 Multi-Head Attention을 수행한다. 이렇게 h개의 서로다른 Query, Key, Value를 만듦으로써 다양한 Attention값을 얻어낼 수 있다. 
+Attention 기법은 어떤 단어들이 또 다른 단어들과 어떠한 연관성을 갖는지를 알아내기 위한 기법이다. 이 Attnetion 값을 계산하기 위해서 Query, Key, Value라는 3가지 정보가 필요한데 Query는 각 단어들에 대한 연관성에 대한 값을 알아내기 위해 넣는 값이고, 연관성을 계산하는데 쓰이는 단어들이 Key이다. 이렇게 Query와 Key로 Attention 가중치를 구하면 여기에 실제 Value값을 곱해서 최종 값을 산출한다. 이 과정이 Scaled Dot-Product Attention이고, 실제 모델에 학습시킬 때는 h개의 head로 구분하여 Multi-Head Attention을 수행한다. 이렇게 h개의 서로다른 Query, Key, Value를 만듦으로써 다양한 Attention값을 얻어낼 수 있다. 
 
 Multi-Head Attention은 다음과 같이 계산된다. 
 
